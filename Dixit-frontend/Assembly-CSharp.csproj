@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{70F3B208-3DD0-DFBB-4EEB-745BDF889AF5}</ProjectGuid>
+	<ProjectGuid>{0DEC1235-EF48-6638-9DB4-8C4E5D94D6D3}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -49,7 +49,9 @@
      <Compile Include="Assets\Scripts\GameUtil.cs" />
      <Compile Include="Assets\Scripts\HomeController.cs" />
      <Compile Include="Assets\Scripts\MenuController.cs" />
+     <Compile Include="Assets\Scripts\SmartFoxConnection.cs" />
      <Compile Include="Assets\Scripts\SmartFoxConnector.cs" />
+     <Compile Include="Assets\Scripts\UserService.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
@@ -60,7 +62,7 @@
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
  <Reference Include="SmartFox2X">
- <HintPath>E:/Project/workspace/Dixit/Assets/Plugins/SmartFox2X.dll</HintPath>
+ <HintPath>E:/Project/workspace/Dixit/dixit.git/Dixit-frontend/Assets/Plugins/SmartFox2X.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
  <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
