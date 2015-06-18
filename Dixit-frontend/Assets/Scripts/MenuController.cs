@@ -14,6 +14,8 @@ public class MenuController : MonoBehaviour
     void Awake()
     {
         _smartFox = SmartFoxConnection.Connection;
+
+        RegisterHandler();
     }
         
     // Update is called once per frame
@@ -53,7 +55,13 @@ public class MenuController : MonoBehaviour
             // Hien thi trong list room & disable join room
         }
     }
-    private void OnRoomCreationError(BaseEvent e) { }
+    private void OnRoomCreationError(BaseEvent e)
+    {
+        string errorMessage = e.Params["errorMessage"].ToString();
+        string errorCode = e.Params["errorCode"].ToString();
+
+        Debug.Log(string.Format("ROOM CREATE FAILED: {0} ---- code {1}", errorMessage, errorCode));
+    }
     private void OnRoomFindResult(BaseEvent e)
     {
         List<Room> rooms = (List<Room>)e.Params["rooms"];
@@ -98,9 +106,10 @@ public class MenuController : MonoBehaviour
 
     public void StartGame()
     {
-        if (UserService.currentRoom.UserCount >= 3)
+        if (UserService.currentRoom != null && UserService.currentRoom.UserCount >= 3)
         {
             // bat dau game
+            Application.LoadLevel(2);
         }
     }
 }
