@@ -4,6 +4,15 @@ public class BaseResponse {
 	private boolean success;
 	private String errorCode;
 
+	public BaseResponse() {
+		setSuccess(true);
+	}
+
+	public BaseResponse(String errorCode) {
+		setSuccess(false);
+		setErrorCode(errorCode);
+	}
+
 	public boolean isSuccess() {
 		return success;
 	}
