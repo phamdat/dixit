@@ -21,6 +21,7 @@
 		<sfs-js.jarPath>${project.basedir}/misc/sfs2x/js.jar</sfs-js.jarPath>
 
 		<smartfox.version>2.0.1</smartfox.version>
+
 		<spring.version>4.1.6.RELEASE</spring.version>
 
 		<commons-collections.version>3.2.1</commons-collections.version>
@@ -28,6 +29,8 @@
 		<commons-io.version>2.4</commons-io.version>
 
 		<json.version>2.5.4</json.version>
+
+		<log4j.version>1.2.17</log4j.version>
 	</properties>
 
 	<dependencies>
@@ -90,16 +93,41 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
 			<version>${spring.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>commons-logging</artifactId>
+					<groupId>commons-logging</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
+
+		<!-- log -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-shade-plugin</artifactId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-version}</version>
 				<configuration>
-					<finalName>dixit</finalName>
+					<excludes>
+						<exclude>com/bap/app/dixit/Dispatcher.java</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>${maven-jar-plugin-version}</version>
+				<configuration>
+					<finalName>DixitExtension</finalName>
 				</configuration>
 				<executions>
 					<execution>

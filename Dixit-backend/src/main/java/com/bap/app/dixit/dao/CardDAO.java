@@ -13,15 +13,15 @@ import com.bap.app.dixit.util.JsonUtils;
 @Repository
 public class CardDAO {
 
-	private final List<Card> CARDS;
+    private final List<Card> CARDS;
 
-	public CardDAO() throws IOException {
-		InputStream stream = this.getClass().getResourceAsStream("cards.json");
-		CARDS = JsonUtils.toList(stream, Card.class);
-		stream.close();
-	}
+    public CardDAO() throws IOException {
+	InputStream stream = this.getClass().getClassLoader().getResourceAsStream("cards.json");
+	CARDS = JsonUtils.toList(stream, Card.class);
+	stream.close();
+    }
 
-	public List<Card> findAll() {
-		return new ArrayList<Card>(CARDS);
-	}
+    public List<Card> findAll() {
+	return new ArrayList<Card>(CARDS);
+    }
 }
