@@ -36,13 +36,28 @@ public class RoomPanelItemController : MonoBehaviour
     public Text numberOfPlayer;
     public Button cancelButton;
 
-    public event EventHandler QuitRoomEventHandler;
+    public event EventHandler QuitRoom;
+    public event EventHandler SelectRoom;
     
 
-    public void QuitRoom()
+    public void OnQuitRoom()
     {
-        var handle = QuitRoomEventHandler;
+        var handle = QuitRoom;
         if (handle != null)
             handle(this, null);
+    }
+
+    public void OnSelected(GameObject roomGO)
+    {
+        //var room = roomGO.GetComponent<RoomPanelItemController>().room;
+
+        var handle = SelectRoom;
+        if (handle != null)
+            handle(this, null);
+    }
+
+    public void NumberPlayerChanged()
+    {
+        numberOfPlayer.text = _room.UserCount.ToString();
     }
 }

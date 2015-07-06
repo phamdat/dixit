@@ -13,9 +13,24 @@ public class RoomsController : BaseController
     public GameObject roomPrefab;
 	public GameObject roomsHolder;
 
-    private Action<Room> CreateRoomComplete;
+    private Action<RoomPanelItemController> CreateRoomComplete;
 
     public Room selectedRoom { get; set; }
+
+    private RoomPanelItemController _selectedRoomController;
+    public RoomPanelItemController selectedRoomController
+    {
+        get { return _selectedRoomController; }
+        set
+        {
+            if (_selectedRoomController == value) return;
+
+            _selectedRoomController = value;
+
+            if (_selectedRoomController != null)
+                selectedRoom = _selectedRoomController.room;
+        }
+    }
 
     protected override void Start()
     {
@@ -44,6 +59,7 @@ public class RoomsController : BaseController
         {
             Debug.LogError("Room Joined");
             UserService.currentRoom = room;
+            selectedRoomController.NumberPlayerChanged();
         }
     }
     private void OnRoomJoinError(BaseEvent e) { }
@@ -55,9 +71,8 @@ public class RoomsController : BaseController
         {
             Debug.Log("Room created");
 
-            CreateRoomUIComponent(room);
-
-            CreateRoomComplete(room);
+            var go = CreateRoomUIComponent(room);
+            CreateRoomComplete(go.GetComponent<RoomPanelItemController>());
         }
     }
 
@@ -93,14 +108,21 @@ public class RoomsController : BaseController
     #endregion
 
     #region Private Method
-    private void CreateRoomUIComponent(Room room)
+    private GameObject CreateRoomUIComponent(Room room)
     {
         var obj = Instantiate(roomPrefab);
         obj.transform.parent = roomsHolder.transform;
-        obj.GetComponent<RoomPanelItemController>().QuitRoomEventHandler += (sender, args) => {
+        obj.GetComponent<RoomPanelItemController>().QuitRoom += (sender, args) => {
 
         };
+        obj.GetComponent<RoomPanelItemController>().SelectRoom += (sender, args) => {
+            selectedRoomController = sender as RoomPanelItemController;
+            JoinGame();
+        };
+
         obj.GetComponent<RoomPanelItemController>().room = room;
+
+        return obj;
     }
 
     private void CreateRoom()
@@ -132,9 +154,10 @@ public class RoomsController : BaseController
     #region UI Event Handler
     public void SelectRoom(GameObject roomGO)
     {
-        var room = roomGO.GetComponent<RoomPanelItemController>().room;
-        Debug.LogError(room);
-        selectedRoom = room;
+        selectedRoomController = roomGO.GetComponent<RoomPanelItemController>();
+        Debug.LogError(selectedRoom);
+
+        JoinGame();
     }
 
     public void JoinGame()
@@ -144,14 +167,18 @@ public class RoomsController : BaseController
 
     public void CreateGame()
     {
-        CreateRoomComplete = (room) => { JoinRoom(room); };
+        CreateRoomComplete = (roomController) => {
+            selectedRoomController = roomController;
+            JoinGame();
+        };
         CreateRoom();
     }
 
     public void StartGame()
     {
-        if (UserService.currentRoom != null && UserService.currentRoom.UserCount >= 3)
+        if (UserService.currentRoom != null && UserService.currentRoom.UserCount >= 2)
         {
+            _smartFox.Send(new ExtensionRequest("", null, selectedRoom, true));
             Application.LoadLevel(GameUtil.GAME_SCENCE);
         }
     }
