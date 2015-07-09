@@ -46,6 +46,43 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\EasyTouch\Example\AdvancedExamples\AutoSelect\MultiLayerTouch.cs" />
+     <Compile Include="Assets\EasyTouch\Example\AdvancedExamples\AutoSelect\MultiLayerUI.cs" />
+     <Compile Include="Assets\EasyTouch\Example\AdvancedExamples\MultiCamera\MultiCameraTouch.cs" />
+     <Compile Include="Assets\EasyTouch\Example\AdvancedExamples\MultiCamera\MultiCameraUI.cs" />
+     <Compile Include="Assets\EasyTouch\Example\LoadExamples.cs" />
+     <Compile Include="Assets\EasyTouch\Example\SimpleExamples\MultiFinger\FingerTouch.cs" />
+     <Compile Include="Assets\EasyTouch\Example\SimpleExamples\MultiFinger\MutliFingersScreenTouch.cs" />
+     <Compile Include="Assets\EasyTouch\Example\SimpleExamples\OneFinger\DoubleTapMe.cs" />
+     <Compile Include="Assets\EasyTouch\Example\SimpleExamples\OneFinger\DragMe.cs" />
+     <Compile Include="Assets\EasyTouch\Example\SimpleExamples\OneFinger\LongTapMe.cs" />
+     <Compile Include="Assets\EasyTouch\Example\SimpleExamples\OneFinger\Swipe.cs" />
+     <Compile Include="Assets\EasyTouch\Example\SimpleExamples\OneFinger\TapMe.cs" />
+     <Compile Include="Assets\EasyTouch\Example\SimpleExamples\OneFinger\TouchMe.cs" />
+     <Compile Include="Assets\EasyTouch\Example\SimpleExamples\TwoFingers\PinchMe.cs" />
+     <Compile Include="Assets\EasyTouch\Example\SimpleExamples\TwoFingers\TooglePickMethodUI.cs" />
+     <Compile Include="Assets\EasyTouch\Example\SimpleExamples\TwoFingers\TwistMe.cs" />
+     <Compile Include="Assets\EasyTouch\Example\SimpleExamples\TwoFingers\TwoDoubleTapMe.cs" />
+     <Compile Include="Assets\EasyTouch\Example\SimpleExamples\TwoFingers\TwoDragMe.cs" />
+     <Compile Include="Assets\EasyTouch\Example\SimpleExamples\TwoFingers\TwoLongTapMe.cs" />
+     <Compile Include="Assets\EasyTouch\Example\SimpleExamples\TwoFingers\TwoSwipe.cs" />
+     <Compile Include="Assets\EasyTouch\Example\SimpleExamples\TwoFingers\TwoTapMe.cs" />
+     <Compile Include="Assets\EasyTouch\Example\SimpleExamples\TwoFingers\TwoTouchMe.cs" />
+     <Compile Include="Assets\EasyTouch\Example\UnityUI\UICompatibility\ETWindow.cs" />
+     <Compile Include="Assets\EasyTouch\Example\UnityUI\UICompatibility\GlobalEasyTouchEvent.cs" />
+     <Compile Include="Assets\EasyTouch\Example\UnityUI\UICompatibility\UICompatibility.cs" />
+     <Compile Include="Assets\EasyTouch\Example\UnityUI\UICompatibility\UIWindow.cs" />
+     <Compile Include="Assets\EasyTouch\Example\UnityUI\UITwistPinch\UIDrag.cs" />
+     <Compile Include="Assets\EasyTouch\Example\UnityUI\UITwistPinch\UIPinch.cs" />
+     <Compile Include="Assets\EasyTouch\Example\UnityUI\UITwistPinch\UITwist.cs" />
+     <Compile Include="Assets\EasyTouch\Plugins\BaseFinger.cs" />
+     <Compile Include="Assets\EasyTouch\Plugins\Component\EasyTouchTrigger.cs" />
+     <Compile Include="Assets\EasyTouch\Plugins\ECamera.cs" />
+     <Compile Include="Assets\EasyTouch\Plugins\EasyTouch.cs" />
+     <Compile Include="Assets\EasyTouch\Plugins\EasyTouchInput.cs" />
+     <Compile Include="Assets\EasyTouch\Plugins\Finger.cs" />
+     <Compile Include="Assets\EasyTouch\Plugins\Gesture.cs" />
+     <Compile Include="Assets\EasyTouch\Plugins\TwoFingerGesture.cs" />
      <Compile Include="Assets\Scripts\Controllers\BaseController.cs" />
      <Compile Include="Assets\Scripts\Controllers\GameController.cs" />
      <Compile Include="Assets\Scripts\Controllers\HomeController.cs" />

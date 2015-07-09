@@ -46,6 +46,11 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\EasyTouch\Plugins\Editor\EasyTouchInspector.cs" />
+     <Compile Include="Assets\EasyTouch\Plugins\Editor\EasyTouchMenu.cs" />
+     <Compile Include="Assets\EasyTouch\Plugins\Editor\EasyTouchTriggerInspector.cs" />
+     <Compile Include="Assets\EasyTouch\Plugins\Editor\EasytouchHierachyCallBack.cs" />
+     <Compile Include="Assets\EasyTouch\Plugins\Editor\HTGuiTools.cs" />
      <Compile Include="Assets\Zenject\Main\Editor\ObjectGraphVisualizer.cs" />
      <Compile Include="Assets\Zenject\Main\Editor\UnityInspectorListEditor.cs" />
      <Compile Include="Assets\Zenject\Main\Editor\ZenEditorUtil.cs" />
