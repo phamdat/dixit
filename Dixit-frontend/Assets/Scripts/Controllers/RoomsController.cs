@@ -49,6 +49,7 @@ public class RoomsController : BaseController
         _smartFox.AddEventListener(SFSEvent.ROOM_CREATION_ERROR, OnRoomCreationError);
         _smartFox.AddEventListener(SFSEvent.ROOM_FIND_RESULT, OnRoomFindResult);
         _smartFox.AddEventListener(SFSEvent.ROOM_REMOVE, OnRoomRemove);
+        _smartFox.AddEventListener(SFSEvent.EXTENSION_RESPONSE, OnExtensionResponse);
     }
 
     #region SmartFox Event Handler
@@ -104,7 +105,12 @@ public class RoomsController : BaseController
 
             // Xoa room tuong ung trong danh sach room
         }
-    } 
+    }
+
+    private void OnExtensionResponse(BaseEvent e)
+    {
+        Application.LoadLevel(GameUtil.GAME_SCENCE);
+    }
     #endregion
 
     #region Private Method
@@ -127,7 +133,7 @@ public class RoomsController : BaseController
 
     private void CreateRoom()
     {
-        var room = new RoomSettings("room 1");
+        var room = new RoomSettings(string.Format("room {0} ", _smartFox.RoomList.Count + 1));
         room.IsGame = true;
         room.MaxUsers = 10;
 
@@ -179,7 +185,6 @@ public class RoomsController : BaseController
         if (UserService.currentRoom != null && UserService.currentRoom.UserCount >= 2)
         {
             _smartFox.Send(new ExtensionRequest("", null, selectedRoom, true));
-            Application.LoadLevel(GameUtil.GAME_SCENCE);
         }
     }
     #endregion

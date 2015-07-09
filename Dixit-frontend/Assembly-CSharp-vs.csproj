@@ -55,6 +55,7 @@
      <Compile Include="Assets\Scripts\GameUtil.cs" />
      <Compile Include="Assets\Scripts\Services\SmartFoxConnection.cs" />
      <Compile Include="Assets\Scripts\Services\SmartFoxConnector.cs" />
+     <Compile Include="Assets\Scripts\Services\SmartFoxManager.cs" />
      <Compile Include="Assets\Scripts\Services\UserService.cs" />
      <Compile Include="Assets\Zenject\Extras\SampleGame\Scripts\Asteroid\Asteroid.cs" />
      <Compile Include="Assets\Zenject\Extras\SampleGame\Scripts\Asteroid\AsteroidManager.cs" />
@@ -162,7 +163,11 @@
      <Compile Include="Assets\Zenject\Main\Scripts\Util\DecoratorInstaller.cs" />
      <Compile Include="Assets\Zenject\Main\Scripts\Util\SceneDecoratorCompositionRoot.cs" />
      <Compile Include="Assets\Zenject\Main\Scripts\Util\UnityUtil.cs" />
+     <None Include="Assets\DOTween\DOTween43.xml" />
+     <None Include="Assets\DOTween\readme.txt" />
+     <None Include="Assets\DOTween\DOTween50.xml" />
      <None Include="Assets\Zenject\Extras\SampleGame\Media\Imported\Shaders\Particle Alpha Blend_IgnoreFog.shader" />
+     <None Include="Assets\DOTween\DOTween46.xml" />
      <None Include="Assets\Zenject\Extras\SampleGame\Media\Fonts\Space.txt" />
      <None Include="Assets\Zenject\LICENSE.txt" />
      <None Include="Assets\Zenject\Extras\SampleGame\Media\Imported\Shaders\AddSmooth_Layer.shader" />
@@ -178,6 +183,18 @@
  </Reference>
  <Reference Include="SmartFox2X">
  <HintPath>E:/Project/workspace/Dixit/dixit.git/Dixit-frontend/Assets/Plugins/SmartFox2X.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween">
+ <HintPath>E:/Project/workspace/Dixit/dixit.git/Dixit-frontend/Assets/DOTween/DOTween.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween43">
+ <HintPath>E:/Project/workspace/Dixit/dixit.git/Dixit-frontend/Assets/DOTween/DOTween43.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween50">
+ <HintPath>E:/Project/workspace/Dixit/dixit.git/Dixit-frontend/Assets/DOTween/DOTween50.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween46">
+ <HintPath>E:/Project/workspace/Dixit/dixit.git/Dixit-frontend/Assets/DOTween/DOTween46.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
  <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
