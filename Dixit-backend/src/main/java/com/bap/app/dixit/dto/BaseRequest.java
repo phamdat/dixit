@@ -1,4 +1,4 @@
-package com.bap.app.dto;
+package com.bap.app.dixit.dto;
 
 public abstract class BaseRequest {
 
