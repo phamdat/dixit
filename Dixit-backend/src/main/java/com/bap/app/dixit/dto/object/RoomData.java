@@ -8,7 +8,7 @@ public class RoomData {
     private int state;
     private int hostId;
     private Map<String, Integer> selectedCards;
-    private Map<String, Integer> guessedCards;
+    private Map<Integer, String> playerGuessedCard;
     private Map<Integer, PlayerData> players;
 
     public int getState() {
@@ -49,15 +49,14 @@ public class RoomData {
 	this.selectedCards = selectedCards;
     }
 
-    public Map<String, Integer> getGuessedCards() {
-	if (guessedCards == null) {
-	    guessedCards = new LinkedHashMap<String, Integer>();
+    public Map<Integer, String> getPlayerGuessedCard() {
+	if (playerGuessedCard == null) {
+	    playerGuessedCard = new LinkedHashMap<Integer, String>();
 	}
-	return guessedCards;
+	return playerGuessedCard;
     }
 
-    public void setGuessedCards(Map<String, Integer> guessedCards) {
-	this.guessedCards = guessedCards;
+    public void setPlayerGuessedCard(Map<Integer, String> playerGuessedCard) {
+	this.playerGuessedCard = playerGuessedCard;
     }
-
 }

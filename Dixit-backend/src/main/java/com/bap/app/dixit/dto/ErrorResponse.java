@@ -1,6 +1,6 @@
 package com.bap.app.dixit.dto;
 
-public class ErrorResponse extends BaseResponse {
+public class ErrorResponse extends BaseRequest {
 
     private String errorCode;
     private String message;

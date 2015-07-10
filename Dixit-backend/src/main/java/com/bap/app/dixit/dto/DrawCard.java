@@ -7,7 +7,7 @@ import com.bap.app.dixit.dto.object.Card;
 import com.bap.app.dixit.util.Constants;
 
 @RequestHandler(Constants.RequestHandler.DRAW_CARD)
-public class DrawCard extends BaseResponse {
+public class DrawCard extends BaseRequest {
 
     private List<Card> cards;
 

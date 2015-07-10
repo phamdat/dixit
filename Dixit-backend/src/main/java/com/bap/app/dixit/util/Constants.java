@@ -10,7 +10,8 @@ public class Constants {
 	public static final String GUEST_SELECTED_CARD = "guest_selected_card";
 	public static final String SELECTED_CARD = "selected_card";
 	public static final String GUEST_GUESS_CARD = "guest_guess_card";
-	public static final String RETURN_SCORE = "return_score";
+	public static final String GUEST_GUESSED_CARD = "guest_guessed_card";
+	public static final String SCORING = "scoring";
     }
 
     public static class Game {
