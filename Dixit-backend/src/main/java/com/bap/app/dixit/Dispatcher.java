@@ -13,6 +13,7 @@ public class Dispatcher extends SFSExtension {
 
     private ApplicationContext applicationContext;
 
+    @SuppressWarnings("rawtypes")
     public void init() {
 	applicationContext = new GenericXmlApplicationContext("classpath:dixit-context.xml");
 

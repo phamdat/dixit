@@ -3,7 +3,7 @@ package com.bap.app.dixit.dto;
 import com.bap.app.dixit.annotation.RequestHandler;
 import com.bap.app.dixit.util.Constants;
 
-@RequestHandler(Constants.RequestHandler.GUEST_SELECT_CARD)
+@RequestHandler(Constants.RequestHandler.GUEST_GUESS_CARD)
 public class GuestGuessCard extends BaseRequest {
 
     private String cardId;

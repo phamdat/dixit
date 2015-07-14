@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.bap.app.dixit.dao.CardDAO;
 import com.bap.app.dixit.dto.GuestGuessCard;
@@ -19,6 +20,7 @@ import com.bap.app.dixit.util.CommonUtils;
 import com.bap.app.dixit.util.Constants;
 import com.smartfoxserver.v2.entities.User;
 
+@Service
 public class GuestGuessCardHandler extends BaseHandler<GuestGuessCard> {
 
     @Autowired
@@ -26,7 +28,7 @@ public class GuestGuessCardHandler extends BaseHandler<GuestGuessCard> {
 
     @Override
     public void execute(User sender, GuestGuessCard t, RoomData rd) throws Exception {
-	List<User> players = sender.getLastJoinedRoom().getPlayersList();
+	List<User> players = sender.getLastJoinedRoom().getUserList();
 
 	rd.getPlayerGuessedCard().put(sender.getId(), t.getCardId());
 	CommonUtils.updatePlayerState(rd, sender.getId(), Constants.GameState.GUEST_GUESS_CARD);

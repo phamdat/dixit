@@ -11,6 +11,7 @@ import org.springframework.context.support.GenericXmlApplicationContext;
 
 import com.bap.app.dixit.annotation.RequestHandler;
 import com.bap.app.dixit.dto.object.Card;
+import com.bap.app.dixit.handler.BaseHandler;
 import com.bap.app.dixit.util.JsonUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.smartfoxserver.v2.extensions.IClientRequestHandler;
@@ -39,8 +40,17 @@ public class Test {
     }
 
     public static void main(String[] args) throws JsonProcessingException {
-	final File folder = new File("D:\\workspace\\dixit\\Dixit-document\\Dixit");
-	listFilesForFolder(folder);
+	ApplicationContext applicationContext = new GenericXmlApplicationContext("classpath:dixit-context.xml");
+
+	Map<String, BaseHandler> handlers = applicationContext.getBeansOfType(BaseHandler.class);
+	for (Entry<String, BaseHandler> entry : handlers.entrySet()) {
+	    BaseHandler handler = entry.getValue();
+	    String cmd = handler.getCmdHandler();
+	    System.out.println(cmd + " ==== " + handler.getClass().getName());
+	}
+	// final File folder = new
+	// File("D:\\workspace\\dixit\\Dixit-document\\Dixit");
+	// listFilesForFolder(folder);
     }
 
     public static void listFilesForFolder(final File folder) throws JsonProcessingException {

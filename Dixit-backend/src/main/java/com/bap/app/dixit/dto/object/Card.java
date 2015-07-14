@@ -1,10 +1,14 @@
 package com.bap.app.dixit.dto.object;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Card {
     private String id;
     private String url;
 
-    public Card(String id, String url) {
+    @JsonCreator
+    public Card(@JsonProperty("id") String id, @JsonProperty("url") String url) {
 	this.id = id;
 	this.url = url;
     }

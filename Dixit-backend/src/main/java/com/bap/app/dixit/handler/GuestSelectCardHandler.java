@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.bap.app.dixit.dao.CardDAO;
 import com.bap.app.dixit.dto.GuestGuessCard;
@@ -17,6 +18,7 @@ import com.bap.app.dixit.util.CommonUtils;
 import com.bap.app.dixit.util.Constants;
 import com.smartfoxserver.v2.entities.User;
 
+@Service
 public class GuestSelectCardHandler extends BaseHandler<GuestSelectCard> {
 
     @Autowired
@@ -24,7 +26,7 @@ public class GuestSelectCardHandler extends BaseHandler<GuestSelectCard> {
 
     @Override
     public void execute(User sender, GuestSelectCard t, RoomData rd) throws Exception {
-	List<User> players = sender.getLastJoinedRoom().getPlayersList();
+	List<User> players = sender.getLastJoinedRoom().getUserList();
 
 	rd.getSelectedCards().put(t.getCardId(), sender.getId());
 	CommonUtils.updatePlayerState(rd, sender.getId(), Constants.GameState.GUEST_SELECT_CARD);

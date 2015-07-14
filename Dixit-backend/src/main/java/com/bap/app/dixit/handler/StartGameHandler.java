@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.RandomUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.bap.app.dixit.dao.CardDAO;
 import com.bap.app.dixit.dto.DrawCard;
@@ -16,6 +17,7 @@ import com.bap.app.dixit.util.CommonUtils;
 import com.bap.app.dixit.util.Constants;
 import com.smartfoxserver.v2.entities.User;
 
+@Service
 public class StartGameHandler extends BaseHandler<StartGame> {
 
     @Autowired
@@ -23,7 +25,7 @@ public class StartGameHandler extends BaseHandler<StartGame> {
 
     @Override
     public void execute(User sender, StartGame t, RoomData rd) throws Exception {
-	List<User> players = sender.getLastJoinedRoom().getPlayersList();
+	List<User> players = sender.getLastJoinedRoom().getUserList();
 	List<Card> cards = cardDAO.findAll();
 
 	// draw cards

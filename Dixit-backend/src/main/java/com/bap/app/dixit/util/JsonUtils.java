@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.log4j.Logger;
+
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -13,11 +17,15 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 
 public final class JsonUtils {
 
+    private static final Logger log = Logger.getLogger(JsonUtils.class);
+
     private final static ObjectMapper objectMapper;
     static {
 	objectMapper = new ObjectMapper();
 	objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-	objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+	objectMapper.setSerializationInclusion(Include.NON_NULL);
+	objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
+	objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
     }
 
     public static <T> T toObject(InputStream stream, Class<T> clazz) throws JsonParseException, JsonMappingException, IOException {
@@ -36,7 +44,12 @@ public final class JsonUtils {
 	return objectMapper.readValue(json, objectMapper.getTypeFactory().constructCollectionType(List.class, clazz));
     }
 
-    public static String toJson(Object o) throws JsonProcessingException {
-	return objectMapper.writeValueAsString(o);
+    public static String toJson(Object o) {
+	try {
+	    return objectMapper.writeValueAsString(o);
+	} catch (JsonProcessingException e) {
+	    log.error(ExceptionUtils.getStackTrace(e));
+	}
+	return null;
     }
 }

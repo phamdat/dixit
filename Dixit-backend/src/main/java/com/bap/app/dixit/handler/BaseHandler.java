@@ -5,7 +5,6 @@ import java.lang.reflect.ParameterizedType;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
-import org.springframework.stereotype.Service;
 
 import com.bap.app.dixit.annotation.RequestHandler;
 import com.bap.app.dixit.dto.BaseRequest;
@@ -25,7 +24,6 @@ import com.smartfoxserver.v2.entities.variables.SFSRoomVariable;
 import com.smartfoxserver.v2.exceptions.SFSVariableException;
 import com.smartfoxserver.v2.extensions.BaseClientRequestHandler;
 
-@Service
 public abstract class BaseHandler<T extends BaseRequest> extends BaseClientRequestHandler {
 
     protected static final Logger log = Logger.getLogger(BaseHandler.class);
@@ -33,20 +31,22 @@ public abstract class BaseHandler<T extends BaseRequest> extends BaseClientReque
     public abstract void execute(User sender, T t, RoomData roomData) throws Exception;
 
     public void handleClientRequest(User sender, ISFSObject params) {
-	log.info("\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-		+ "\nREQUEST: " + getCmdHandler()
-		+ "\nUSER: " + sender.toSFSArray().toJson()
-		+ "\nINPUT: " + params.toJson()
-		+ "\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n");
-
+	RoomData rd = null;
 	try {
-	    RoomData rd = getRoomData(sender);
+	    rd = getRoomData(sender);
 	    execute(sender, getRequest(params), rd);
 	    updateRoomData(sender, rd);
 	} catch (Throwable e) {
 	    log.error(ExceptionUtils.getStackTrace(e));
 	    send(new ErrorResponse(Constants.Error.INTERNAL_SERVER_ERROR, e), sender);
 	}
+
+	log.info("\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+		+ "\nREQUEST: " + getCmdHandler()
+		+ "\nUSER: " + sender.toSFSArray().toJson()
+		+ "\nROOM: " + JsonUtils.toJson(rd)
+		+ "\nINPUT: " + params.toJson()
+		+ "\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n");
     }
 
     protected void send(Object o, User recipient) {
@@ -98,7 +98,7 @@ public abstract class BaseHandler<T extends BaseRequest> extends BaseClientReque
 	    rd = JsonUtils.toObject(rv.getStringValue(), RoomData.class);
 	} else {
 	    rd = new RoomData();
-	    for (User player : sender.getLastJoinedRoom().getPlayersList()) {
+	    for (User player : sender.getLastJoinedRoom().getUserList()) {
 		rd.getPlayers().put(player.getId(), new PlayerData());
 	    }
 	}
