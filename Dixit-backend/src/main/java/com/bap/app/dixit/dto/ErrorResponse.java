@@ -1,18 +1,15 @@
-package com.bap.app.dto;
+package com.bap.app.dixit.dto;
 
-
-public class ErrorResponse extends BaseResponse {
+public class ErrorResponse extends BaseRequest {
 
     private String errorCode;
     private String message;
 
     public ErrorResponse(String errorCode) {
-	setSuccess(false);
 	setErrorCode(errorCode);
     }
 
     public ErrorResponse(String errorCode, Throwable t) {
-	setSuccess(false);
 	setErrorCode(errorCode);
 	setMessage(t.getMessage());
     }

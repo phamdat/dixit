@@ -6,6 +6,9 @@ config.useSSL = false;
 config.zone = "test";
 config.debug = false;
 
+var cards;
+var selectedCards;
+
 // Create SmartFox client instance
 sfs = new SmartFox(config);
 
@@ -15,7 +18,6 @@ sfs.connect();
 function onConnection(evtParams) {
     if (evtParams.success) {
         console.log("Connection established");
-        login();
     } else {
         console.log("Connection failed");
     }
@@ -25,9 +27,10 @@ function onConnection(evtParams) {
 function login() {
     sfs.addEventListener(SFS2X.SFSEvent.LOGIN, onLogin, this);
     sfs.addEventListener(SFS2X.SFSEvent.LOGIN_ERROR, onLoginError, this);
+    sfs.addEventListener(SFS2X.SFSEvent.EXTENSION_RESPONSE, onExtensionResponse, this);
 
     // Login
-    sfs.send(new SFS2X.Requests.System.LoginRequest("FozzieTheBeaddfffr"));
+    sfs.send(new SFS2X.Requests.System.LoginRequest(document.getElementById("name").value));
 }
 
 function onLogin(evtParams) {
@@ -72,7 +75,6 @@ function joinRoom() {
 
 function onRoomJoined(evtParams) {
     console.log("Room joined successfully: " + evtParams.room);
-    someMethod();
 }
 
 function onRoomJoinError(evtParams) {
@@ -80,21 +82,55 @@ function onRoomJoinError(evtParams) {
 }
 
 //****************************************************************************************************
-function someMethod() {
-    sfs.addEventListener(SFS2X.SFSEvent.EXTENSION_RESPONSE, onExtensionResponse, this);
-
+function startGame() {
     // Send two integers to the Zone extension and get their sum in return
     var params = {};
     //params.request = "{}";
 
-    sfs.send(new SFS2X.Requests.System.ExtensionRequest("start", params));
+    sfs.send(new SFS2X.Requests.System.ExtensionRequest("start_game", params));
+}
+
+function hostSelectCard() {
+    // Send two integers to the Zone extension and get their sum in return
+    var params = {
+        request: JSON.stringify({
+            cardId: cards[0].id
+        })
+    };
+    //params.request = "{}";
+
+    sfs.send(new SFS2X.Requests.System.ExtensionRequest("host_select_card", params));
+}
+
+function guestSelectCard() {
+    // Send two integers to the Zone extension and get their sum in return
+    var params = {
+        request: JSON.stringify({
+            cardId: cards[0].id
+        })
+    };
+    //params.request = "{}";
+
+    sfs.send(new SFS2X.Requests.System.ExtensionRequest("guest_select_card", params));
+}
+
+function guestGuessCard() {
+    // Send two integers to the Zone extension and get their sum in return
+    var params = {
+        request: JSON.stringify({
+            cardId: selectedCards[0].id
+        })
+    };
+    //params.request = "{}";
+
+    sfs.send(new SFS2X.Requests.System.ExtensionRequest("guest_guess_card", params));
 }
 
 function onExtensionResponse(evtParams) {
-    if (evtParams.cmd == "start") {
-        var responseParams = evtParams.params.response;
-
-        // We expect a number called "sum"
-        console.log(responseParams);
+    console.log(evtParams);
+    if (evtParams.cmd == "draw_card") {
+        cards = JSON.parse(evtParams.params.response).cards;
+    } else if (evtParams.cmd == "selected_card") {
+        selectedCards = JSON.parse(evtParams.params.response).cards;
     }
 }

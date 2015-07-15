@@ -1,15 +1,23 @@
 package com.bap.app.dixit.util;
 
-import com.bap.app.dixit.annotation.RequestHandler;
-import com.smartfoxserver.v2.extensions.IClientRequestHandler;
+import com.bap.app.dixit.dto.object.PlayerData;
+import com.bap.app.dixit.dto.object.RoomData;
 
 public final class CommonUtils {
 
-    public static String getCmdHandler(IClientRequestHandler handler) {
-	RequestHandler annotation = handler.getClass().getAnnotation(RequestHandler.class);
-	if (annotation != null) {
-	    return annotation.value();
+    public static void updateState(RoomData rd, int state) {
+	rd.setState(state);
+	for (PlayerData player : rd.getPlayers().values()) {
+	    player.setState(state);
 	}
-	return handler.getClass().getSimpleName();
+    }
+
+    public static void updateRoomState(RoomData rd, int state) {
+	rd.setState(state);
+    }
+
+    public static void updatePlayerState(RoomData rd, int playerId, int state) {
+	PlayerData player = rd.getPlayers().get(playerId);
+	player.setState(state);
     }
 }

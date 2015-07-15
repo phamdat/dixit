@@ -1,5 +1,8 @@
 package com.bap.app.dixit;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -7,9 +10,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 
 import com.bap.app.dixit.annotation.RequestHandler;
-import com.bap.app.dixit.handler.Start;
-import com.smartfoxserver.v2.entities.data.ISFSObject;
-import com.smartfoxserver.v2.entities.data.SFSObject;
+import com.bap.app.dixit.dto.object.Card;
+import com.bap.app.dixit.handler.BaseHandler;
+import com.bap.app.dixit.util.JsonUtils;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.smartfoxserver.v2.extensions.IClientRequestHandler;
 
 public class Test {
@@ -35,8 +39,30 @@ public class Test {
 	return handler.getClass().getSimpleName();
     }
 
-    public static void main(String[] args) {
-	Test dispatcher = new Test();
-	dispatcher.init();
+    public static void main(String[] args) throws JsonProcessingException {
+	ApplicationContext applicationContext = new GenericXmlApplicationContext("classpath:dixit-context.xml");
+
+	Map<String, BaseHandler> handlers = applicationContext.getBeansOfType(BaseHandler.class);
+	for (Entry<String, BaseHandler> entry : handlers.entrySet()) {
+	    BaseHandler handler = entry.getValue();
+	    String cmd = handler.getCmdHandler();
+	    System.out.println(cmd + " ==== " + handler.getClass().getName());
+	}
+	// final File folder = new
+	// File("D:\\workspace\\dixit\\Dixit-document\\Dixit");
+	// listFilesForFolder(folder);
     }
+
+    public static void listFilesForFolder(final File folder) throws JsonProcessingException {
+	List<Card> l = new ArrayList<>();
+	for (final File fileEntry : folder.listFiles()) {
+	    if (fileEntry.isDirectory()) {
+		listFilesForFolder(fileEntry);
+	    } else {
+		l.add(new Card(fileEntry.getName().replaceAll(".jpg", ""), "https://raw.githubusercontent.com/phamdat/dixit/develop/Dixit-document/Dixit/" + fileEntry.getName()));
+	    }
+	}
+	System.out.println(JsonUtils.toJson(l));
+    }
+
 }
