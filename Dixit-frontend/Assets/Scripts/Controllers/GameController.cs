@@ -25,7 +25,9 @@ public class GameController : BaseController
         {
             var go = Instantiate(_imageItem);
             go.transform.SetParent(_cardPanel.transform);
-            go.GetComponent<CardController>().SelectCard += (sender, arg) => {
+            var controller = go.GetComponent<CardController>();
+            controller.ImageUrl = "https://raw.githubusercontent.com/phamdat/dixit/develop/Dixit-frontend/Assets/Resources/Images/6.jpg";
+            controller.SelectCard += (sender, arg) => {
                 _selectedCard = (sender as CardController).gameObject;
                 foreach (var card in _gameObjects)
                 {
@@ -34,6 +36,13 @@ public class GameController : BaseController
                 }
             };
             _gameObjects.Add(go);
+
+            //https://raw.githubusercontent.com/phamdat/dixit/develop/Dixit-frontend/Assets/Resources/Images/1.jpg
+            //https://raw.githubusercontent.com/phamdat/dixit/develop/Dixit-frontend/Assets/Resources/Images/2.jpg
+            //https://raw.githubusercontent.com/phamdat/dixit/develop/Dixit-frontend/Assets/Resources/Images/3.jpg
+            //https://raw.githubusercontent.com/phamdat/dixit/develop/Dixit-frontend/Assets/Resources/Images/4.jpg
+            //https://raw.githubusercontent.com/phamdat/dixit/develop/Dixit-frontend/Assets/Resources/Images/5.jpg
+            //https://raw.githubusercontent.com/phamdat/dixit/develop/Dixit-frontend/Assets/Resources/Images/6.jpg
         }
     }
 
