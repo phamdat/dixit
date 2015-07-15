@@ -1,3 +1,8 @@
 Dixit-backend/.classpath
 Dixit-backend/.project
 Dixit-backend/.settings
+Dixit-backend/target/classes/
+Dixit-backend/target/maven-archiver/
+Dixit-backend/target/maven-status/
+Dixit-backend/target/test-classes/
+Dixit-backend/target/surefire-reports/
