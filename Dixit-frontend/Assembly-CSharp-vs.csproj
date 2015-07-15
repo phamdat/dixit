@@ -83,6 +83,7 @@
      <Compile Include="Assets\EasyTouch\Plugins\Finger.cs" />
      <Compile Include="Assets\EasyTouch\Plugins\Gesture.cs" />
      <Compile Include="Assets\EasyTouch\Plugins\TwoFingerGesture.cs" />
+     <Compile Include="Assets\Scripts\CardController.cs" />
      <Compile Include="Assets\Scripts\Controllers\BaseController.cs" />
      <Compile Include="Assets\Scripts\Controllers\GameController.cs" />
      <Compile Include="Assets\Scripts\Controllers\HomeController.cs" />
@@ -90,6 +91,8 @@
      <Compile Include="Assets\Scripts\Controllers\RoomPanelItemController.cs" />
      <Compile Include="Assets\Scripts\Controllers\RoomsController.cs" />
      <Compile Include="Assets\Scripts\GameUtil.cs" />
+     <Compile Include="Assets\Scripts\LoadImageUrl.cs" />
+     <Compile Include="Assets\Scripts\Services\RestService.cs" />
      <Compile Include="Assets\Scripts\Services\SmartFoxConnection.cs" />
      <Compile Include="Assets\Scripts\Services\SmartFoxConnector.cs" />
      <Compile Include="Assets\Scripts\Services\SmartFoxManager.cs" />
@@ -204,8 +207,10 @@
      <None Include="Assets\DOTween\readme.txt" />
      <None Include="Assets\DOTween\DOTween50.xml" />
      <None Include="Assets\Zenject\Extras\SampleGame\Media\Imported\Shaders\Particle Alpha Blend_IgnoreFog.shader" />
+     <None Include="Assets\UI - BUILDER\Source Files\Fonts\OpenSans-Familiy\OpenSansLic.txt" />
      <None Include="Assets\DOTween\DOTween46.xml" />
      <None Include="Assets\Zenject\Extras\SampleGame\Media\Fonts\Space.txt" />
+     <None Include="Assets\Plugins\Json.NET\Newtonsoft.Json.xml" />
      <None Include="Assets\Zenject\LICENSE.txt" />
      <None Include="Assets\Zenject\Extras\SampleGame\Media\Imported\Shaders\AddSmooth_Layer.shader" />
      <None Include="Assets\Zenject\Extras\SampleGame\Media\Imported\Shaders\Add_Layer.shader" />
@@ -218,20 +223,23 @@
  <Reference Include="UnityEngine.Analytics">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
- <Reference Include="SmartFox2X">
- <HintPath>E:/Project/workspace/Dixit/dixit.git/Dixit-frontend/Assets/Plugins/SmartFox2X.dll</HintPath>
- </Reference>
  <Reference Include="DOTween">
  <HintPath>E:/Project/workspace/Dixit/dixit.git/Dixit-frontend/Assets/DOTween/DOTween.dll</HintPath>
  </Reference>
  <Reference Include="DOTween43">
  <HintPath>E:/Project/workspace/Dixit/dixit.git/Dixit-frontend/Assets/DOTween/DOTween43.dll</HintPath>
  </Reference>
+ <Reference Include="DOTween46">
+ <HintPath>E:/Project/workspace/Dixit/dixit.git/Dixit-frontend/Assets/DOTween/DOTween46.dll</HintPath>
+ </Reference>
  <Reference Include="DOTween50">
  <HintPath>E:/Project/workspace/Dixit/dixit.git/Dixit-frontend/Assets/DOTween/DOTween50.dll</HintPath>
  </Reference>
- <Reference Include="DOTween46">
- <HintPath>E:/Project/workspace/Dixit/dixit.git/Dixit-frontend/Assets/DOTween/DOTween46.dll</HintPath>
+ <Reference Include="SmartFox2X">
+ <HintPath>E:/Project/workspace/Dixit/dixit.git/Dixit-frontend/Assets/Plugins/SmartFox2X.dll</HintPath>
+ </Reference>
+ <Reference Include="Newtonsoft.Json">
+ <HintPath>E:/Project/workspace/Dixit/dixit.git/Dixit-frontend/Assets/Plugins/Json.NET/Newtonsoft.Json.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
  <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>

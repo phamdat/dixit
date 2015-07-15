@@ -47,10 +47,8 @@ public class RoomPanelItemController : MonoBehaviour
             handle(this, null);
     }
 
-    public void OnSelected(GameObject roomGO)
+    public void OnSelected()
     {
-        //var room = roomGO.GetComponent<RoomPanelItemController>().room;
-
         var handle = SelectRoom;
         if (handle != null)
             handle(this, null);
