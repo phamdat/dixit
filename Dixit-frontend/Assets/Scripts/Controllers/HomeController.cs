@@ -50,7 +50,7 @@ public class HomeController : BaseController
         var data = e.Params["data"];
         if (user != null)
         {
-            UserService.currentUser = user as User;
+            //UserService.currentUser = user as User;
             Application.LoadLevel(GameUtil.ROOM_LOBBY_SCENE);
             Debug.Log("LOGIN");
         }

@@ -92,10 +92,10 @@
      <Compile Include="Assets\Scripts\Controllers\RoomsController.cs" />
      <Compile Include="Assets\Scripts\GameUtil.cs" />
      <Compile Include="Assets\Scripts\LoadImageUrl.cs" />
+     <Compile Include="Assets\Scripts\Services\DixitInstaller.cs" />
      <Compile Include="Assets\Scripts\Services\RestService.cs" />
      <Compile Include="Assets\Scripts\Services\SmartFoxConnection.cs" />
      <Compile Include="Assets\Scripts\Services\SmartFoxConnector.cs" />
-     <Compile Include="Assets\Scripts\Services\SmartFoxManager.cs" />
      <Compile Include="Assets\Scripts\Services\UserService.cs" />
      <Compile Include="Assets\Zenject\Extras\SampleGame\Scripts\Asteroid\Asteroid.cs" />
      <Compile Include="Assets\Zenject\Extras\SampleGame\Scripts\Asteroid\AsteroidManager.cs" />

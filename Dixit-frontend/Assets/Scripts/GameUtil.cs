@@ -10,4 +10,15 @@ public class GameUtil
     public static string MENU_SCENE = "menu";
     public static string ROOM_LOBBY_SCENE = "room lobby";
     public static string GAME_SCENCE = "game";
+
+    public static GameState GameState;    
+}
+
+public enum GameState
+{
+    Starting = 0,
+    HostTurn,
+    GuestTurn,
+    GuessCard,
+    WatchResult,
 }
