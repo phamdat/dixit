@@ -13,7 +13,7 @@ public class RoomsController : BaseController
     public GameObject roomPrefab;
 	public GameObject roomsHolder;
 
-    private Action<RoomPanelItemController> CreateRoomComplete;
+    public List<GameObject> RoomGameObjects { get; set; }
 
     public Room selectedRoom { get; set; }
 
@@ -35,83 +35,18 @@ public class RoomsController : BaseController
     protected override void Start()
     {
         base.Start();
-
+        RoomGameObjects = new List<GameObject>();
+        _network.RoomAdded += (sender, e) => {
+            if(e.Exception != null)
+            {
+                return;
+            }
+            var go = CreateRoomUIComponent(e.Room);
+            selectedRoomController = go.GetComponent<RoomPanelItemController>();
+            JoinGame();
+        };
         GetAllRooms();
     }
-
-    protected override void RegisterHandler()
-    {
-        base.RegisterHandler();
-
-        _smartFox.AddEventListener(SFSEvent.ROOM_JOIN, OnRoomJoin);
-        _smartFox.AddEventListener(SFSEvent.ROOM_JOIN_ERROR, OnRoomJoinError);
-        _smartFox.AddEventListener(SFSEvent.ROOM_ADD, OnRoomAdd);
-        _smartFox.AddEventListener(SFSEvent.ROOM_CREATION_ERROR, OnRoomCreationError);
-        _smartFox.AddEventListener(SFSEvent.ROOM_FIND_RESULT, OnRoomFindResult);
-        _smartFox.AddEventListener(SFSEvent.ROOM_REMOVE, OnRoomRemove);
-        _smartFox.AddEventListener(SFSEvent.EXTENSION_RESPONSE, OnExtensionResponse);
-    }
-
-    #region SmartFox Event Handler
-    private void OnRoomJoin(BaseEvent e)
-    {
-        Room room = (Room)e.Params["room"];
-        if (room != null)
-        {
-            Debug.LogError("Room Joined");
-            UserService.currentRoom = room;
-            selectedRoomController.NumberPlayerChanged();
-        }
-    }
-    private void OnRoomJoinError(BaseEvent e) { }
-
-    private void OnRoomAdd(BaseEvent e)
-    {
-        Room room = (Room)e.Params["room"];
-        if (room != null)
-        {
-            Debug.Log("Room created");
-
-            var go = CreateRoomUIComponent(room);
-            CreateRoomComplete(go.GetComponent<RoomPanelItemController>());
-        }
-    }
-
-    private void OnRoomCreationError(BaseEvent e)
-    {
-        string errorMessage = e.Params["errorMessage"].ToString();
-        string errorCode = e.Params["errorCode"].ToString();
-
-        Debug.Log(string.Format("Room created failed: {0} ---- code {1}", errorMessage, errorCode));
-    }
-    private void OnRoomFindResult(BaseEvent e)
-    {
-        List<Room> rooms = (List<Room>)e.Params["rooms"];
-        if (rooms != null && rooms.Count > 0)
-        {
-            // hien thi danh sach room
-        }
-    }
-
-    private void OnRoomRemove(BaseEvent e)
-    {
-        Room room = (Room)e.Params["room"];
-        if (room != null)
-        {
-            if (room.Id == UserService.currentRoom.Id)
-            {
-                // Room dang tham gia bi mat
-            }
-
-            // Xoa room tuong ung trong danh sach room
-        }
-    }
-
-    private void OnExtensionResponse(BaseEvent e)
-    {
-        Application.LoadLevel(GameUtil.GAME_SCENCE);
-    }
-    #endregion
 
     #region Private Method
     private GameObject CreateRoomUIComponent(Room room)
@@ -127,27 +62,38 @@ public class RoomsController : BaseController
         };
 
         obj.GetComponent<RoomPanelItemController>().room = room;
+        
+        RoomGameObjects.Add(obj);
 
         return obj;
     }
 
     private void CreateRoom()
     {
-        var room = new RoomSettings(string.Format("room {0} ", _smartFox.RoomList.Count + 1));
+        var room = new RoomSettings(string.Format("room {0} ", _network.GetAllRoom().Count + 1));
         room.IsGame = true;
         room.MaxUsers = 10;
-
+        
         _smartFox.Send(new CreateRoomRequest(room));
     }
 
     private void JoinRoom(Room room)
     {
-        _smartFox.Send(new JoinRoomRequest(room.Id));
+        _network.JoinRoom(room, ex => {
+            if(ex != null)
+            {
+                Debug.Log(ex.Message);
+                return;
+            }
+
+            UserService.currentRoom = room;
+            selectedRoomController.NumberPlayerChanged();
+        });
     }
 
     private void GetAllRooms()
     {
-        var rooms = _smartFox.RoomList;
+        var rooms = _network.GetAllRoom();
         Debug.LogError(rooms.Count);
         foreach (var room in rooms)
         {
@@ -173,18 +119,14 @@ public class RoomsController : BaseController
 
     public void CreateGame()
     {
-        CreateRoomComplete = (roomController) => {
-            selectedRoomController = roomController;
-            JoinGame();
-        };
-        CreateRoom();
+        _network.CreateRoom(null);
     }
 
     public void StartGame()
     {
-        if (UserService.currentRoom != null && UserService.currentRoom.UserCount >= 2)
+        if (UserService.currentRoom != null && UserService.currentRoom.UserCount >= 1)
         {
-            _smartFox.Send(new ExtensionRequest("", null, selectedRoom, true));
+            Application.LoadLevel(GameUtil.GAME_SCENCE);
         }
     }
     #endregion

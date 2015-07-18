@@ -121,7 +121,7 @@
 				<artifactId>maven-shade-plugin</artifactId>
 				<version>${maven-jar-plugin-version}</version>
 				<configuration>
-					<finalName>DixitExtension</finalName>
+					<finalName>DixitLib</finalName>
 				</configuration>
 				<executions>
 					<execution>

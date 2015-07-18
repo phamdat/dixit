@@ -1,9 +1,9 @@
 // Create configuration object
 var config = {};
 config.host = "127.0.0.1";
-config.port = 9696;
+config.port = 8888;
 config.useSSL = false;
-config.zone = "test";
+config.zone = "Dixit";
 config.debug = false;
 
 var cards;
@@ -48,8 +48,8 @@ function createRoom() {
     sfs.addEventListener(SFS2X.SFSEvent.ROOM_CREATION_ERROR, onRoomCreationError, this);
 
     // Create a new chat Room
-    var settings = new SFS2X.Requests.RoomSettings("Myyy");
-    settings.maxUsers = 40;
+    var settings = new SFS2X.Requests.RoomSettings("kaka1");
+    settings.maxUsers = 10;
     settings.groupId = "default";
 
     sfs.send(new SFS2X.Requests.System.CreateRoomRequest(settings));
@@ -70,7 +70,7 @@ function joinRoom() {
     sfs.addEventListener(SFS2X.SFSEvent.ROOM_JOIN_ERROR, onRoomJoinError, this);
 
     // Join a Room called "Lobby"
-    sfs.send(new SFS2X.Requests.System.JoinRoomRequest("test"));
+    sfs.send(new SFS2X.Requests.System.JoinRoomRequest("kaka"));
 }
 
 function onRoomJoined(evtParams) {

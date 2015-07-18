@@ -6,12 +6,18 @@ public class BaseController : MonoBehaviour
 {
     protected SmartFox _smartFox;
 
+    protected Network _network;
+
     protected virtual void Awake()
     {
-        _smartFox = SmartFoxConnection.Connection;
+        //_smartFox = SmartFoxConnection.Connection;
 
-        RegisterHandler();
+        //RegisterHandler();
+
+        _network = Network.Instance;
     }
+
+
 
     protected virtual void RegisterHandler()
     {
@@ -26,7 +32,8 @@ public class BaseController : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-        if (_smartFox != null)
-            _smartFox.ProcessEvents();
+        _network.Update();
+        //if (_smartFox != null)
+        //    _smartFox.ProcessEvents();
     }
 }

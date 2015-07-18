@@ -93,6 +93,7 @@
      <Compile Include="Assets\Scripts\GameUtil.cs" />
      <Compile Include="Assets\Scripts\LoadImageUrl.cs" />
      <Compile Include="Assets\Scripts\Services\DixitInstaller.cs" />
+     <Compile Include="Assets\Scripts\Services\Network.cs" />
      <Compile Include="Assets\Scripts\Services\RestService.cs" />
      <Compile Include="Assets\Scripts\Services\SmartFoxConnection.cs" />
      <Compile Include="Assets\Scripts\Services\SmartFoxConnector.cs" />

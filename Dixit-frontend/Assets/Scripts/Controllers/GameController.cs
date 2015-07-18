@@ -2,6 +2,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using Sfs2X.Core;
+using Sfs2X.Requests;
+using Sfs2X.Entities.Data;
+using Newtonsoft.Json;
+
+public class Card
+{
+    [JsonProperty("id")]
+    public string Id { get; set; }
+
+    [JsonProperty("url")]
+    public string Url { get; set; }
+}
+
+public class DrawCardResponse
+{
+    [JsonProperty("cards")]
+    public List<Card> Cards { get; set; }
+}
 
 public class GameController : BaseController
 {
@@ -12,8 +30,9 @@ public class GameController : BaseController
     private List<GameObject> _gameObjects;
     private GameObject _selectedCard;
 
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         _gameObjects = new List<GameObject>(6);
     }
 
@@ -36,41 +55,20 @@ public class GameController : BaseController
                 }
             };
             _gameObjects.Add(go);
-
-            //https://raw.githubusercontent.com/phamdat/dixit/develop/Dixit-frontend/Assets/Resources/Images/1.jpg
-            //https://raw.githubusercontent.com/phamdat/dixit/develop/Dixit-frontend/Assets/Resources/Images/2.jpg
-            //https://raw.githubusercontent.com/phamdat/dixit/develop/Dixit-frontend/Assets/Resources/Images/3.jpg
-            //https://raw.githubusercontent.com/phamdat/dixit/develop/Dixit-frontend/Assets/Resources/Images/4.jpg
-            //https://raw.githubusercontent.com/phamdat/dixit/develop/Dixit-frontend/Assets/Resources/Images/5.jpg
-            //https://raw.githubusercontent.com/phamdat/dixit/develop/Dixit-frontend/Assets/Resources/Images/6.jpg
         }
+        
+        Debug.Log("selected room: " + UserService.currentRoom);
+        //SFSObject obj = new SFSObject();
+        //_smartFox.Send(new ExtensionRequest("start_game", obj));
+        _network.SendExtension("start_game", null, null, (data, ex) => {
+            var str = data.GetUtfString("response");
+            Debug.Log("str: " + str);
+            var obj = JsonConvert.DeserializeObject<DrawCardResponse>(str);
+            Debug.Log("obj: " + obj.Cards.Count);
+        });
     }
 
-    protected override void RegisterHandler()
-    {
-        base.RegisterHandler();
-
-        _smartFox.AddEventListener(SFSEvent.OBJECT_MESSAGE, OnObjectMessage);
-        _smartFox.AddEventListener(SFSEvent.PUBLIC_MESSAGE, OnPublicMessage);
-        _smartFox.AddEventListener(SFSEvent.EXTENSION_RESPONSE, OnExtensionResponse);
-    }
-
-    void OnPublicMessage(BaseEvent e)
-    {
-
-    }
-
-    void OnObjectMessage(BaseEvent e)
-    {
-
-    }
-
-    void OnExtensionResponse(BaseEvent e)
-    {
-
-    }
-
-    public void ChooseCard()
+    void DrawCard()
     {
 
     }
