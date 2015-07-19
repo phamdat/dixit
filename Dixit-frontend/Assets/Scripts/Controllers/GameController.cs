@@ -30,6 +30,7 @@ public class GameController : BaseController
     private List<GameObject> _gameObjects;
     private GameObject _selectedCard;
 
+
     protected override void Awake()
     {
         base.Awake();

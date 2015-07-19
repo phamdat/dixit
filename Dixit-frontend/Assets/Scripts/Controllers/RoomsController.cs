@@ -68,15 +68,6 @@ public class RoomsController : BaseController
         return obj;
     }
 
-    private void CreateRoom()
-    {
-        var room = new RoomSettings(string.Format("room {0} ", _network.GetAllRoom().Count + 1));
-        room.IsGame = true;
-        room.MaxUsers = 10;
-        
-        _smartFox.Send(new CreateRoomRequest(room));
-    }
-
     private void JoinRoom(Room room)
     {
         _network.JoinRoom(room, ex => {
