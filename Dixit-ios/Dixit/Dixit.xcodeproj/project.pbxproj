@@ -1,0 +1,476 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4C68BADE1B7CD0220081BECE /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4C68BADD1B7CD0220081BECE /* config.xml */; };
+		4C68BAE01B7D012B0081BECE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C68BADF1B7D012B0081BECE /* LoginViewController.swift */; };
+		4C68BAE21B7D01840081BECE /* SFNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C68BAE11B7D01840081BECE /* SFNetwork.swift */; };
+		4C7D69191B7BBEA200FA1FE8 /* SFS2XAPIIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7D69181B7BBEA200FA1FE8 /* SFS2XAPIIOS.framework */; };
+		4CFE66551B7BB865008F3EBD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFE66541B7BB865008F3EBD /* AppDelegate.swift */; };
+		4CFE66571B7BB865008F3EBD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFE66561B7BB865008F3EBD /* ViewController.swift */; };
+		4CFE665A1B7BB865008F3EBD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CFE66581B7BB865008F3EBD /* Main.storyboard */; };
+		4CFE665C1B7BB865008F3EBD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CFE665B1B7BB865008F3EBD /* Images.xcassets */; };
+		4CFE665F1B7BB865008F3EBD /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CFE665D1B7BB865008F3EBD /* LaunchScreen.xib */; };
+		4CFE666B1B7BB865008F3EBD /* DixitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFE666A1B7BB865008F3EBD /* DixitTests.swift */; };
+		4CFE66771B7BBAED008F3EBD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CFE66761B7BBAED008F3EBD /* CoreGraphics.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4CFE66651B7BB865008F3EBD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4CFE66471B7BB865008F3EBD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4CFE664E1B7BB865008F3EBD;
+			remoteInfo = Dixit;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		4C68BADD1B7CD0220081BECE /* config.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = config.xml; sourceTree = "<group>"; };
+		4C68BADF1B7D012B0081BECE /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		4C68BAE11B7D01840081BECE /* SFNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFNetwork.swift; sourceTree = "<group>"; };
+		4C7D69181B7BBEA200FA1FE8 /* SFS2XAPIIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SFS2XAPIIOS.framework; sourceTree = "<group>"; };
+		4C7D69531B7BC1F900FA1FE8 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
+		4CFE664F1B7BB865008F3EBD /* Dixit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dixit.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4CFE66531B7BB865008F3EBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4CFE66541B7BB865008F3EBD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		4CFE66561B7BB865008F3EBD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4CFE66591B7BB865008F3EBD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		4CFE665B1B7BB865008F3EBD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		4CFE665E1B7BB865008F3EBD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		4CFE66641B7BB865008F3EBD /* DixitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DixitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4CFE66691B7BB865008F3EBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4CFE666A1B7BB865008F3EBD /* DixitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DixitTests.swift; sourceTree = "<group>"; };
+		4CFE66761B7BBAED008F3EBD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4CFE664C1B7BB865008F3EBD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C7D69191B7BBEA200FA1FE8 /* SFS2XAPIIOS.framework in Frameworks */,
+				4CFE66771B7BBAED008F3EBD /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4CFE66611B7BB865008F3EBD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4CFE66461B7BB865008F3EBD = {
+			isa = PBXGroup;
+			children = (
+				4C7D69531B7BC1F900FA1FE8 /* Bridging-Header.h */,
+				4CFE66511B7BB865008F3EBD /* Dixit */,
+				4CFE66671B7BB865008F3EBD /* DixitTests */,
+				4CFE66501B7BB865008F3EBD /* Products */,
+				4CFE66781B7BBBDD008F3EBD /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		4CFE66501B7BB865008F3EBD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4CFE664F1B7BB865008F3EBD /* Dixit.app */,
+				4CFE66641B7BB865008F3EBD /* DixitTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4CFE66511B7BB865008F3EBD /* Dixit */ = {
+			isa = PBXGroup;
+			children = (
+				4CFE66541B7BB865008F3EBD /* AppDelegate.swift */,
+				4CFE66561B7BB865008F3EBD /* ViewController.swift */,
+				4C68BADF1B7D012B0081BECE /* LoginViewController.swift */,
+				4C68BAE11B7D01840081BECE /* SFNetwork.swift */,
+				4CFE66581B7BB865008F3EBD /* Main.storyboard */,
+				4CFE665B1B7BB865008F3EBD /* Images.xcassets */,
+				4CFE665D1B7BB865008F3EBD /* LaunchScreen.xib */,
+				4CFE66521B7BB865008F3EBD /* Supporting Files */,
+			);
+			path = Dixit;
+			sourceTree = "<group>";
+		};
+		4CFE66521B7BB865008F3EBD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4C68BADD1B7CD0220081BECE /* config.xml */,
+				4CFE66531B7BB865008F3EBD /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4CFE66671B7BB865008F3EBD /* DixitTests */ = {
+			isa = PBXGroup;
+			children = (
+				4CFE666A1B7BB865008F3EBD /* DixitTests.swift */,
+				4CFE66681B7BB865008F3EBD /* Supporting Files */,
+			);
+			path = DixitTests;
+			sourceTree = "<group>";
+		};
+		4CFE66681B7BB865008F3EBD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4CFE66691B7BB865008F3EBD /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4CFE66781B7BBBDD008F3EBD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4C7D69181B7BBEA200FA1FE8 /* SFS2XAPIIOS.framework */,
+				4CFE66761B7BBAED008F3EBD /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4CFE664E1B7BB865008F3EBD /* Dixit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4CFE666E1B7BB865008F3EBD /* Build configuration list for PBXNativeTarget "Dixit" */;
+			buildPhases = (
+				4CFE664B1B7BB865008F3EBD /* Sources */,
+				4CFE664C1B7BB865008F3EBD /* Frameworks */,
+				4CFE664D1B7BB865008F3EBD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Dixit;
+			productName = Dixit;
+			productReference = 4CFE664F1B7BB865008F3EBD /* Dixit.app */;
+			productType = "com.apple.product-type.application";
+		};
+		4CFE66631B7BB865008F3EBD /* DixitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4CFE66711B7BB865008F3EBD /* Build configuration list for PBXNativeTarget "DixitTests" */;
+			buildPhases = (
+				4CFE66601B7BB865008F3EBD /* Sources */,
+				4CFE66611B7BB865008F3EBD /* Frameworks */,
+				4CFE66621B7BB865008F3EBD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4CFE66661B7BB865008F3EBD /* PBXTargetDependency */,
+			);
+			name = DixitTests;
+			productName = DixitTests;
+			productReference = 4CFE66641B7BB865008F3EBD /* DixitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4CFE66471B7BB865008F3EBD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+				ORGANIZATIONNAME = "Keyboard and Mouse";
+				TargetAttributes = {
+					4CFE664E1B7BB865008F3EBD = {
+						CreatedOnToolsVersion = 6.4;
+					};
+					4CFE66631B7BB865008F3EBD = {
+						CreatedOnToolsVersion = 6.4;
+						TestTargetID = 4CFE664E1B7BB865008F3EBD;
+					};
+				};
+			};
+			buildConfigurationList = 4CFE664A1B7BB865008F3EBD /* Build configuration list for PBXProject "Dixit" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 4CFE66461B7BB865008F3EBD;
+			productRefGroup = 4CFE66501B7BB865008F3EBD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4CFE664E1B7BB865008F3EBD /* Dixit */,
+				4CFE66631B7BB865008F3EBD /* DixitTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4CFE664D1B7BB865008F3EBD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4CFE665A1B7BB865008F3EBD /* Main.storyboard in Resources */,
+				4CFE665F1B7BB865008F3EBD /* LaunchScreen.xib in Resources */,
+				4CFE665C1B7BB865008F3EBD /* Images.xcassets in Resources */,
+				4C68BADE1B7CD0220081BECE /* config.xml in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4CFE66621B7BB865008F3EBD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4CFE664B1B7BB865008F3EBD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C68BAE01B7D012B0081BECE /* LoginViewController.swift in Sources */,
+				4C68BAE21B7D01840081BECE /* SFNetwork.swift in Sources */,
+				4CFE66571B7BB865008F3EBD /* ViewController.swift in Sources */,
+				4CFE66551B7BB865008F3EBD /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4CFE66601B7BB865008F3EBD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4CFE666B1B7BB865008F3EBD /* DixitTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4CFE66661B7BB865008F3EBD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4CFE664E1B7BB865008F3EBD /* Dixit */;
+			targetProxy = 4CFE66651B7BB865008F3EBD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		4CFE66581B7BB865008F3EBD /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4CFE66591B7BB865008F3EBD /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		4CFE665D1B7BB865008F3EBD /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4CFE665E1B7BB865008F3EBD /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4CFE666C1B7BB865008F3EBD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4CFE666D1B7BB865008F3EBD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4CFE666F1B7BB865008F3EBD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = Dixit/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lz",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
+			};
+			name = Debug;
+		};
+		4CFE66701B7BB865008F3EBD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = Dixit/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lz",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
+			};
+			name = Release;
+		};
+		4CFE66721B7BB865008F3EBD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = DixitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Dixit.app/Dixit";
+			};
+			name = Debug;
+		};
+		4CFE66731B7BB865008F3EBD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = DixitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Dixit.app/Dixit";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4CFE664A1B7BB865008F3EBD /* Build configuration list for PBXProject "Dixit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4CFE666C1B7BB865008F3EBD /* Debug */,
+				4CFE666D1B7BB865008F3EBD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4CFE666E1B7BB865008F3EBD /* Build configuration list for PBXNativeTarget "Dixit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4CFE666F1B7BB865008F3EBD /* Debug */,
+				4CFE66701B7BB865008F3EBD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4CFE66711B7BB865008F3EBD /* Build configuration list for PBXNativeTarget "DixitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4CFE66721B7BB865008F3EBD /* Debug */,
+				4CFE66731B7BB865008F3EBD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4CFE66471B7BB865008F3EBD /* Project object */;
+}
