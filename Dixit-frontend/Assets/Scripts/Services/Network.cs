@@ -171,8 +171,6 @@ public class Network
         // Reset the status. 
         _pendingCallbacks[TaskType.ServerConnect] = callback;
 
-        _smartFox = new SmartFox();
-
         // Setup all the callbacks.
         RegisterEventListeners();
 

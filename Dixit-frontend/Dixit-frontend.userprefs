@@ -1,12 +1,29 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\MenuController.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Controllers/RoomsController.cs">
     <Files>
-      <File FileName="Assets\Scripts\HomeController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\MenuController.cs" Line="70" Column="39" />
-      <File FileName="Assets\Scripts\SmartFoxConnector.cs" Line="14" Column="1" />
-      <File FileName="Assets\Scripts\SmartFoxConnection.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/LoadImageUrl.cs" Line="35" Column="6" />
+      <File FileName="Assets/Scripts/Services/SmartFoxConnection.cs" Line="41" Column="6" />
+      <File FileName="Assets/Scripts/Services/Network.cs" Line="173" Column="1" />
+      <File FileName="Assets/Scripts/Controllers/RoomDetailController.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Controllers/RoomPanelItemController.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Controllers/RoomsController.cs" Line="51" Column="5" />
+      <File FileName="Assets/Scripts/Controllers/HomeController.cs" Line="19" Column="18" />
     </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Dixit-frontend" expanded="True" selected="True">
+            <Node name="Assembly-CSharp" expanded="True">
+              <Node name="Scripts" expanded="True">
+                <Node name="Controllers" expanded="True" />
+                <Node name="Services" expanded="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
