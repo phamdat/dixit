@@ -8,17 +8,18 @@
 
 import UIKit
 
-class LoginViewController : UIViewController
+class LoginViewController : BaseViewController
 {
     @IBOutlet weak var nameText: UITextField!
-    @IBOutlet weak var loginButton: UIButton!
-    
-    let network : SFNetwork
+    @IBOutlet weak var loginButton: UIButton!    
     
     required init(coder aDecoder: NSCoder)
     {
-        network = SFNetwork.sharedInstance
         super.init(coder: aDecoder)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()        
     }
     
     @IBAction func login(sender: UIButton) {
@@ -26,6 +27,8 @@ class LoginViewController : UIViewController
         network.login(name, password: "", callback: {
             (result : Result) -> () in
             println("login roi ne hehe")
+            self.performSegueWithIdentifier("roomLobbySegue", sender: sender)
         })
     }
+    
 }

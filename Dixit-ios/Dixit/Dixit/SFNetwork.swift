@@ -21,7 +21,7 @@ enum TaskType
 }
 
 public enum Result {
-    case Success()
+    case Success(AnyObject?)
     case Failure(String?)
 }
 
@@ -33,13 +33,12 @@ class SFNetwork : NSObject, ISFSEvents
     
     var pendingCallbacks = Dictionary<TaskType, Result -> ()>()
     var extensionCallbacks = Dictionary<String, ((SFSObject, Result) -> ())?>()
+    
+    var incomingData : ((TaskType, AnyObject?) -> ())?
 
     var rooms : [AnyObject]
     {
-        get
-        {
-            return smartFox.roomList
-        }
+        get { return smartFox.roomList }
     }
     
     required override init()
@@ -83,12 +82,13 @@ class SFNetwork : NSObject, ISFSEvents
         smartFox.send(LoginRequest(userName: username, password: password, zoneName: "Dixit", params: nil))
     }
     
-    func createRoom(callback : (Result -> ()))
+    func createRoom(callback : (Result -> ())?)
     {
         pendingCallbacks[TaskType.RoomAdd] = callback
         let room = RoomSettings(name: "room \(rooms.count + 1)")
         room.isGame = true
         room.maxUsers = 10
+        smartFox.send(CreateRoomRequest(roomSettings: room, autoJoin: true, roomToLeave: nil))
     }
     
     func sendExtension(cmd : String, data : SFSObject?, room : Room?, callback : ((SFSObject, Result) -> ()))
@@ -101,7 +101,7 @@ class SFNetwork : NSObject, ISFSEvents
     }
     
     func onConfigLoadSuccess(evt: SFSEvent!) {
-        executeAndRemoveCallback(TaskType.LoadConfig, result: Result.Success())
+        executeAndRemoveCallback(TaskType.LoadConfig, result: Result.Success(nil))
     }
     
     func onConfigLoadFailure(evt: SFSEvent!) {
@@ -113,7 +113,7 @@ class SFNetwork : NSObject, ISFSEvents
     func onConnection(evt: SFSEvent!) {
         let success : Bool = (evt.params["success"] as? Bool)!
         println("nhin ne \(success)")
-        executeAndRemoveCallback(TaskType.ServerConnect, result: Result.Success())
+        executeAndRemoveCallback(TaskType.ServerConnect, result: Result.Success(nil))
     }
     
     func onConnectionLost(evt: SFSEvent!) {
@@ -129,7 +129,7 @@ class SFNetwork : NSObject, ISFSEvents
             
         }
         
-        executeAndRemoveCallback(TaskType.Login, result: Result.Success())
+        executeAndRemoveCallback(TaskType.Login, result: Result.Success(nil))
     }
     
     func onLoginError(evt: SFSEvent!) {
@@ -151,8 +151,13 @@ class SFNetwork : NSObject, ISFSEvents
         if room != nil
         {
             println("room added")
-            
+            if let action = incomingData
+            {
+                action(TaskType.RoomAdd, room)
+            }
         }
+        
+        executeAndRemoveCallback(TaskType.RoomAdd, result: Result.Success(nil))
     }
     
     func handleRequestError(evt : SFSEvent!, taskType : TaskType)
@@ -160,5 +165,5 @@ class SFNetwork : NSObject, ISFSEvents
         let msg = (evt.params["errorMessage"] as? String)
         println(msg)
         executeAndRemoveCallback(taskType, result: Result.Failure(msg))
-    }
+    }    
 }
