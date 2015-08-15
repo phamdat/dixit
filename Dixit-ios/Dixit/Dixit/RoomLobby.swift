@@ -31,6 +31,14 @@ class RoomLobbyViewController : BaseViewController
         setupTableView()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        if let rooms = network.rooms as? [Room]
+        {
+            self.tableDataSource.rooms = rooms
+            roomTable.reloadData()
+        }
+    }
+    
     func setupEvent()
     {
         network.incomingData = { (taskType : TaskType, data : AnyObject?) -> () in
@@ -43,9 +51,25 @@ class RoomLobbyViewController : BaseViewController
                     self.tableDataSource.rooms.append(room)
                     self.roomTable.reloadData()
                 }
-                break;
+                break
+            case TaskType.RoomRemove:
+                if let room = data as? Room
+                {
+                    for var i = 0; i < self.tableDataSource.rooms.count; i++
+                    {
+                        let r = self.tableDataSource.rooms[i]
+                        
+                        if r.id() == room.id()
+                        {
+                            self.tableDataSource.rooms.removeAtIndex(i)
+                            break
+                        }                        
+                    }
+                    self.roomTable.reloadData()
+                }
+                break
             default:
-                break;
+                break
             }
         }
     }
@@ -59,6 +83,8 @@ class RoomLobbyViewController : BaseViewController
         roomTable.backgroundColor = UIColor(red: 40, green: 40, blue: 40, alpha: 1)
         roomTable.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         roomTable.scrollIndicatorInsets = roomTable!.contentInset
+        
+        
         
 //        roomTable.estimatedRowHeight = 44
 //        roomTable.rowHeight = UITableViewAutomaticDimension
@@ -74,10 +100,28 @@ class RoomLobbyViewController : BaseViewController
     func addRoom(sender : UIBarButtonItem) -> ()
     {
         println("add room")
-        network.createRoom({Result -> () in
-            
+        network.createRoom({ result -> () in
+            println("tao xong roi ne, join ne")
+            switch result
+            {
+            case Result.Success(let room):
+                UserInfo.sharedInstance.currentRoom = room as? Room
+                self.performSegueWithIdentifier("joinRoomSegue", sender: self)
+                break
+            default:
+                break
+            }
         })
         
+    }
+    
+    func joinRoom(room : Room)
+    {
+        network.joinRoom(room, callback: {
+            (result : Result) -> () in
+            UserInfo.sharedInstance.currentRoom = room
+            self.performSegueWithIdentifier("joinRoomSegue", sender: self)
+        })
     }
     
 }
@@ -115,10 +159,16 @@ class RoomTableDataSource : NSObject, UITableViewDataSource, UITableViewDelegate
             cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: simpleTableIdentifier)
         }
         
+        let room = rooms[indexPath.row] as Room
+        let roomName = cell?.viewWithTag(1) as! UILabel
+        roomName.text = room.name()
+        
         return cell!
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.controller?.performSegueWithIdentifier("joinRoomSegue", sender: self.controller)
+//        UserInfo.sharedInstance.currentRoom = rooms[indexPath.row]
+        controller?.joinRoom(rooms[indexPath.row])
+
     }
 }

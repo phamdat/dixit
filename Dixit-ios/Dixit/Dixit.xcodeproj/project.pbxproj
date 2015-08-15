@@ -19,6 +19,7 @@
 		4CDDB0201B7EDF2200881516 /* RoomItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CDDB01F1B7EDF2200881516 /* RoomItem.xib */; };
 		4CDDB0221B7EDF4B00881516 /* RoomItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDDB0211B7EDF4B00881516 /* RoomItem.swift */; };
 		4CDDB0251B7EF1CE00881516 /* RoomLobby.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDDB0241B7EF1CE00881516 /* RoomLobby.swift */; };
+		4CE392371B7F57C30032F3EC /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE392361B7F57C30032F3EC /* UserInfo.swift */; };
 		4CFE66551B7BB865008F3EBD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFE66541B7BB865008F3EBD /* AppDelegate.swift */; };
 		4CFE66571B7BB865008F3EBD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFE66561B7BB865008F3EBD /* ViewController.swift */; };
 		4CFE665A1B7BB865008F3EBD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CFE66581B7BB865008F3EBD /* Main.storyboard */; };
@@ -52,6 +53,7 @@
 		4CDDB01F1B7EDF2200881516 /* RoomItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RoomItem.xib; sourceTree = "<group>"; };
 		4CDDB0211B7EDF4B00881516 /* RoomItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomItem.swift; sourceTree = "<group>"; };
 		4CDDB0241B7EF1CE00881516 /* RoomLobby.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomLobby.swift; sourceTree = "<group>"; };
+		4CE392361B7F57C30032F3EC /* UserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		4CFE664F1B7BB865008F3EBD /* Dixit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dixit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CFE66531B7BB865008F3EBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4CFE66541B7BB865008F3EBD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 			children = (
 				4C68BAE11B7D01840081BECE /* SFNetwork.swift */,
 				4CD85BC11B7F327800CB3185 /* FontHelper.swift */,
+				4CE392361B7F57C30032F3EC /* UserInfo.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -299,6 +302,7 @@
 				4CFE66571B7BB865008F3EBD /* ViewController.swift in Sources */,
 				4CD042891B7F407F00057D10 /* RoomDetailViewController.swift in Sources */,
 				4CFE66551B7BB865008F3EBD /* AppDelegate.swift in Sources */,
+				4CE392371B7F57C30032F3EC /* UserInfo.swift in Sources */,
 				4CDDB0221B7EDF4B00881516 /* RoomItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

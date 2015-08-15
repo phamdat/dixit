@@ -16,8 +16,11 @@ enum TaskType
     case JoinRoom
     case LeaveRoom
     case RoomAdd
+    case RoomRemove
     case RoomFind
     case LoadConfig
+    case UserExitRoom
+    case UserEnterRoom
 }
 
 public enum Result {
@@ -25,7 +28,7 @@ public enum Result {
     case Failure(String?)
 }
 
-class SFNetwork : NSObject, ISFSEvents
+final class SFNetwork : NSObject, ISFSEvents
 {
     static let sharedInstance = SFNetwork()
     
@@ -46,14 +49,17 @@ class SFNetwork : NSObject, ISFSEvents
         super.init()
     }
     
-    func executeAndRemoveCallback(taskType : TaskType, result : Result)
+    func executeAndRemoveCallback(taskType : TaskType, result : Result) -> Bool
     {
         let action = pendingCallbacks[taskType]
         if action != nil
         {
             action!(result)
             pendingCallbacks.removeValueForKey(taskType)
+            return true
         }
+        
+        return false
     }
     
     func start(callback : (Result -> ())?)
@@ -73,22 +79,42 @@ class SFNetwork : NSObject, ISFSEvents
     func joinRoom(room : Room, callback : (Result -> ())?)
     {
         pendingCallbacks[TaskType.JoinRoom] = callback
-        smartFox.send(JoinRoomRequest(id: room.id()))
+        if let request = JoinRoomRequest.requestWithId(room.name()) as? JoinRoomRequest
+        {
+            smartFox.send(request)
+        }
     }
     
     func login(username : String, password : String, callback : (Result -> ())?)
     {
         pendingCallbacks[TaskType.Login] = callback
-        smartFox.send(LoginRequest(userName: username, password: password, zoneName: "Dixit", params: nil))
+        smartFox.send(LoginRequest(userName: username, password: password, zoneName: "BasicExamples", params: nil))
     }
     
     func createRoom(callback : (Result -> ())?)
     {
         pendingCallbacks[TaskType.RoomAdd] = callback
-        let room = RoomSettings(name: "room \(rooms.count + 1)")
-        room.isGame = true
-        room.maxUsers = 10
-        smartFox.send(CreateRoomRequest(roomSettings: room, autoJoin: true, roomToLeave: nil))
+        let roomSettings = RoomSettings(name: "room \(rooms.count + 1)")
+        roomSettings.isGame = true
+        roomSettings.maxUsers = 10
+        smartFox.send(CreateRoomRequest(roomSettings: roomSettings, autoJoin: true, roomToLeave: nil))    }
+    
+    func leaveRoom(callback : (Result -> ())?)
+    {
+        pendingCallbacks[TaskType.LeaveRoom] = callback
+        if let room = UserInfo.sharedInstance.currentRoom
+        {
+            if let request = LeaveRoomRequest.requestWithRoom(room) as? LeaveRoomRequest
+            {
+                smartFox.send(request)
+            }
+
+        }
+    }
+    
+    func getUsers() -> [User]?
+    {
+        return UserInfo.sharedInstance.currentRoom?.playerList() as? [User]
     }
     
     func sendExtension(cmd : String, data : SFSObject?, room : Room?, callback : ((SFSObject, Result) -> ()))
@@ -123,13 +149,8 @@ class SFNetwork : NSObject, ISFSEvents
     }
     
     func onLogin(evt: SFSEvent!) {
-        let user = (evt.params["user"] as? User)
-        if user != nil
-        {
-            
-        }
-        
-        executeAndRemoveCallback(TaskType.Login, result: Result.Success(nil))
+        let user = (evt.params["user"] as? User)        
+        executeAndRemoveCallback(TaskType.Login, result: Result.Success(user))
     }
     
     func onLoginError(evt: SFSEvent!) {
@@ -139,25 +160,52 @@ class SFNetwork : NSObject, ISFSEvents
     func onRoomJoin(evt: SFSEvent!) {
         let msg = (evt.params["errorMessage"] as? String)
         println(msg)
-        executeAndRemoveCallback(TaskType.Login, result: Result.Failure(msg))
+        executeAndRemoveCallback(TaskType.JoinRoom, result: Result.Failure(msg))
+    }
+    
+    func onUserExitRoom(evt: SFSEvent!) {
+        println("onUserExitRoom")
+        let room = (evt.params["room"] as? Room)
+        let user = (evt.params["user"] as? User)
+        executeAndRemoveCallback(TaskType.UserExitRoom, result: Result.Success(nil))
     }
     
     func onRoomJoinError(evt: SFSEvent!) {
+        println("join error")
         handleRequestError(evt, taskType: TaskType.JoinRoom)
     }
     
     func onRoomAdd(evt: SFSEvent!) {
         let room = evt.params["room"] as? Room
-        if room != nil
+        
+        if !executeAndRemoveCallback(TaskType.RoomAdd, result: Result.Success(room))
         {
-            println("room added")
-            if let action = incomingData
+            if room != nil
             {
-                action(TaskType.RoomAdd, room)
+                println("room added")
+                if let action = incomingData
+                {
+                    action(TaskType.RoomAdd, room)
+                }
             }
         }
+    }
+    
+    func onRoomRemove(evt: SFSEvent!) {
+        let room = evt.params["room"] as? Room
         
-        executeAndRemoveCallback(TaskType.RoomAdd, result: Result.Success(nil))
+        
+        if !executeAndRemoveCallback(TaskType.RoomRemove, result: Result.Success(room))
+        {
+            if room != nil
+            {
+                println("room added")
+                if let action = incomingData
+                {
+                    action(TaskType.RoomRemove, room)
+                }
+            }
+        }
     }
     
     func handleRequestError(evt : SFSEvent!, taskType : TaskType)

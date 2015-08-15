@@ -27,7 +27,18 @@ class LoginViewController : BaseViewController
         network.login(name, password: "", callback: {
             (result : Result) -> () in
             println("login roi ne hehe")
-            self.performSegueWithIdentifier("roomLobbySegue", sender: sender)
+            switch result
+            {
+            case Result.Success(let user):
+                UserInfo.sharedInstance.currentUser = user as? User
+                self.performSegueWithIdentifier("roomLobbySegue", sender: sender)
+                break
+            case Result.Failure(let message):
+                println("login fail roi ne")
+                break
+            default:
+                break
+            }
         })
     }
     

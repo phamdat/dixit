@@ -11,7 +11,7 @@ import UIKit
 
 class FontHelper
 {
-    init()
+    required init()
     {
         
     }
