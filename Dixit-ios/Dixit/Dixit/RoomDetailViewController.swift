@@ -28,12 +28,38 @@ class RoomDetailViewController : BaseViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupEvent()
         setupBarButtons()
-
         setupTable()
 
-        playerSource.players = self.getCurrentPlayers()!
-        participantTable.reloadData()
+        refreshTable()
+    }
+    
+    private func refreshTable()
+    {
+        if let players = self.getCurrentPlayers()
+        {
+            playerSource.players = players
+            participantTable.reloadData()
+        }
+    }
+    
+    private func setupEvent()
+    {
+        network.incomingData.append({ (taskType, data) -> () in
+            
+            switch taskType
+            {
+            case TaskType.UserEnterRoom:
+                self.refreshTable()
+                break
+            case TaskType.UserExitRoom:
+                self.refreshTable()
+                break
+            default:
+                break
+            }
+        })
     }
     
     private func setupTable()
@@ -66,9 +92,15 @@ class RoomDetailViewController : BaseViewController
         println("request leave room")
         network.leaveRoom({ (result : Result) -> () in
             println("leave room success")
-            
         })
-        self.navigationController?.popViewControllerAnimated(true)
+        
+        for controller in self.navigationController!.viewControllers
+        {
+            if controller is RoomLobbyViewController
+            {
+                self.navigationController?.popToViewController(controller as! UIViewController, animated: true)
+            }
+        }
     }
 }
 

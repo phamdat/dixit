@@ -32,23 +32,11 @@
                                     <segue destination="x63-I1-eqJ" kind="show" id="DEI-E6-7y0"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oeh-nL-QSX">
-                                <rect key="frame" x="191" y="174" width="219" height="46"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="219" id="BZh-Ij-1VG"/>
-                                    <constraint firstAttribute="height" constant="46" id="vew-I7-uht"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="oeh-nL-QSX" firstAttribute="centerX" secondItem="r0S-HU-eLM" secondAttribute="centerX" id="5pz-Hf-mlb"/>
                             <constraint firstAttribute="centerY" secondItem="r0S-HU-eLM" secondAttribute="centerY" constant="0.5" id="FdY-0J-9qs"/>
                             <constraint firstAttribute="centerX" secondItem="r0S-HU-eLM" secondAttribute="centerX" constant="-0.5" id="iCy-kV-HKo"/>
-                            <constraint firstItem="r0S-HU-eLM" firstAttribute="top" secondItem="oeh-nL-QSX" secondAttribute="bottom" constant="58" id="ieN-hV-H4L"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Menu game" id="xoO-cG-tLT">
@@ -56,7 +44,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="playButton" destination="r0S-HU-eLM" id="wOP-OO-I11"/>
-                        <outlet property="statusLabel" destination="oeh-nL-QSX" id="EPZ-Vu-r3Q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -186,7 +173,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Room Lobby" id="9yH-lJ-OLN">
-                        <barButtonItem key="rightBarButtonItem" title="Add room" id="CyS-53-lRS"/>
+                        <barButtonItem key="rightBarButtonItem" title="Create room" id="CyS-53-lRS">
+                            <connections>
+                                <segue destination="FYK-E0-gIz" kind="show" identifier="prepareRoomSegue" id="Nxy-sj-0Bi"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="addRoomBarButton" destination="CyS-53-lRS" id="UXd-VD-bXx"/>
@@ -197,6 +188,83 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e2t-RF-bTl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2354" y="352"/>
+        </scene>
+        <!--Create Room-->
+        <scene sceneID="sZ3-kP-gbH">
+            <objects>
+                <viewController id="FYK-E0-gIz" customClass="RoomCreationViewController" customModule="Dixit" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="nkR-0y-MLd"/>
+                        <viewControllerLayoutGuide type="bottom" id="kaH-Lc-6hg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dZz-GD-jcu">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fXR-dz-4Mz">
+                                <rect key="frame" x="16" y="86" width="46" height="21"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="idv-gW-xjn">
+                                <rect key="frame" x="16" y="136" width="88" height="21"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IWc-zr-mWA">
+                                <rect key="frame" x="140" y="77" width="436" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0hV-ip-OlI">
+                                <rect key="frame" x="139" y="136" width="437" height="139"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="139" id="NQ7-bL-Qh9"/>
+                                </constraints>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="IWc-zr-mWA" firstAttribute="leading" secondItem="fXR-dz-4Mz" secondAttribute="trailing" constant="78" id="36k-Yg-A7x"/>
+                            <constraint firstItem="0hV-ip-OlI" firstAttribute="top" secondItem="IWc-zr-mWA" secondAttribute="bottom" constant="29" id="DKo-gQ-ISE"/>
+                            <constraint firstItem="fXR-dz-4Mz" firstAttribute="top" secondItem="nkR-0y-MLd" secondAttribute="bottom" constant="22" id="Dsd-RN-YOV"/>
+                            <constraint firstItem="idv-gW-xjn" firstAttribute="top" secondItem="fXR-dz-4Mz" secondAttribute="bottom" constant="29" id="E2j-GK-x83"/>
+                            <constraint firstItem="IWc-zr-mWA" firstAttribute="top" secondItem="nkR-0y-MLd" secondAttribute="bottom" constant="13" id="T4R-y2-rRn"/>
+                            <constraint firstItem="fXR-dz-4Mz" firstAttribute="leading" secondItem="dZz-GD-jcu" secondAttribute="leadingMargin" id="T7R-K5-y5u"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="0hV-ip-OlI" secondAttribute="trailing" constant="8" id="iiQ-ab-6a8"/>
+                            <constraint firstItem="0hV-ip-OlI" firstAttribute="leading" secondItem="idv-gW-xjn" secondAttribute="trailing" constant="36" id="jn4-ic-z0j"/>
+                            <constraint firstItem="idv-gW-xjn" firstAttribute="leading" secondItem="dZz-GD-jcu" secondAttribute="leadingMargin" id="kAN-zC-nFX"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="IWc-zr-mWA" secondAttribute="trailing" constant="8" id="yEZ-f3-Db8"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Create Room" id="m2b-K3-VKt">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="7u2-Nf-UVc">
+                            <connections>
+                                <action selector="cancel:" destination="FYK-E0-gIz" id="gYs-0w-dQg"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Create" id="xRd-Jz-4cy">
+                            <connections>
+                                <action selector="createRoom:" destination="FYK-E0-gIz" id="XMw-36-zYc"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="cancelBarButton" destination="7u2-Nf-UVc" id="SgS-aj-hgS"/>
+                        <outlet property="createBarButton" destination="xRd-Jz-4cy" id="Vcv-sG-94K"/>
+                        <outlet property="nameText" destination="IWc-zr-mWA" id="1QG-yt-AaH"/>
+                        <segue destination="ZxB-go-MCq" kind="show" identifier="createRoomSegue" id="XoO-xd-j4G"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dml-d5-4sM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3097" y="-68"/>
         </scene>
         <!--Title-->
         <scene sceneID="EDY-KT-Q1D">
@@ -283,7 +351,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jsk-Z6-QGQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3077" y="352"/>
+            <point key="canvasLocation" x="3097" y="710"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="27X-HG-wdn">
@@ -302,4 +370,7 @@
             <point key="canvasLocation" x="155" y="352"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="XoO-xd-j4G"/>
+    </inferredMetricsTieBreakers>
 </document>

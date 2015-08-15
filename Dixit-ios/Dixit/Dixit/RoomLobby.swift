@@ -41,7 +41,7 @@ class RoomLobbyViewController : BaseViewController
     
     func setupEvent()
     {
-        network.incomingData = { (taskType : TaskType, data : AnyObject?) -> () in
+        network.incomingData.append({ (taskType, data) -> () in
             
             switch taskType
             {
@@ -71,7 +71,7 @@ class RoomLobbyViewController : BaseViewController
             default:
                 break
             }
-        }
+        })
     }
     
     func setupTableView()
@@ -93,26 +93,6 @@ class RoomLobbyViewController : BaseViewController
     func setupBarButtons()
     {
         FontHelper.ApplyFont(addRoomBarButton, fontName: "streamline-24px", fontCharacter: UniChar(0xe2ab), size: 16)
-        addRoomBarButton.target = self
-        addRoomBarButton.action = Selector("addRoom:")
-    }
-    
-    func addRoom(sender : UIBarButtonItem) -> ()
-    {
-        println("add room")
-        network.createRoom({ result -> () in
-            println("tao xong roi ne, join ne")
-            switch result
-            {
-            case Result.Success(let room):
-                UserInfo.sharedInstance.currentRoom = room as? Room
-                self.performSegueWithIdentifier("joinRoomSegue", sender: self)
-                break
-            default:
-                break
-            }
-        })
-        
     }
     
     func joinRoom(room : Room)
@@ -167,7 +147,6 @@ class RoomTableDataSource : NSObject, UITableViewDataSource, UITableViewDelegate
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//        UserInfo.sharedInstance.currentRoom = rooms[indexPath.row]
         controller?.joinRoom(rooms[indexPath.row])
 
     }

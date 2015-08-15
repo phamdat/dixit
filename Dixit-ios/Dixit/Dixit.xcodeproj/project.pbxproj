@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4C4637121B7E6AF600EFD716 /* streamlineicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4C4637111B7E6AF600EFD716 /* streamlineicons.ttf */; };
 		4C4637141B7E75B200EFD716 /* BaseFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4637131B7E75B200EFD716 /* BaseFont.swift */; };
+		4C501E311B7F8F8500BF1DE6 /* RoomCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C501E301B7F8F8500BF1DE6 /* RoomCreationViewController.swift */; };
 		4C68BADE1B7CD0220081BECE /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4C68BADD1B7CD0220081BECE /* config.xml */; };
 		4C68BAE01B7D012B0081BECE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C68BADF1B7D012B0081BECE /* LoginViewController.swift */; };
 		4C68BAE21B7D01840081BECE /* SFNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C68BAE11B7D01840081BECE /* SFNetwork.swift */; };
@@ -42,6 +43,7 @@
 /* Begin PBXFileReference section */
 		4C4637111B7E6AF600EFD716 /* streamlineicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = streamlineicons.ttf; sourceTree = "<group>"; };
 		4C4637131B7E75B200EFD716 /* BaseFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseFont.swift; sourceTree = "<group>"; };
+		4C501E301B7F8F8500BF1DE6 /* RoomCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomCreationViewController.swift; sourceTree = "<group>"; };
 		4C68BADD1B7CD0220081BECE /* config.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = config.xml; sourceTree = "<group>"; };
 		4C68BADF1B7D012B0081BECE /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4C68BAE11B7D01840081BECE /* SFNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFNetwork.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 				4CDDB0241B7EF1CE00881516 /* RoomLobby.swift */,
 				4CD042881B7F407F00057D10 /* RoomDetailViewController.swift */,
 				4CD0428A1B7F4F1900057D10 /* BaseViewController.swift */,
+				4C501E301B7F8F8500BF1DE6 /* RoomCreationViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 				4CDDB0251B7EF1CE00881516 /* RoomLobby.swift in Sources */,
 				4CD85BC21B7F327800CB3185 /* FontHelper.swift in Sources */,
 				4C68BAE21B7D01840081BECE /* SFNetwork.swift in Sources */,
+				4C501E311B7F8F8500BF1DE6 /* RoomCreationViewController.swift in Sources */,
 				4C4637141B7E75B200EFD716 /* BaseFont.swift in Sources */,
 				4CD0428B1B7F4F1900057D10 /* BaseViewController.swift in Sources */,
 				4CFE66571B7BB865008F3EBD /* ViewController.swift in Sources */,

@@ -37,7 +37,7 @@ final class SFNetwork : NSObject, ISFSEvents
     var pendingCallbacks = Dictionary<TaskType, Result -> ()>()
     var extensionCallbacks = Dictionary<String, ((SFSObject, Result) -> ())?>()
     
-    var incomingData : ((TaskType, AnyObject?) -> ())?
+    var incomingData : Array<((TaskType, AnyObject?) -> ())?> = Array<((TaskType, AnyObject?) -> ())?>()
 
     var rooms : [AnyObject]
     {
@@ -46,6 +46,7 @@ final class SFNetwork : NSObject, ISFSEvents
     
     required override init()
     {
+
         super.init()
     }
     
@@ -91,10 +92,19 @@ final class SFNetwork : NSObject, ISFSEvents
         smartFox.send(LoginRequest(userName: username, password: password, zoneName: "BasicExamples", params: nil))
     }
     
-    func createRoom(callback : (Result -> ())?)
+    func createRoom(roomName: String?, callback : (Result -> ())?)
     {
         pendingCallbacks[TaskType.RoomAdd] = callback
-        let roomSettings = RoomSettings(name: "room \(rooms.count + 1)")
+        var roomSettings: RoomSettings
+        if let name = roomName
+        {
+            roomSettings = RoomSettings(name: roomName)
+        }
+        else
+        {
+            roomSettings = RoomSettings(name: "\(UserInfo.sharedInstance.currentUser?.name())'s Room")
+        }
+        
         roomSettings.isGame = true
         roomSettings.maxUsers = 10
         smartFox.send(CreateRoomRequest(roomSettings: roomSettings, autoJoin: true, roomToLeave: nil))    }
@@ -114,7 +124,9 @@ final class SFNetwork : NSObject, ISFSEvents
     
     func getUsers() -> [User]?
     {
-        return UserInfo.sharedInstance.currentRoom?.playerList() as? [User]
+        
+            return UserInfo.sharedInstance.currentRoom?.playerList() as? [User]
+        
     }
     
     func sendExtension(cmd : String, data : SFSObject?, room : Room?, callback : ((SFSObject, Result) -> ()))
@@ -183,28 +195,41 @@ final class SFNetwork : NSObject, ISFSEvents
             if room != nil
             {
                 println("room added")
-                if let action = incomingData
+                for action in incomingData
                 {
-                    action(TaskType.RoomAdd, room)
+                    if action != nil
+                    {
+                        action!(TaskType.RoomAdd, room)
+                    }
                 }
+//                if let action = incomingData
+//                {
+//                    action(TaskType.RoomAdd, room)
+//                }
             }
         }
     }
     
     func onRoomRemove(evt: SFSEvent!) {
-        let room = evt.params["room"] as? Room
-        
+        let room = evt.params["room"] as? Room        
         
         if !executeAndRemoveCallback(TaskType.RoomRemove, result: Result.Success(room))
         {
-            if room != nil
+            
+            println("room removed")
+            for action in incomingData
             {
-                println("room added")
-                if let action = incomingData
+                if action != nil
                 {
-                    action(TaskType.RoomRemove, room)
+                    action!(TaskType.RoomRemove, room)
                 }
             }
+
+//            if let action = incomingData
+//            {
+//                action(TaskType.RoomRemove, room)
+//            }
+            
         }
     }
     
