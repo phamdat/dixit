@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>8818DD1E-0EFC-4497-9B1A-0D25340EA638</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>Dixit</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>F9C23DB9927E808E5981FDAC75B4EACA1BB419C6</key>
 		<string>github.com:phamdat/dixit.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Dixit-ios/Dixit/Dixit.xcodeproj/project.xcworkspace</string>
+	<string>Dixit-ios/Dixit/Dixit.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>F9C23DB9927E808E5981FDAC75B4EACA1BB419C6</key>

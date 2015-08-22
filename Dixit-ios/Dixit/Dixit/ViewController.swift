@@ -23,7 +23,7 @@ class ViewController: UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.edgesForExtendedLayout = UIRectEdge.None
+//        self.edgesForExtendedLayout = UIRectEdge.None
         
         self.title = "Menu"
         

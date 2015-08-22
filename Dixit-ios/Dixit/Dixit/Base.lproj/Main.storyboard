@@ -39,9 +39,7 @@
                             <constraint firstAttribute="centerX" secondItem="r0S-HU-eLM" secondAttribute="centerX" constant="-0.5" id="iCy-kV-HKo"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Menu game" id="xoO-cG-tLT">
-                        <barButtonItem key="rightBarButtonItem" title="+" id="eGH-NY-NIZ"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Menu game" id="xoO-cG-tLT"/>
                     <connections>
                         <outlet property="playButton" destination="r0S-HU-eLM" id="wOP-OO-I11"/>
                     </connections>
@@ -313,7 +311,7 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5dg-Gp-Sc6">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5dg-Gp-Sc6">
                                 <rect key="frame" x="16" y="108" width="568" height="132"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -353,6 +351,24 @@
             </objects>
             <point key="canvasLocation" x="3097" y="710"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="eSg-gM-bzD">
+            <objects>
+                <viewController id="Wpb-u5-otb" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="x4X-7R-VZO"/>
+                        <viewControllerLayoutGuide type="bottom" id="pF6-vh-1G2"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="JuM-ri-YNJ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ezw-pw-uvb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3777" y="336"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="27X-HG-wdn">
             <objects>
@@ -371,6 +387,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="XoO-xd-j4G"/>
+        <segue reference="ORr-Zj-MFF"/>
     </inferredMetricsTieBreakers>
 </document>

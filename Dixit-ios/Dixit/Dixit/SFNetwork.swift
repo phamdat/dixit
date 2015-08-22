@@ -38,6 +38,8 @@ final class SFNetwork : NSObject, ISFSEvents
     var extensionCallbacks = Dictionary<String, ((SFSObject, Result) -> ())?>()
     
     var incomingData : Array<((TaskType, AnyObject?) -> ())?> = Array<((TaskType, AnyObject?) -> ())?>()
+    
+
 
     var rooms : [AnyObject]
     {
@@ -52,10 +54,9 @@ final class SFNetwork : NSObject, ISFSEvents
     
     func executeAndRemoveCallback(taskType : TaskType, result : Result) -> Bool
     {
-        let action = pendingCallbacks[taskType]
-        if action != nil
+        if let action = pendingCallbacks[taskType]
         {
-            action!(result)
+            action(result)
             pendingCallbacks.removeValueForKey(taskType)
             return true
         }
@@ -180,6 +181,27 @@ final class SFNetwork : NSObject, ISFSEvents
         let room = (evt.params["room"] as? Room)
         let user = (evt.params["user"] as? User)
         executeAndRemoveCallback(TaskType.UserExitRoom, result: Result.Success(nil))
+        for action in incomingData
+        {
+            if action != nil
+            {
+                action!(TaskType.UserExitRoom, room)
+            }
+        }
+    }
+    
+    func onUserEnterRoom(evt: SFSEvent!) {
+        println("onUserEnterRoom")
+        let room = (evt.params["room"] as? Room)
+        let user = (evt.params["user"] as? User)
+        executeAndRemoveCallback(TaskType.UserEnterRoom, result: Result.Success(nil))
+        for action in incomingData
+        {
+            if action != nil
+            {
+                action!(TaskType.UserEnterRoom, room)
+            }
+        }
     }
     
     func onRoomJoinError(evt: SFSEvent!) {

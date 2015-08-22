@@ -66,6 +66,7 @@ class RoomDetailViewController : BaseViewController
     {
         participantTable.delegate = playerSource
         participantTable.dataSource = playerSource
+        participantTable.separatorColor = UIColor.clearColor()
     }
     
     private func setupBarButtons()
@@ -107,16 +108,7 @@ class RoomDetailViewController : BaseViewController
 class ParticipantTableSource : NSObject, UITableViewDataSource, UITableViewDelegate
 {
     let participantCell = "participantCell"
-    var players : [User] = [User]()
-    
-//    var rooms : [User]
-//    {
-//        get { return players }
-//        set
-//        {
-//            players = newValue
-//        }
-//    }
+    var players : [User] = [User]()    
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return players.count

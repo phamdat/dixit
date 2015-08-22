@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C1E34741B882A71008A97FC /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1E34731B882A71008A97FC /* GameViewController.swift */; };
 		4C4637121B7E6AF600EFD716 /* streamlineicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4C4637111B7E6AF600EFD716 /* streamlineicons.ttf */; };
 		4C4637141B7E75B200EFD716 /* BaseFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4637131B7E75B200EFD716 /* BaseFont.swift */; };
 		4C501E311B7F8F8500BF1DE6 /* RoomCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C501E301B7F8F8500BF1DE6 /* RoomCreationViewController.swift */; };
@@ -41,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4C1E34731B882A71008A97FC /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		4C4637111B7E6AF600EFD716 /* streamlineicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = streamlineicons.ttf; sourceTree = "<group>"; };
 		4C4637131B7E75B200EFD716 /* BaseFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseFont.swift; sourceTree = "<group>"; };
 		4C501E301B7F8F8500BF1DE6 /* RoomCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomCreationViewController.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				4CD042881B7F407F00057D10 /* RoomDetailViewController.swift */,
 				4CD0428A1B7F4F1900057D10 /* BaseViewController.swift */,
 				4C501E301B7F8F8500BF1DE6 /* RoomCreationViewController.swift */,
+				4C1E34731B882A71008A97FC /* GameViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -300,6 +303,7 @@
 				4CDDB0251B7EF1CE00881516 /* RoomLobby.swift in Sources */,
 				4CD85BC21B7F327800CB3185 /* FontHelper.swift in Sources */,
 				4C68BAE21B7D01840081BECE /* SFNetwork.swift in Sources */,
+				4C1E34741B882A71008A97FC /* GameViewController.swift in Sources */,
 				4C501E311B7F8F8500BF1DE6 /* RoomCreationViewController.swift in Sources */,
 				4C4637141B7E75B200EFD716 /* BaseFont.swift in Sources */,
 				4CD0428B1B7F4F1900057D10 /* BaseViewController.swift in Sources */,
