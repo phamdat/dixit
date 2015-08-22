@@ -13,11 +13,6 @@ class LoginViewController : BaseViewController
     @IBOutlet weak var nameText: UITextField!
     @IBOutlet weak var loginButton: UIButton!    
     
-    required init(coder aDecoder: NSCoder)
-    {
-        super.init(coder: aDecoder)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()        
     }

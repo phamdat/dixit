@@ -20,11 +20,6 @@ class RoomDetailViewController : BaseViewController
         return ParticipantTableSource()
         }()
     
-    required init(coder aDecoder: NSCoder)
-    {
-        super.init(coder: aDecoder)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -86,6 +81,7 @@ class RoomDetailViewController : BaseViewController
     func startGame(sender : UIBarButtonItem) -> ()
     {
         println("start game")
+        self.performSegueWithIdentifier("startSegue", sender: self)
     }
     
     func quitRoom(sender : UIBarButtonItem) -> ()

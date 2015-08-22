@@ -8,17 +8,9 @@
 
 import UIKit
 
-class ViewController: UIViewController
+class ViewController: BaseViewController
 {
     @IBOutlet weak var playButton: UIButton!
-    
-    var network : SFNetwork
-    
-    required init(coder aDecoder: NSCoder)
-    {
-        network = SFNetwork.sharedInstance
-        super.init(coder: aDecoder)
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

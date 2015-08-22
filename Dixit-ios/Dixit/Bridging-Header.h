@@ -8,3 +8,4 @@
 
 #import <Foundation/Foundation.h>
 #import <SFS2XAPIIOS/SmartFox2XClient.h>
+#import "MWPhotoBrowser.h"

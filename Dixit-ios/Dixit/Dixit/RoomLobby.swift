@@ -18,11 +18,6 @@ class RoomLobbyViewController : BaseViewController
         return RoomTableDataSource(controller: self)
     }()
     
-    required init(coder aDecoder: NSCoder)
-    {
-        super.init(coder: aDecoder)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         

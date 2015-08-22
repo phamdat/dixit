@@ -15,11 +15,6 @@ class RoomCreationViewController : BaseViewController
     @IBOutlet weak var cancelBarButton: UIBarButtonItem!
     @IBOutlet weak var nameText: UITextField!
     
-    required init(coder aDecoder: NSCoder)
-    {
-        super.init(coder: aDecoder)
-    }
-    
     override func viewDidLoad()
     {
         

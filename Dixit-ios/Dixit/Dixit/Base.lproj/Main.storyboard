@@ -264,7 +264,7 @@
             </objects>
             <point key="canvasLocation" x="3097" y="-68"/>
         </scene>
-        <!--Title-->
+        <!--Room Detail-->
         <scene sceneID="EDY-KT-Q1D">
             <objects>
                 <viewController id="ZxB-go-MCq" customClass="RoomDetailViewController" customModule="Dixit" customModuleProvider="target" sceneMemberID="viewController">
@@ -336,7 +336,7 @@
                             <constraint firstItem="8rf-FB-c31" firstAttribute="top" secondItem="5dg-Gp-Sc6" secondAttribute="bottom" constant="8" id="xMK-x9-Pt0"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="V8O-vh-bxk">
+                    <navigationItem key="navigationItem" title="Room Detail" id="V8O-vh-bxk">
                         <barButtonItem key="leftBarButtonItem" title="Quit" id="fAP-2s-xPp"/>
                         <barButtonItem key="rightBarButtonItem" title="Start" id="cLf-0K-rHy"/>
                     </navigationItem>
@@ -345,16 +345,17 @@
                         <outlet property="participantTable" destination="8rf-FB-c31" id="E4k-HC-NJp"/>
                         <outlet property="quitBarButton" destination="fAP-2s-xPp" id="vUe-1W-YTg"/>
                         <outlet property="startBarButton" destination="cLf-0K-rHy" id="7He-jl-oHg"/>
+                        <segue destination="Wpb-u5-otb" kind="show" identifier="startSegue" id="hDR-B0-zVP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jsk-Z6-QGQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3097" y="710"/>
+            <point key="canvasLocation" x="3097" y="700"/>
         </scene>
-        <!--View Controller-->
+        <!--Game View Controller-->
         <scene sceneID="eSg-gM-bzD">
             <objects>
-                <viewController id="Wpb-u5-otb" sceneMemberID="viewController">
+                <viewController id="Wpb-u5-otb" customClass="GameViewController" customModule="Dixit" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="x4X-7R-VZO"/>
                         <viewControllerLayoutGuide type="bottom" id="pF6-vh-1G2"/>
@@ -364,10 +365,34 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="ZI7-2I-t3y">
+                        <barButtonItem key="rightBarButtonItem" title="Select" id="rGB-wT-azg"/>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="bPC-VN-cBn" kind="show" identifier="showResultSegue" id="5PU-K4-m41"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ezw-pw-uvb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3777" y="336"/>
+            <point key="canvasLocation" x="3803" y="700"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="uv3-Fi-3vZ">
+            <objects>
+                <viewController id="bPC-VN-cBn" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="4c2-W3-7eM"/>
+                        <viewControllerLayoutGuide type="bottom" id="ABW-cn-i4z"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="18F-jT-or7">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="M6X-lC-reT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4519" y="700"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="27X-HG-wdn">
@@ -387,6 +412,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="ORr-Zj-MFF"/>
+        <segue reference="XoO-xd-j4G"/>
     </inferredMetricsTieBreakers>
 </document>
