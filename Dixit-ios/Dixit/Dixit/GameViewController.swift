@@ -57,12 +57,12 @@ class MyPhotoDelegate : NSObject, MWPhotoBrowserDelegate
     
     override init ()
     {
-        images.append(DixitImage(url: "http://2.bp.blogspot.com/-dB8yXE-M0lo/T837tmd5MFI/AAAAAAAAGi8/OTWE3mZWqsE/s16000/001.png"))
-        images.append(DixitImage(url: "http://2.bp.blogspot.com/-6rxIBTfCeDQ/T8371ssD4iI/AAAAAAAAGjM/PoTNvLJKyNY/s16000/003.png"))
-        images.append(DixitImage(url: "http://2.bp.blogspot.com/-zFMt0OJDv3w/T837379VO4I/AAAAAAAAGjU/drRbJZm4gP4/s16000/004.png"))
-        images.append(DixitImage(url: "http://2.bp.blogspot.com/-Ils1DsPv49E/T839tFJk5ZI/AAAAAAAAGoE/RePTngQiHB0/s16000/001.png"))
-        images.append(DixitImage(url: "http://2.bp.blogspot.com/-QwuoKIFusF8/T83-lxWEl7I/AAAAAAAAGrA/oNIaKJ1puNE/s16000/024.png"))
-        images.append(DixitImage(url: "http://2.bp.blogspot.com/-YiVIsCiFpl0/T83_HIIjrPI/AAAAAAAAGtM/DpvUlA_ImYU/s16000/040.png"))
+        images.append(DixitImage(url: "https://raw.githubusercontent.com/phamdat/dixit/develop/Dixit-document/Dixit/007bd36fb40ef301270636206036e3ec.jpg"))
+        images.append(DixitImage(url: "https://raw.githubusercontent.com/phamdat/dixit/develop/Dixit-document/Dixit/00af48eb28586e61cdb75ebe551e425c.jpg"))
+        images.append(DixitImage(url: "https://raw.githubusercontent.com/phamdat/dixit/develop/Dixit-document/Dixit/00e8d86482f6501a0a1fadb439422f7f.jpg"))
+        images.append(DixitImage(url: "https://raw.githubusercontent.com/phamdat/dixit/develop/Dixit-document/Dixit/044960ab45ba9ec1cd53c490bb376982.jpg"))
+        images.append(DixitImage(url: "https://raw.githubusercontent.com/phamdat/dixit/develop/Dixit-document/Dixit/04f27ba3c5767dab25068eb958fd50c6.jpg"))
+        images.append(DixitImage(url: "https://raw.githubusercontent.com/phamdat/dixit/develop/Dixit-document/Dixit/08dccafe2fbce3e9a2f37910ad693be8.jpg"))
     }
     
     func numberOfPhotosInPhotoBrowser(photoBrowser: MWPhotoBrowser!) -> UInt {
