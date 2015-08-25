@@ -27,6 +27,7 @@
 		<commons-collections.version>3.2.1</commons-collections.version>
 		<commons-lang.version>3.4</commons-lang.version>
 		<commons-io.version>2.4</commons-io.version>
+		<guava.version>18.0</guava.version>
 
 		<json.version>2.5.4</json.version>
 
@@ -80,6 +81,12 @@
 			<artifactId>commons-io</artifactId>
 			<version>${commons-io.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>${guava.version}</version>
+		</dependency>
+
 
 		<!-- json -->
 		<dependency>
@@ -110,11 +117,11 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>${maven-compiler-version}</version>
-				<configuration>
-					<excludes>
-						<exclude>com/bap/app/dixit/Dispatcher.java</exclude>
-					</excludes>
-				</configuration>
+<!-- 				<configuration> -->
+<!-- 					<excludes> -->
+<!-- 						<exclude>com/bap/app/dixit/Dispatcher.java</exclude> -->
+<!-- 					</excludes> -->
+<!-- 				</configuration> -->
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -145,5 +152,6 @@
 				</executions>
 			</plugin>
 		</plugins>
+		<directory>D:\SmartFoxServer_2X\SFS2X\lib</directory>
 	</build>
 </project>

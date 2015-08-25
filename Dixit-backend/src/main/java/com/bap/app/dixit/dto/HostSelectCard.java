@@ -4,23 +4,13 @@ import com.bap.app.dixit.annotation.RequestHandler;
 import com.bap.app.dixit.util.Constants;
 
 @RequestHandler(Constants.RequestHandler.HOST_SELECT_CARD)
-public class HostSelectCard extends BaseRequest {
+public class HostSelectCard extends BaseDTO {
 
-    private int hostId;
     private String cardId;
 
-    public static HostSelectCard create(int hostId) {
+    public static HostSelectCard createResponse() {
 	HostSelectCard c = new HostSelectCard();
-	c.setHostId(hostId);
 	return c;
-    }
-
-    public int getHostId() {
-	return hostId;
-    }
-
-    public void setHostId(int hostId) {
-	this.hostId = hostId;
     }
 
     public String getCardId() {

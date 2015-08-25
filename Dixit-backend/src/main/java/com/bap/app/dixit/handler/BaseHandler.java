@@ -7,7 +7,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 
 import com.bap.app.dixit.annotation.RequestHandler;
-import com.bap.app.dixit.dto.BaseRequest;
+import com.bap.app.dixit.dto.BaseDTO;
 import com.bap.app.dixit.dto.ErrorResponse;
 import com.bap.app.dixit.dto.object.PlayerData;
 import com.bap.app.dixit.dto.object.RoomData;
@@ -24,7 +24,7 @@ import com.smartfoxserver.v2.entities.variables.SFSRoomVariable;
 import com.smartfoxserver.v2.exceptions.SFSVariableException;
 import com.smartfoxserver.v2.extensions.BaseClientRequestHandler;
 
-public abstract class BaseHandler<T extends BaseRequest> extends BaseClientRequestHandler {
+public abstract class BaseHandler<T extends BaseDTO> extends BaseClientRequestHandler {
 
     protected static final Logger log = Logger.getLogger(BaseHandler.class);
 
