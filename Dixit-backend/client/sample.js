@@ -1,9 +1,9 @@
 // Create configuration object
 var config = {};
 config.host = "127.0.0.1";
-config.port = 8888;
+config.port = 9696;
 config.useSSL = false;
-config.zone = "Dixit";
+config.zone = "test";
 config.debug = false;
 
 var cards;
@@ -70,7 +70,7 @@ function joinRoom() {
     sfs.addEventListener(SFS2X.SFSEvent.ROOM_JOIN_ERROR, onRoomJoinError, this);
 
     // Join a Room called "Lobby"
-    sfs.send(new SFS2X.Requests.System.JoinRoomRequest("kaka"));
+    sfs.send(new SFS2X.Requests.System.JoinRoomRequest("test"));
 }
 
 function onRoomJoined(evtParams) {
@@ -88,6 +88,14 @@ function startGame() {
     //params.request = "{}";
 
     sfs.send(new SFS2X.Requests.System.ExtensionRequest("start_game", params));
+}
+
+function drawCard() {
+    // Send two integers to the Zone extension and get their sum in return
+    var params = {};
+    //params.request = "{}";
+
+    sfs.send(new SFS2X.Requests.System.ExtensionRequest("draw_card", params));
 }
 
 function hostSelectCard() {

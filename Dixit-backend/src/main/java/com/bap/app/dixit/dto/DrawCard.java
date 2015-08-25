@@ -7,11 +7,11 @@ import com.bap.app.dixit.dto.object.Card;
 import com.bap.app.dixit.util.Constants;
 
 @RequestHandler(Constants.RequestHandler.DRAW_CARD)
-public class DrawCard extends BaseRequest {
+public class DrawCard extends BaseDTO {
 
     private List<Card> cards;
 
-    public static DrawCard create(List<Card> cards) {
+    public static DrawCard createResponse(List<Card> cards) {
 	DrawCard c = new DrawCard();
 	c.setCards(cards);
 	return c;

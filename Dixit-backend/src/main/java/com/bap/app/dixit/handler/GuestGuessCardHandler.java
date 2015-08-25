@@ -1,23 +1,19 @@
 package com.bap.app.dixit.handler;
 
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bap.app.dixit.dao.CardDAO;
 import com.bap.app.dixit.dto.GuestGuessCard;
-import com.bap.app.dixit.dto.GuestGuessedCard;
-import com.bap.app.dixit.dto.Scoring;
 import com.bap.app.dixit.dto.object.PlayerData;
 import com.bap.app.dixit.dto.object.RoomData;
 import com.bap.app.dixit.util.CommonUtils;
 import com.bap.app.dixit.util.Constants;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
 import com.smartfoxserver.v2.entities.User;
 
 @Service
@@ -31,20 +27,15 @@ public class GuestGuessCardHandler extends BaseHandler<GuestGuessCard> {
 	List<User> players = sender.getLastJoinedRoom().getUserList();
 
 	rd.getPlayerGuessedCard().put(sender.getId(), t.getCardId());
-	CommonUtils.updatePlayerState(rd, sender.getId(), Constants.GameState.GUEST_GUESS_CARD);
 
-	// notify that a guest guessed card
 	for (User player : players) {
-	    send(GuestGuessedCard.create(sender.getId()), player);
+	    send(GuestGuessCard.createResponse(sender.getId()), player);
 	}
 
+	CommonUtils.updatePlayerState(rd, sender.getId(), Constants.GameState.GUEST_GUESS_CARD);
+
 	// check if all of guests guessed already
-	if (!CollectionUtils.exists(rd.getPlayers().values(), new Predicate() {
-	    @Override
-	    public boolean evaluate(Object arg0) {
-		return ((PlayerData) arg0).getState() != Constants.GameState.GUEST_GUESS_CARD && ((PlayerData) arg0).getState() != Constants.GameState.HOST_SELECT_CARD;
-	    }
-	})) {
+	if (checkAlready(rd)) {
 	    boolean allGuessRight = true;
 	    for (Entry<Integer, String> ugc : rd.getPlayerGuessedCard().entrySet()) {
 		String cardId = ugc.getValue();
@@ -61,15 +52,15 @@ public class GuestGuessCardHandler extends BaseHandler<GuestGuessCard> {
 	    if (!allGuessRight) {
 		rd.getPlayers().get(rd.getHostId()).addScore(3);
 	    }
-
-	    Map<Integer, Integer> playerScore = new LinkedHashMap<Integer, Integer>();
-	    for (Entry<Integer, PlayerData> p : rd.getPlayers().entrySet()) {
-		playerScore.put(p.getKey(), p.getValue().getScore());
-	    }
-
-	    for (User player : players) {
-		send(Scoring.create(rd.getSelectedCards(), rd.getPlayerGuessedCard(), playerScore), player);
-	    }
 	}
+    }
+
+    private boolean checkAlready(RoomData rd) {
+	return !Iterables.any(rd.getPlayers().values(), new Predicate<PlayerData>() {
+	    @Override
+	    public boolean apply(PlayerData arg0) {
+		return arg0.getState() != Constants.GameState.GUEST_GUESS_CARD && arg0.getState() != Constants.GameState.HOST_SELECT_CARD;
+	    }
+	});
     }
 }

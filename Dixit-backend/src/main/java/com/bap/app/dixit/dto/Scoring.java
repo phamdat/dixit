@@ -6,7 +6,7 @@ import com.bap.app.dixit.annotation.RequestHandler;
 import com.bap.app.dixit.util.Constants;
 
 @RequestHandler(Constants.RequestHandler.SCORING)
-public class Scoring extends BaseRequest {
+public class Scoring extends BaseDTO {
 
     private Map<String, Integer> selectedCards;
     private Map<Integer, String> playerGuessedCard;

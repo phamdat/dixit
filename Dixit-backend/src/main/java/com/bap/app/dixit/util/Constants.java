@@ -7,10 +7,8 @@ public class Constants {
 	public static final String DRAW_CARD = "draw_card";
 	public static final String HOST_SELECT_CARD = "host_select_card";
 	public static final String GUEST_SELECT_CARD = "guest_select_card";
-	public static final String GUEST_SELECTED_CARD = "guest_selected_card";
-	public static final String SELECTED_CARD = "selected_card";
 	public static final String GUEST_GUESS_CARD = "guest_guess_card";
-	public static final String GUEST_GUESSED_CARD = "guest_guessed_card";
+	public static final String START_NEW_TURN = "start_new_turn";
 	public static final String SCORING = "scoring";
     }
 
@@ -28,6 +26,7 @@ public class Constants {
 	public static final int HOST_SELECT_CARD = 3;
 	public static final int GUEST_SELECT_CARD = 4;
 	public static final int GUEST_GUESS_CARD = 5;
-	public static final int RETURN_SCORE = 6;
+	public static final int START_NEW_TURN = 6;
+	public static final int RETURN_SCORE = 7;
     }
 }
