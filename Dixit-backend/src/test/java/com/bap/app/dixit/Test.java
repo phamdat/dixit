@@ -54,7 +54,7 @@ public class Test {
     }
 
     public static void listFilesForFolder(final File folder) throws JsonProcessingException {
-	List<Card> l = new ArrayList<>();
+	List<Card> l = new ArrayList<Card>();
 	for (final File fileEntry : folder.listFiles()) {
 	    if (fileEntry.isDirectory()) {
 		listFilesForFolder(fileEntry);

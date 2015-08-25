@@ -33,7 +33,11 @@ public abstract class BaseHandler<T extends BaseDTO> extends BaseClientRequestHa
     public void handleClientRequest(User sender, ISFSObject params) {
 	RoomData rd = null;
 	try {
-	    rd = getRoomData(sender);
+	    if (Constants.RequestHandler.START_GAME.equals(getCmdHandler())) {
+		rd = createRoomData(sender);
+	    } else {
+		rd = getRoomData(sender);
+	    }
 	    execute(sender, getRequest(params), rd);
 	    updateRoomData(sender, rd);
 	} catch (Throwable e) {
@@ -91,16 +95,20 @@ public abstract class BaseHandler<T extends BaseDTO> extends BaseClientRequestHa
 	return clazz.getSimpleName();
     }
 
+    protected RoomData createRoomData(User sender) throws JsonParseException, JsonMappingException, IOException, SFSVariableException {
+	RoomData rd = new RoomData();
+	for (User player : sender.getLastJoinedRoom().getUserList()) {
+	    rd.getPlayers().put(player.getId(), new PlayerData());
+	}
+	updateRoomData(sender, rd);
+	return rd;
+    }
+
     private RoomData getRoomData(User sender) throws JsonParseException, JsonMappingException, IOException {
 	RoomVariable rv = sender.getLastJoinedRoom().getVariable("all");
 	RoomData rd = null;
 	if (rv != null) {
 	    rd = JsonUtils.toObject(rv.getStringValue(), RoomData.class);
-	} else {
-	    rd = new RoomData();
-	    for (User player : sender.getLastJoinedRoom().getUserList()) {
-		rd.getPlayers().put(player.getId(), new PlayerData());
-	    }
 	}
 	return rd;
     }
