@@ -9,3 +9,5 @@
 #import <Foundation/Foundation.h>
 #import <SFS2XAPIIOS/SmartFox2XClient.h>
 #import "MWPhotoBrowser.h"
+#import <JSQMessagesViewController/JSQMessages.h>
+#import "UIColor+JSQMessages.h"

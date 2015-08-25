@@ -21,8 +21,8 @@ class GameViewController : MWPhotoBrowser
         super.init(coder: aDecoder)
     }
     
-    override func viewDidLoad() {
-        
+    override func viewDidLoad()
+    {
         // do something before calling super viewdidload otherwise, it does not work
         self.delegate = photoSource
         self.zoomPhotosToFill = false
@@ -77,20 +77,5 @@ class MyPhotoDelegate : NSObject, MWPhotoBrowserDelegate
         return self.images[Int(index)].image
     }
     
-//    func photoBrowser(photoBrowser: MWPhotoBrowser!, isPhotoSelectedAtIndex index: UInt) -> Bool {
-//        return images[Int(index)].selected
-//    }
-//    
-//    func photoBrowser(photoBrowser: MWPhotoBrowser!, photoAtIndex index: UInt, selectedChanged selected: Bool) {
-//        selectAnImage(index, selected: selected)
-//    }
-//    
-//    func selectAnImage(index : UInt, selected: Bool)
-//    {
-//        for var i = 0; i < images.count; i++
-//        {
-//            self.images[i].selected = false
-//        }
-//        images[Int(index)].selected = true
-//    }
+    
 }

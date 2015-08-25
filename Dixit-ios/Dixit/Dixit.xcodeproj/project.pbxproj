@@ -22,6 +22,9 @@
 		4C68BAE01B7D012B0081BECE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C68BADF1B7D012B0081BECE /* LoginViewController.swift */; };
 		4C68BAE21B7D01840081BECE /* SFNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C68BAE11B7D01840081BECE /* SFNetwork.swift */; };
 		4C7D69191B7BBEA200FA1FE8 /* SFS2XAPIIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7D69181B7BBEA200FA1FE8 /* SFS2XAPIIOS.framework */; };
+		4CA6D2D61B8B5F1800B2C4E6 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA6D2D51B8B5F1800B2C4E6 /* ChatViewController.swift */; };
+		4CA6D2D81B8B5FB600B2C4E6 /* libJSQMessagesViewController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CA6D2D71B8B5FB600B2C4E6 /* libJSQMessagesViewController.a */; };
+		4CA6D2DA1B8B5FC400B2C4E6 /* libJSQSystemSoundPlayer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CA6D2D91B8B5FC400B2C4E6 /* libJSQSystemSoundPlayer.a */; };
 		4CD042891B7F407F00057D10 /* RoomDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD042881B7F407F00057D10 /* RoomDetailViewController.swift */; };
 		4CD0428B1B7F4F1900057D10 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD0428A1B7F4F1900057D10 /* BaseViewController.swift */; };
 		4CD85BC21B7F327800CB3185 /* FontHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD85BC11B7F327800CB3185 /* FontHelper.swift */; };
@@ -68,6 +71,9 @@
 		4C68BAE11B7D01840081BECE /* SFNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFNetwork.swift; sourceTree = "<group>"; };
 		4C7D69181B7BBEA200FA1FE8 /* SFS2XAPIIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SFS2XAPIIOS.framework; sourceTree = "<group>"; };
 		4C7D69531B7BC1F900FA1FE8 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
+		4CA6D2D51B8B5F1800B2C4E6 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		4CA6D2D71B8B5FB600B2C4E6 /* libJSQMessagesViewController.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJSQMessagesViewController.a; path = "Pods/../build/Debug-iphoneos/libJSQMessagesViewController.a"; sourceTree = "<group>"; };
+		4CA6D2D91B8B5FC400B2C4E6 /* libJSQSystemSoundPlayer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJSQSystemSoundPlayer.a; path = "Pods/../build/Debug-iphoneos/libJSQSystemSoundPlayer.a"; sourceTree = "<group>"; };
 		4CD042881B7F407F00057D10 /* RoomDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomDetailViewController.swift; sourceTree = "<group>"; };
 		4CD0428A1B7F4F1900057D10 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		4CD85BC11B7F327800CB3185 /* FontHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontHelper.swift; sourceTree = "<group>"; };
@@ -95,6 +101,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CA6D2DA1B8B5FC400B2C4E6 /* libJSQSystemSoundPlayer.a in Frameworks */,
+				4CA6D2D81B8B5FB600B2C4E6 /* libJSQMessagesViewController.a in Frameworks */,
 				4C1E34B01B88660F008A97FC /* libDACircularProgress.a in Frameworks */,
 				4C1E34B11B88660F008A97FC /* libMBProgressHUD.a in Frameworks */,
 				4C1E34B21B88660F008A97FC /* libMWPhotoBrowser.a in Frameworks */,
@@ -146,6 +154,7 @@
 				4C1E34731B882A71008A97FC /* GameViewController.swift */,
 				4C1E34B41B88D348008A97FC /* ResultViewController.swift */,
 				4C1E34B61B88D479008A97FC /* ScoreViewController.swift */,
+				4CA6D2D51B8B5F1800B2C4E6 /* ChatViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -217,6 +226,8 @@
 		4CFE66781B7BBBDD008F3EBD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4CA6D2D91B8B5FC400B2C4E6 /* libJSQSystemSoundPlayer.a */,
+				4CA6D2D71B8B5FB600B2C4E6 /* libJSQMessagesViewController.a */,
 				4C1E34AC1B88660F008A97FC /* libDACircularProgress.a */,
 				4C1E34AD1B88660F008A97FC /* libMBProgressHUD.a */,
 				4C1E34AE1B88660F008A97FC /* libMWPhotoBrowser.a */,
@@ -380,6 +391,7 @@
 			files = (
 				4C68BAE01B7D012B0081BECE /* LoginViewController.swift in Sources */,
 				4CDDB0251B7EF1CE00881516 /* RoomLobby.swift in Sources */,
+				4CA6D2D61B8B5F1800B2C4E6 /* ChatViewController.swift in Sources */,
 				4C1E34B71B88D479008A97FC /* ScoreViewController.swift in Sources */,
 				4CD85BC21B7F327800CB3185 /* FontHelper.swift in Sources */,
 				4C68BAE21B7D01840081BECE /* SFNetwork.swift in Sources */,

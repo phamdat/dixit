@@ -35,7 +35,7 @@ final class SFNetwork : NSObject, ISFSEvents
     lazy var smartFox : SmartFox2XClient = { return SmartFox2XClient(smartFoxWithDebugMode: true, delegate: self) }()
     
     var pendingCallbacks = Dictionary<TaskType, Result -> ()>()
-    var extensionCallbacks = Dictionary<String, ((SFSObject, Result) -> ())?>()
+    var extensionCallbacks = Dictionary<String, (SFSObject?, Result) -> ()>()
     
     var incomingData : Array<((TaskType, AnyObject?) -> ())?> = Array<((TaskType, AnyObject?) -> ())?>()
     
@@ -58,6 +58,18 @@ final class SFNetwork : NSObject, ISFSEvents
         {
             action(result)
             pendingCallbacks.removeValueForKey(taskType)
+            return true
+        }
+        
+        return false
+    }
+    
+    func executeAndRemoveExtensionCallback(cmd: String, data: SFSObject?, result: Result) -> Bool
+    {
+        if let action = extensionCallbacks[cmd]
+        {
+            action(data, result)
+            extensionCallbacks.removeValueForKey(cmd)
             return true
         }
         
@@ -90,7 +102,7 @@ final class SFNetwork : NSObject, ISFSEvents
     func login(username : String, password : String, callback : (Result -> ())?)
     {
         pendingCallbacks[TaskType.Login] = callback
-        smartFox.send(LoginRequest(userName: username, password: password, zoneName: "BasicExamples", params: nil))
+        smartFox.send(LoginRequest(userName: username, password: password, zoneName: "Dixit", params: nil))
     }
     
     func createRoom(roomName: String?, callback : (Result -> ())?)
@@ -108,7 +120,8 @@ final class SFNetwork : NSObject, ISFSEvents
         
         roomSettings.isGame = true
         roomSettings.maxUsers = 10
-        smartFox.send(CreateRoomRequest(roomSettings: roomSettings, autoJoin: true, roomToLeave: nil))    }
+        smartFox.send(CreateRoomRequest(roomSettings: roomSettings, autoJoin: true, roomToLeave: nil))
+    }
     
     func leaveRoom(callback : (Result -> ())?)
     {
@@ -125,18 +138,14 @@ final class SFNetwork : NSObject, ISFSEvents
     
     func getUsers() -> [User]?
     {
-        
-            return UserInfo.sharedInstance.currentRoom?.playerList() as? [User]
-        
+        return UserInfo.sharedInstance.currentRoom?.playerList() as? [User]
     }
     
-    func sendExtension(cmd : String, data : SFSObject?, room : Room?, callback : ((SFSObject, Result) -> ()))
+    func sendExtension(cmd : String, data : SFSObject?, room : Room?, callback : ((SFSObject?, Result) -> ()))
     {
         extensionCallbacks[cmd] = callback
-        if room != nil
-        {
-            
-        }
+        smartFox.send(ExtensionRequest(extCmd: cmd, params: data, room: nil, isUDP: false))
+        
     }
     
     func onConfigLoadSuccess(evt: SFSEvent!) {
@@ -253,6 +262,25 @@ final class SFNetwork : NSObject, ISFSEvents
 //            }
             
         }
+    }
+    
+    func onExtensionResponse(evt: SFSEvent!)
+    {
+        let cmd = evt.params["cmd"] as! String
+        let params = evt.params["params"] as! SFSObject
+        switch cmd
+        {
+        case "start_game":
+            println("uc ecccc")
+            break;
+        case "draw_card":
+            println("draw_card")
+            break;
+        default:
+            break;
+        }
+        
+        executeAndRemoveExtensionCallback(cmd, data: nil, result: Result.Success(nil))
     }
     
     func handleRequestError(evt : SFSEvent!, taskType : TaskType)
