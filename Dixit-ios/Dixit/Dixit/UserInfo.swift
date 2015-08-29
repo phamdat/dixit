@@ -14,8 +14,8 @@ class UserInfo
     static let sharedInstance = UserInfo()
     
     var currentRoom : Room?
-    
     var currentUser : User?
+    var currentHostId : Int = -1
     
     required init()
     {

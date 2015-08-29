@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum TaskType
+enum TaskType : Printable
 {
     case ServerConnect
     case ServerDisconnect
@@ -21,6 +21,24 @@ enum TaskType
     case LoadConfig
     case UserExitRoom
     case UserEnterRoom
+    
+    var description: String
+    {
+        switch self
+        {
+        case .ServerConnect: return "ServerConnect"
+        case .ServerDisconnect: return "ServerDisconnect"
+        case .UserEnterRoom: return "UserEnterRoom"
+        case .UserExitRoom: return "UserExitRoom"
+        case .RoomAdd: return "RoomAdd"
+        case .RoomRemove: return "RoomRemove"
+        case .Login: return "Login"
+        case .JoinRoom: return "JoinRoom"
+        case .RoomFind: return "RoomFind"
+        case .LeaveRoom: return "LeaveRoom"
+        default: return ""
+        }
+    }
 }
 
 public enum Result {
@@ -28,19 +46,41 @@ public enum Result {
     case Failure(String?)
 }
 
+//typealias EventHandler = ((TaskType, AnyObject?) -> ())?
+typealias FuckEventHandler = ((AnyObject?) -> ())?
+
+class EventHandlerWrapper
+{
+    var event: FuckEventHandler
+    
+    required init(e: FuckEventHandler)
+    {
+        event = e
+    }
+}
+
+
 final class SFNetwork : NSObject, ISFSEvents
 {
     static let sharedInstance = SFNetwork()
     
-    lazy var smartFox : SmartFox2XClient = { return SmartFox2XClient(smartFoxWithDebugMode: true, delegate: self) }()
+//    lazy var smartFox : SmartFox2XClient = { if return SmartFox2XClient(smartFoxWithDebugMode: true, delegate: self) }()
+    var _smartFox : SmartFox2XClient?
+    var smartFox : SmartFox2XClient
+    {
+        get
+        {
+            if _smartFox == nil
+            {
+                _smartFox = SmartFox2XClient(smartFoxWithDebugMode: true, delegate: self)
+            }
+            return _smartFox!
+        }
+    }    
     
     var pendingCallbacks = Dictionary<TaskType, Result -> ()>()
     var extensionCallbacks = Dictionary<String, (SFSObject?, Result) -> ()>()
     
-    var incomingData : Array<((TaskType, AnyObject?) -> ())?> = Array<((TaskType, AnyObject?) -> ())?>()
-    
-
-
     var rooms : [AnyObject]
     {
         get { return smartFox.roomList }
@@ -48,8 +88,25 @@ final class SFNetwork : NSObject, ISFSEvents
     
     required override init()
     {
-
         super.init()
+    }
+    
+    //MARK: - common methods
+    
+    func sendExtension(cmd : String, data : SFSObject?, room : Room?, callback : ((SFSObject?, Result) -> ()))
+    {
+        extensionCallbacks[cmd] = callback
+        smartFox.send(ExtensionRequest(extCmd: cmd, params: data, room: nil, isUDP: false))
+    }
+    
+//    func broadcastData(messageName: String, data: NSDictionary)
+//    {
+//        NSNotificationCenter.defaultCenter().postNotificationName(messageName, object: self, userInfo: data as [NSObject : AnyObject])
+//    }
+    
+    func broadcastData(messageName: String, data: Dictionary<NSObject, AnyObject>)
+    {
+        NSNotificationCenter.defaultCenter().postNotificationName(messageName, object: self, userInfo: data)
     }
     
     func executeAndRemoveCallback(taskType : TaskType, result : Result) -> Bool
@@ -76,6 +133,7 @@ final class SFNetwork : NSObject, ISFSEvents
         return false
     }
     
+    //MARK: - action
     func start(callback : (Result -> ())?)
     {
         smartFox.logger.loggingLevel = LogLevel_DEBUG
@@ -132,7 +190,6 @@ final class SFNetwork : NSObject, ISFSEvents
             {
                 smartFox.send(request)
             }
-
         }
     }
     
@@ -141,12 +198,12 @@ final class SFNetwork : NSObject, ISFSEvents
         return UserInfo.sharedInstance.currentRoom?.playerList() as? [User]
     }
     
-    func sendExtension(cmd : String, data : SFSObject?, room : Room?, callback : ((SFSObject?, Result) -> ()))
+    func drawCard(callback: (SFSObject?, Result) -> ())
     {
-        extensionCallbacks[cmd] = callback
-        smartFox.send(ExtensionRequest(extCmd: cmd, params: data, room: nil, isUDP: false))
-        
+        sendExtension("draw_card", data: SFSObject(), room: nil, callback: callback)
     }
+    
+    //MARK: - SFSEvent
     
     func onConfigLoadSuccess(evt: SFSEvent!) {
         executeAndRemoveCallback(TaskType.LoadConfig, result: Result.Success(nil))
@@ -190,27 +247,15 @@ final class SFNetwork : NSObject, ISFSEvents
         let room = (evt.params["room"] as? Room)
         let user = (evt.params["user"] as? User)
         executeAndRemoveCallback(TaskType.UserExitRoom, result: Result.Success(nil))
-        for action in incomingData
-        {
-            if action != nil
-            {
-                action!(TaskType.UserExitRoom, room)
-            }
-        }
+        broadcastData(TaskType.UserExitRoom.description, data:["room": room!])
     }
     
     func onUserEnterRoom(evt: SFSEvent!) {
         println("onUserEnterRoom")
-        let room = (evt.params["room"] as? Room)
-        let user = (evt.params["user"] as? User)
+        let room = (evt.params["room"] as! Room)
+        let user = (evt.params["user"] as! User)
         executeAndRemoveCallback(TaskType.UserEnterRoom, result: Result.Success(nil))
-        for action in incomingData
-        {
-            if action != nil
-            {
-                action!(TaskType.UserEnterRoom, room)
-            }
-        }
+        broadcastData(TaskType.UserEnterRoom.description, data: ["room": room])
     }
     
     func onRoomJoinError(evt: SFSEvent!) {
@@ -219,48 +264,23 @@ final class SFNetwork : NSObject, ISFSEvents
     }
     
     func onRoomAdd(evt: SFSEvent!) {
-        let room = evt.params["room"] as? Room
+        let room = evt.params["room"] as! Room
         
         if !executeAndRemoveCallback(TaskType.RoomAdd, result: Result.Success(room))
         {
-            if room != nil
-            {
-                println("room added")
-                for action in incomingData
-                {
-                    if action != nil
-                    {
-                        action!(TaskType.RoomAdd, room)
-                    }
-                }
-//                if let action = incomingData
-//                {
-//                    action(TaskType.RoomAdd, room)
-//                }
-            }
+            println("room added")
+            broadcastData(TaskType.RoomAdd.description, data: ["room": room])
         }
     }
     
     func onRoomRemove(evt: SFSEvent!) {
-        let room = evt.params["room"] as? Room        
+        let room = evt.params["room"] as! Room
         
         if !executeAndRemoveCallback(TaskType.RoomRemove, result: Result.Success(room))
         {
             
             println("room removed")
-            for action in incomingData
-            {
-                if action != nil
-                {
-                    action!(TaskType.RoomRemove, room)
-                }
-            }
-
-//            if let action = incomingData
-//            {
-//                action(TaskType.RoomRemove, room)
-//            }
-            
+            broadcastData(TaskType.RoomRemove.description, data: ["room": room])
         }
     }
     
@@ -268,17 +288,13 @@ final class SFNetwork : NSObject, ISFSEvents
     {
         let cmd = evt.params["cmd"] as! String
         let params = evt.params["params"] as! SFSObject
-        switch cmd
-        {
-        case "start_game":
-            println("uc ecccc")
-            break;
-        case "draw_card":
-            println("draw_card")
-            break;
-        default:
-            break;
-        }
+        
+        let response = params.getUtfString("response")
+        
+        var error: NSError?
+        var jsonData: NSData = response.dataUsingEncoding(NSUTF8StringEncoding)!
+        let jsonDict = NSJSONSerialization.JSONObjectWithData(jsonData, options: nil, error: &error) as! Dictionary<NSObject, AnyObject>
+        self.broadcastData(cmd, data: jsonDict)
         
         executeAndRemoveExtensionCallback(cmd, data: nil, result: Result.Success(nil))
     }

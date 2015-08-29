@@ -16,6 +16,9 @@ class RoomDetailViewController : BaseViewController
     @IBOutlet weak var quitBarButton: UIBarButtonItem!
     @IBOutlet weak var startBarButton: UIBarButtonItem!
     
+    var userEnterEvent: EventHandlerWrapper?
+    var userExitEvent: EventHandlerWrapper?
+    
     lazy var playerSource : ParticipantTableSource = {
         return ParticipantTableSource()
         }()
@@ -30,6 +33,12 @@ class RoomDetailViewController : BaseViewController
         refreshTable()
     }
     
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }   
+    
     private func refreshTable()
     {
         if let players = self.getCurrentPlayers()
@@ -41,22 +50,30 @@ class RoomDetailViewController : BaseViewController
     
     private func setupEvent()
     {
-        network.incomingData.append({ (taskType, data) -> () in
-            
-            switch taskType
-            {
-            case TaskType.UserEnterRoom:
-                self.refreshTable()
-                break
-            case TaskType.UserExitRoom:
-                self.refreshTable()
-                break
-            default:
-                break
-            }
-        })
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("onStartGame:"), name: "start_game", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("onUserExitRoom:"), name: TaskType.UserExitRoom.description, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("onUserEnterRoom:"), name: TaskType.UserEnterRoom.description, object: nil)
     }
     
+    func onStartGame(notification: NSNotification)
+    {
+        if let userInfo = notification.userInfo
+        {
+            UserInfo.sharedInstance.currentHostId = userInfo["hostId"] as! Int
+            self.performSegueWithIdentifier("startSegue", sender: self)
+        }
+    }
+    
+    func onUserEnterRoom(notification: NSNotification)
+    {
+        self.refreshTable()
+    }
+
+    func onUserExitRoom(notification: NSNotification)
+    {
+        self.refreshTable()
+    }
+
     private func setupTable()
     {
         participantTable.delegate = playerSource
@@ -85,7 +102,7 @@ class RoomDetailViewController : BaseViewController
         network.sendExtension("start_game", data: obj, room: UserInfo.sharedInstance.currentRoom, callback: { (data, result) -> () in
                         
         })
-        self.performSegueWithIdentifier("startSegue", sender: self)
+
     }
     
     func quitRoom(sender : UIBarButtonItem) -> ()

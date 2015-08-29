@@ -36,6 +36,32 @@ class GameViewController : MWPhotoBrowser
         super.viewDidLoad()
         
         self.navigationItem.hidesBackButton = true
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("onDrawCard:"), name: "draw_card", object: nil)
+        
+        drawCard()
+    }
+    
+    func drawCard()
+    {
+        let me = network.smartFox.mySelf
+        if me.id() == UserInfo.sharedInstance.currentHostId
+        {
+            network.drawCard({ (obj, Result) -> () in
+                println("draw xong ne")
+            })
+        }
+        
+    }
+    
+    func onDrawCard(notification: NSNotification)
+    {
+        if let userInfo = notification.userInfo
+        {
+            let cards = userInfo["cards"] as! Array<NSDictionary>
+            let cardId = cards[0]["id"] as! String
+            println("sdfasdf")
+        }
     }
 }
 

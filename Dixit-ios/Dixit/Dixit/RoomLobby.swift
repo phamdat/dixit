@@ -26,7 +26,8 @@ class RoomLobbyViewController : BaseViewController
         setupTableView()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(animated: Bool)
+    {
         if let rooms = network.rooms as? [Room]
         {
             self.tableDataSource.rooms = rooms
@@ -36,37 +37,39 @@ class RoomLobbyViewController : BaseViewController
     
     func setupEvent()
     {
-        network.incomingData.append({ (taskType, data) -> () in
-            
-            switch taskType
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("onRoomAdd:"), name: TaskType.RoomAdd.description, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("onRoomRemove:"), name: TaskType.RoomRemove.description, object: nil)
+//        network.addHandler(TaskType.RoomAdd, callback: EventHandlerWrapper(e: onRoomAdd))
+//        network.addHandler(TaskType.RoomRemove, callback: EventHandlerWrapper(e: onRoomRemove))
+    }
+    
+    func onRoomAdd(notification: NSNotification)
+    {
+        if let userInfo = notification.userInfo
+        {
+            let room = userInfo["room"] as! Room
+            self.tableDataSource.rooms.append(room)
+            self.roomTable.reloadData()
+        }
+    }
+    
+    func onRoomRemove(notification: NSNotification)
+    {
+        if let userInfo = notification.userInfo
+        {
+            let room = userInfo["room"] as! Room
+            for var i = 0; i < self.tableDataSource.rooms.count; i++
             {
-            case TaskType.RoomAdd:
-                if let room = data as? Room
+                let r = self.tableDataSource.rooms[i]
+                
+                if r.id() == room.id()
                 {
-                    self.tableDataSource.rooms.append(room)
-                    self.roomTable.reloadData()
+                    self.tableDataSource.rooms.removeAtIndex(i)
+                    break
                 }
-                break
-            case TaskType.RoomRemove:
-                if let room = data as? Room
-                {
-                    for var i = 0; i < self.tableDataSource.rooms.count; i++
-                    {
-                        let r = self.tableDataSource.rooms[i]
-                        
-                        if r.id() == room.id()
-                        {
-                            self.tableDataSource.rooms.removeAtIndex(i)
-                            break
-                        }                        
-                    }
-                    self.roomTable.reloadData()
-                }
-                break
-            default:
-                break
             }
-        })
+            self.roomTable.reloadData()
+        }
     }
     
     func setupTableView()
