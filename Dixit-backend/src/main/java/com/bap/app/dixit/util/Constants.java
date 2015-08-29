@@ -7,6 +7,7 @@ public class Constants {
 	public static final String DRAW_CARD = "draw_card";
 	public static final String HOST_SELECT_CARD = "host_select_card";
 	public static final String GUEST_SELECT_CARD = "guest_select_card";
+	public static final String SELECTED_CARD = "selected_card";
 	public static final String GUEST_GUESS_CARD = "guest_guess_card";
 	public static final String START_NEW_TURN = "start_new_turn";
 	public static final String SCORING = "scoring";

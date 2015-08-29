@@ -122,6 +122,17 @@ function guestSelectCard() {
     sfs.send(new SFS2X.Requests.System.ExtensionRequest("guest_select_card", params));
 }
 
+function selectedCard() {
+    // Send two integers to the Zone extension and get their sum in return
+    var params = {
+        request: JSON.stringify({
+        })
+    };
+    //params.request = "{}";
+
+    sfs.send(new SFS2X.Requests.System.ExtensionRequest("selected_card", params));
+}
+
 function guestGuessCard() {
     // Send two integers to the Zone extension and get their sum in return
     var params = {
