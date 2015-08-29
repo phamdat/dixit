@@ -16,9 +16,6 @@ class RoomDetailViewController : BaseViewController
     @IBOutlet weak var quitBarButton: UIBarButtonItem!
     @IBOutlet weak var startBarButton: UIBarButtonItem!
     
-    var userEnterEvent: EventHandlerWrapper?
-    var userExitEvent: EventHandlerWrapper?
-    
     lazy var playerSource : ParticipantTableSource = {
         return ParticipantTableSource()
         }()
@@ -33,7 +30,8 @@ class RoomDetailViewController : BaseViewController
         refreshTable()
     }
     
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(animated: Bool)
+    {
         super.viewDidDisappear(animated)
 
         NSNotificationCenter.defaultCenter().removeObserver(self)
@@ -99,9 +97,7 @@ class RoomDetailViewController : BaseViewController
     {
         println("start game")
         let obj = SFSObject()
-        network.sendExtension("start_game", data: obj, room: UserInfo.sharedInstance.currentRoom, callback: { (data, result) -> () in
-                        
-        })
+        network.sendExtension("start_game", data: obj, room: UserInfo.sharedInstance.currentRoom, callback: nil)
 
     }
     

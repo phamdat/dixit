@@ -389,9 +389,15 @@
                                 <segue destination="1P5-To-HTl" kind="presentation" identifier="chatSegue" id="72L-AB-O1l"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Select" id="rGB-wT-azg"/>
+                        <barButtonItem key="rightBarButtonItem" title="Select" id="rGB-wT-azg">
+                            <connections>
+                                <action selector="selectCard:" destination="Wpb-u5-otb" id="0Hv-iM-MsO"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="chatBarButton" destination="aZg-st-ILy" id="2hY-4V-kvm"/>
+                        <outlet property="selectBarButton" destination="rGB-wT-azg" id="EeN-K5-vsF"/>
                         <segue destination="bPC-VN-cBn" kind="show" identifier="showResultSegue" id="5PU-K4-m41"/>
                     </connections>
                 </viewController>

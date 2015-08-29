@@ -9,21 +9,97 @@
 import Foundation
 import UIKit
 
+class Card
+{
+    var cardId: String = ""
+    var cardUrl: String = ""
+    
+    convenience init(id: String, url: String)
+    {
+        self.init()
+        cardId = id
+        cardUrl = url
+    }
+    
+     init()
+    {
+        
+    }
+}
+
+class Player: SFSObject
+{
+    private var user: User?
+    
+    var name: String? { get { return self.user?.name() } }
+    var id: Int? { get { return self.user?.id() } }
+    var playerId: Int? { get { return self.user?.playerId() } }
+    
+    init(u: User)
+    {
+        user = u
+    }
+}
+
 class GameViewController : MWPhotoBrowser
 {
+    @IBOutlet weak var selectBarButton: UIBarButtonItem!
+    @IBOutlet weak var chatBarButton: UIBarButtonItem!
+    
+    var decidedUsers: [User] = [User]()
+    
+    var _shouldGo: Bool = false;
+    var shouldGo: Bool {
+        get { return _shouldGo }
+        set
+        {
+            _shouldGo = newValue
+            if _shouldGo
+            {
+                self.performSegueWithIdentifier("showResultSegue", sender: self)
+            }
+        }
+    }
+    
+    
+    
     var network : SFNetwork
+    var myCards = [Card]()
+    var selectedCard = Card()
+    var _userCanSelectCard: Bool = false
+    var userCanSelectCard: Bool {
+        get { return _userCanSelectCard }
+        set
+        {
+            _userCanSelectCard = newValue
+            if _userCanSelectCard
+            {
+                selectBarButton.enabled = true
+            }
+            else
+            {
+                selectBarButton.enabled = false
+            }
+        }
+    }
+    
     
     lazy var photoSource : MyPhotoDelegate = { return MyPhotoDelegate() }()
     
     required init(coder aDecoder: NSCoder)
     {
         network = SFNetwork.sharedInstance
+
         super.init(coder: aDecoder)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("otherUserSelectCard:"), name: TaskType.UserSelectCard.description, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("onDrawCard:"), name: "draw_card", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("onHostSelectedCard:"), name: "host_select_card", object: nil)
     }
     
     override func viewDidLoad()
     {
-        // do something before calling super viewdidload otherwise, it does not work
+        // MWPhotoBrowser do something before calling super viewdidload, otherwise it does not work
         self.delegate = photoSource
         self.zoomPhotosToFill = false
         self.enableGrid = true
@@ -35,11 +111,16 @@ class GameViewController : MWPhotoBrowser
         
         super.viewDidLoad()
         
-        self.navigationItem.hidesBackButton = true
+        userCanSelectCard = false
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("onDrawCard:"), name: "draw_card", object: nil)
-        
+//        self.navigationItem.hidesBackButton = true
+       
         drawCard()
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     func drawCard()
@@ -47,11 +128,46 @@ class GameViewController : MWPhotoBrowser
         let me = network.smartFox.mySelf
         if me.id() == UserInfo.sharedInstance.currentHostId
         {
-            network.drawCard({ (obj, Result) -> () in
-                println("draw xong ne")
+            network.drawCard({ (data, result) -> () in
+                self.userCanSelectCard = true
             })
         }
+    }
+    
+    func selectedCard(card: Card)
+    {
+        var cardIdDictionary = ["cardId": card.cardId]
+        let jsonData = NSJSONSerialization.dataWithJSONObject(cardIdDictionary, options: NSJSONWritingOptions(0), error: nil)
+        let jsonString = NSString(data: jsonData!, encoding: NSUTF8StringEncoding) as! String
         
+        var data = SFSObject()
+        data.putUtfString("request", value: jsonString)
+        
+        if network.me.id() == UserInfo.sharedInstance.currentHostId
+        {
+            network.sendExtension("host_select_card", data: data, room: nil) { (data, result) -> () in
+                self.userCanSelectCard = false
+                self.network.sendPublicMessage(TaskType.UserSelectCard.description, data: nil)
+            }
+        }
+        else
+        {
+            network.sendExtension("guest_select_card", data: data, room: nil) { (data, result) -> () in
+                self.userCanSelectCard = false
+                self.network.sendPublicMessage(TaskType.UserSelectCard.description, data: nil)
+            }
+        }
+    }
+    
+    func onHostSelectedCard(notification: NSNotification)
+    {
+        if let userInfo = notification.userInfo
+        {
+            if network.me.id() != UserInfo.sharedInstance.currentHostId
+            {
+                userCanSelectCard = true
+            }
+        }
     }
     
     func onDrawCard(notification: NSNotification)
@@ -59,12 +175,40 @@ class GameViewController : MWPhotoBrowser
         if let userInfo = notification.userInfo
         {
             let cards = userInfo["cards"] as! Array<NSDictionary>
-            let cardId = cards[0]["id"] as! String
-            println("sdfasdf")
+            
+            for c in cards
+            {
+                let id = c["id"] as! String
+                let url = c["url"] as! String
+                myCards.append(Card(id: id, url: url))
+            }
+            photoSource.setItemsSource(myCards)
+            self.reloadData()
+            
         }
+    }
+    
+    func otherUserSelectCard(notification: NSNotification)
+    {
+        if let userInfo = notification.userInfo
+        {
+            let sender = userInfo["sender"] as! User
+            decidedUsers.append(sender)
+            let room = userInfo["room"] as! Room
+            if room.userCount() == decidedUsers.count
+            {
+                shouldGo = true
+            }
+        }
+    }
+    
+    //MARK: - UI Action
+    @IBAction func selectCard(sender: AnyObject) {
+        self.selectedCard(myCards[0])
     }
 }
 
+//MARK: - DixitImage class
 class DixitImage
 {
     var image : MWPhoto?
@@ -77,18 +221,21 @@ class DixitImage
     }
 }
 
+//MARK: - MWPhotoBrowserDelegate
 class MyPhotoDelegate : NSObject, MWPhotoBrowserDelegate
 {
     var images : [DixitImage] = [DixitImage]()
     
     override init ()
     {
-        images.append(DixitImage(url: "https://raw.githubusercontent.com/phamdat/dixit/develop/Dixit-document/Dixit/007bd36fb40ef301270636206036e3ec.jpg"))
-        images.append(DixitImage(url: "https://raw.githubusercontent.com/phamdat/dixit/develop/Dixit-document/Dixit/00af48eb28586e61cdb75ebe551e425c.jpg"))
-        images.append(DixitImage(url: "https://raw.githubusercontent.com/phamdat/dixit/develop/Dixit-document/Dixit/00e8d86482f6501a0a1fadb439422f7f.jpg"))
-        images.append(DixitImage(url: "https://raw.githubusercontent.com/phamdat/dixit/develop/Dixit-document/Dixit/044960ab45ba9ec1cd53c490bb376982.jpg"))
-        images.append(DixitImage(url: "https://raw.githubusercontent.com/phamdat/dixit/develop/Dixit-document/Dixit/04f27ba3c5767dab25068eb958fd50c6.jpg"))
-        images.append(DixitImage(url: "https://raw.githubusercontent.com/phamdat/dixit/develop/Dixit-document/Dixit/08dccafe2fbce3e9a2f37910ad693be8.jpg"))
+    }
+    
+    func setItemsSource(cards: [Card])
+    {
+        for c in cards
+        {
+            images.append(DixitImage(url: c.cardUrl))
+        }
     }
     
     func numberOfPhotosInPhotoBrowser(photoBrowser: MWPhotoBrowser!) -> UInt {
