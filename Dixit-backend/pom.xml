@@ -152,6 +152,6 @@
 				</executions>
 			</plugin>
 		</plugins>
-		<directory>D:\SmartFoxServer_2X\SFS2X\lib</directory>
+<!-- 		<directory>D:\SmartFoxServer_2X\SFS2X\lib</directory> -->
 	</build>
 </project>
