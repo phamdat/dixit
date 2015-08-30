@@ -12,7 +12,23 @@ import UIKit
 class ResultViewController : MWPhotoBrowser
 {
     var network : SFNetwork
-    var cards: [Card] = [Card]()
+    var selectedCard: Card?
+    var selectedCards: [Card] = [Card]()
+    var decidedUsers: [User] = [User]()
+    
+    var _shouldGo: Bool = false;
+    var shouldGo: Bool {
+        get { return _shouldGo }
+        set
+        {
+            _shouldGo = newValue
+            if _shouldGo
+            {
+                self.performSegueWithIdentifier("scoreSegue", sender: self)
+            }
+        }
+    }
+
     
     lazy var photoSource : MyPhotoDelegate = { return MyPhotoDelegate() }()
     
@@ -36,29 +52,71 @@ class ResultViewController : MWPhotoBrowser
         self.alwaysShowControls = true
         super.viewDidLoad()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("onAllPlayersGuessedCards:"), name: TaskType.AllUserGuessedCards.description, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("onOtherPlayersGuessedCards:"), name: "guest_guess_card", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("onGetSelectedCards:"), name: "selected_card", object: nil)
+        
+        getAllSelectedCards()
     }
     
-    func getSelectedCards()
+    func getAllSelectedCards()
     {
-        network.sendExtension(TaskType.GetSelectedCards.description, data: nil, room: nil) { (data, result) -> () in
-            self.photoSource.setItemsSource(self.cards)
+        if network.me.id() == UserInfo.sharedInstance.currentHostId
+        {
+            network.sendExtension("selected_card", data: SFSObject(), room: nil, callback: nil);
+        }
+    }
+    
+    func guessCard(card: Card?)
+    {
+        if network.me.id() != UserInfo.sharedInstance.currentHostId
+        {
+            if let c = card
+            {
+                var cardIdDictionary = ["cardId": c.cardId]
+                let jsonData = NSJSONSerialization.dataWithJSONObject(cardIdDictionary, options: NSJSONWritingOptions(0), error: nil)
+                let jsonString = NSString(data: jsonData!, encoding: NSUTF8StringEncoding) as! String
+                
+                var data = SFSObject()
+                data.putUtfString("request", value: jsonString)
+
+                network.sendExtension("guest_guess_card", data: data, room: nil) { (data, result) -> () in
+                    
+                }
+            }
+        }
+    }
+    
+    func onGetSelectedCards(notification: NSNotification)
+    {
+        if let userInfo = notification.userInfo
+        {
+            let cards = userInfo["cards"] as! Array<NSDictionary>
+            
+            for c in cards
+            {
+                let id = c["id"] as! String
+                let url = c["url"] as! String
+                selectedCards.append(Card(id: id, url: url))
+            }
+            photoSource.setItemsSource(selectedCards)
             self.reloadData()
         }
     }
     
-    func guessCard()
-    {
-        network.sendExtension("", data: nil, room: nil) { (data, result) -> () in
-            
-        }
-    }
-    
-    func onAllPlayersGuessedCards(notification: NSNotification)
+    func onOtherPlayersGuessedCards(notification: NSNotification)
     {
         if let userInfo = notification.userInfo
         {
-            self.performSegueWithIdentifier("scoreSegue", sender: self)
+            let sender = userInfo["sender"] as! User
+            decidedUsers.append(sender)
+            let room = userInfo["room"] as! Room
+            if room.userCount() == decidedUsers.count
+            {
+                shouldGo = true
+            }
         }
+    }
+    @IBAction func guessCard(sender: AnyObject) {
+        guessCard(selectedCard)
     }
 }

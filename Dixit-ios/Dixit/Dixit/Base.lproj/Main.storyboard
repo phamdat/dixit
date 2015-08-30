@@ -423,7 +423,7 @@
             </objects>
             <point key="canvasLocation" x="5215" y="700"/>
         </scene>
-        <!--Result View Controller-->
+        <!--Title-->
         <scene sceneID="uv3-Fi-3vZ">
             <objects>
                 <viewController id="bPC-VN-cBn" customClass="ResultViewController" customModule="Dixit" customModuleProvider="target" sceneMemberID="viewController">
@@ -436,6 +436,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Title" id="pa2-Gx-nIj">
+                        <barButtonItem key="rightBarButtonItem" title="Select" id="uKR-TZ-f0p">
+                            <connections>
+                                <action selector="guessCard:" destination="bPC-VN-cBn" id="zBN-g7-Clr"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <segue destination="2uw-cv-DDf" kind="show" identifier="scoreSegue" id="bw5-g8-XTI"/>
                     </connections>

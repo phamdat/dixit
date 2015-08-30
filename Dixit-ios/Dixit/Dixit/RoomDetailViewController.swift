@@ -96,8 +96,7 @@ class RoomDetailViewController : BaseViewController
     func startGame(sender : UIBarButtonItem) -> ()
     {
         println("start game")
-        let obj = SFSObject()
-        network.sendExtension("start_game", data: obj, room: UserInfo.sharedInstance.currentRoom, callback: nil)
+        network.sendExtension("start_game", data: SFSObject(), room: UserInfo.sharedInstance.currentRoom, callback: nil)
 
     }
     
