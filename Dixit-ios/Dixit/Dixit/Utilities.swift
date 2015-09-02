@@ -10,6 +10,7 @@ import Foundation
 
 class Utilities
 {
+    
     required init()
     {
         
@@ -22,4 +23,5 @@ class Utilities
         let jsonDict = NSJSONSerialization.JSONObjectWithData(jsonData, options: nil, error: &error) as! NSDictionary
         return jsonDict
     }    
+    
 }

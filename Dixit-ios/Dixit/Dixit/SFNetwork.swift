@@ -54,7 +54,7 @@ public enum Result {
     case Failure(String?)
 }
 
-typealias ExtensionEventHandler = ((SFSObject?, Result) -> ())
+typealias ExtensionEventHandler = ((AnyObject?, Result) -> ())
 typealias NormalEventHandler = Result -> ()
 
 
@@ -134,7 +134,7 @@ let a =        self.smartFox.mySelf
         return false
     }
     
-    func executeAndRemoveExtensionCallback(cmd: String, data: SFSObject?, result: Result) -> Bool
+    func executeAndRemoveExtensionCallback(cmd: String, data: Dictionary<NSObject, AnyObject>, result: Result) -> Bool
     {
         if let action = extensionCallbacks[cmd]
         {
@@ -308,7 +308,7 @@ let a =        self.smartFox.mySelf
         let jsonDict = NSJSONSerialization.JSONObjectWithData(jsonData, options: nil, error: &error) as! Dictionary<NSObject, AnyObject>
         self.broadcastData(cmd, data: jsonDict)
         
-        executeAndRemoveExtensionCallback(cmd, data: nil, result: Result.Success(nil))
+        executeAndRemoveExtensionCallback(cmd, data: jsonDict, result: Result.Success(nil))
     }
     
     func onPublicMessage(evt: SFSEvent!)

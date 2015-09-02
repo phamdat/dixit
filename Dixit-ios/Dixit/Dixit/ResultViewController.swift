@@ -15,6 +15,7 @@ class ResultViewController : MWPhotoBrowser
     var selectedCard: Card?
     var selectedCards: [Card] = [Card]()
     var decidedUsers: [User] = [User]()
+    var users: [User] = [User]()
     
     var _shouldGo: Bool = false;
     var shouldGo: Bool {
@@ -35,6 +36,7 @@ class ResultViewController : MWPhotoBrowser
     required init(coder aDecoder: NSCoder)
     {
         network = SFNetwork.sharedInstance
+        users = UserInfo.sharedInstance.currentRoom?.userList() as! [User]
         super.init(coder: aDecoder)
     }
     
@@ -103,20 +105,36 @@ class ResultViewController : MWPhotoBrowser
         }
     }
     
+    func getUserById(userId: Int) -> User?
+    {
+        for u in users
+        {
+            if u.id() == userId
+            {
+                return u
+            }
+        }
+        return nil
+    }
+    
     func onOtherPlayersGuessedCards(notification: NSNotification)
     {
         if let userInfo = notification.userInfo
         {
-            let sender = userInfo["sender"] as! User
-            decidedUsers.append(sender)
-            let room = userInfo["room"] as! Room
-            if room.userCount() == decidedUsers.count
+            let senderId = userInfo["playerId"] as! Int
+            
+            if let sender = getUserById(senderId)
+            {
+                decidedUsers.append(sender)
+            }
+            if (users.count - 1) == decidedUsers.count
             {
                 shouldGo = true
             }
         }
     }
     @IBAction func guessCard(sender: AnyObject) {
+        selectedCard = selectedCards[0]
         guessCard(selectedCard)
     }
 }

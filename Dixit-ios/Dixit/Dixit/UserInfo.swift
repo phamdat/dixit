@@ -19,7 +19,6 @@ class UserInfo
     
     required init()
     {
-        
     }
     
     func leaveRoom()
