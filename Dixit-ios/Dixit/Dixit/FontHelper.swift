@@ -16,12 +16,12 @@ class FontHelper
         
     }
     
-    static func ApplyFont(barbutton : UIBarButtonItem, fontName : String, fontCharacter : UniChar, size : CGFloat)
+    static func ApplyFont(barbutton : UIBarButtonItem, fontName : String, fontCharacter : String, size : CGFloat)
     {
         if let font = UIFont(name: fontName, size: size)
         {
-            barbutton.setTitleTextAttributes([NSFontAttributeName : font], forState: UIControlState.Normal)
-            barbutton.title = String(format: "%C", fontCharacter)
+            barbutton.setTitleTextAttributes([NSFontAttributeName : font/*, NSForegroundColorAttributeName: UIColor.blackColor()*/], forState: UIControlState.Normal)
+            barbutton.title = fontCharacter
         }
     }
 }

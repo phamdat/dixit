@@ -13,6 +13,7 @@ enum TaskType : Printable
     case ServerConnect
     case ServerDisconnect
     case Login
+    case Logout
     case JoinRoom
     case LeaveRoom
     case RoomAdd
@@ -72,6 +73,10 @@ final class SFNetwork : NSObject, ISFSEvents
         }
     }
     
+    var isConnected: Bool {
+        get { return smartFox.isConnected }
+    }
+    
     var _smartFox : SmartFox2XClient?
     var smartFox : SmartFox2XClient
     {
@@ -96,7 +101,7 @@ final class SFNetwork : NSObject, ISFSEvents
     required override init()
     {
         super.init()
-let a =        self.smartFox.mySelf
+        let a = self.smartFox.mySelf
     }
     
     //MARK: - common methods
@@ -170,13 +175,19 @@ let a =        self.smartFox.mySelf
         }
     }
     
-    func login(username : String, password : String, callback : (Result -> ())?)
+    func login(username : String, password : String, callback : NormalEventHandler?)
     {
         pendingCallbacks[TaskType.Login] = callback
         smartFox.send(LoginRequest(userName: username, password: password, zoneName: "Dixit", params: nil))
     }
     
-    func createRoom(roomName: String?, callback : (Result -> ())?)
+    func logout(callback: NormalEventHandler?)
+    {
+        pendingCallbacks[TaskType.Logout] = callback
+        smartFox.send(LogoutRequest())
+    }
+    
+    func createRoom(roomName: String?, callback : NormalEventHandler?)
     {
         pendingCallbacks[TaskType.RoomAdd] = callback
         var roomSettings: RoomSettings
@@ -247,6 +258,11 @@ let a =        self.smartFox.mySelf
     
     func onLoginError(evt: SFSEvent!) {
         handleRequestError(evt, taskType: TaskType.Login)
+    }
+    
+    func onLogout(evt: SFSEvent!) {
+        let user = (evt.params["user"] as? User)
+        executeAndRemoveCallback(TaskType.Logout, result: Result.Success(user))
     }
     
     func onRoomJoin(evt: SFSEvent!) {

@@ -13,6 +13,10 @@ class RoomLobbyViewController : BaseViewController
 {
     @IBOutlet weak var roomTable: UITableView!
     @IBOutlet weak var addRoomBarButton: UIBarButtonItem!
+    @IBOutlet weak var backButton: UIBarButtonItem!
+    @IBAction func back(sender: AnyObject) {
+
+    }
     
     lazy var tableDataSource : RoomTableDataSource = {
         return RoomTableDataSource(controller: self)
@@ -90,7 +94,8 @@ class RoomLobbyViewController : BaseViewController
     
     func setupBarButtons()
     {
-        FontHelper.ApplyFont(addRoomBarButton, fontName: "streamline-24px", fontCharacter: UniChar(0xe2ab), size: 16)
+        FontHelper.ApplyFont(addRoomBarButton, fontName: "streamline-24px", fontCharacter: "\u{e2ab}", size: 16)
+        FontHelper.ApplyFont(backButton, fontName: "streamline-24px", fontCharacter: "\u{e62b}", size: 16)
     }
     
     func joinRoom(room : Room)

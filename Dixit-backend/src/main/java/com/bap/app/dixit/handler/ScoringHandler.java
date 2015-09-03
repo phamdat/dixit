@@ -31,9 +31,9 @@ public class ScoringHandler extends BaseHandler<Scoring> {
 	    playerScore.put(p.getKey(), p.getValue().getScore());
 	}
 
-	for (User player : players) {
-	    send(Scoring.create(rd.getSelectedCards(), rd.getPlayerGuessedCard(), playerScore), player);
-	}
+//	for (User player : players) {
+	    send(Scoring.create(rd.getSelectedCards(), rd.getPlayerGuessedCard(), playerScore), sender);
+//	}
 
 	CommonUtils.updatePlayerState(rd, sender.getId(), Constants.GameState.RETURN_SCORE);
     }

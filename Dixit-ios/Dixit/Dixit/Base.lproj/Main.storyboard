@@ -5,49 +5,6 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Menu game-->
-        <scene sceneID="tne-QT-ifu">
-            <objects>
-                <viewController modalTransitionStyle="crossDissolve" id="BYZ-38-t0r" customClass="ViewController" customModule="Dixit" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Yp3-mi-wXH"/>
-                        <viewControllerLayoutGuide type="bottom" id="0kb-px-dY8"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="fZc-XK-JnV">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r0S-HU-eLM">
-                                <rect key="frame" x="232" y="278" width="137" height="43"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="137" id="1Sh-WV-11w"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="26"/>
-                                <state key="normal" title="Play">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="playButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PXs-L6-F7c"/>
-                                    <segue destination="x63-I1-eqJ" kind="show" id="DEI-E6-7y0"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="centerY" secondItem="r0S-HU-eLM" secondAttribute="centerY" constant="0.5" id="FdY-0J-9qs"/>
-                            <constraint firstAttribute="centerX" secondItem="r0S-HU-eLM" secondAttribute="centerX" constant="-0.5" id="iCy-kV-HKo"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="Menu game" id="xoO-cG-tLT"/>
-                    <connections>
-                        <outlet property="playButton" destination="r0S-HU-eLM" id="wOP-OO-I11"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="874" y="352"/>
-        </scene>
         <!--Login View Controller-->
         <scene sceneID="h6z-ey-hl0">
             <objects>
@@ -60,19 +17,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hav-ND-SHd">
-                                <rect key="frame" x="250" y="285" width="100" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="8Ay-yX-Jaf"/>
-                                    <constraint firstAttribute="height" constant="30" id="F3l-Ja-M7G"/>
-                                </constraints>
-                                <state key="normal" title="Login">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="login:" destination="x63-I1-eqJ" eventType="touchUpInside" id="FOM-Xq-hWz"/>
-                                </connections>
-                            </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vwX-Db-qpc">
                                 <rect key="frame" x="222" y="232" width="157" height="30"/>
                                 <constraints>
@@ -82,18 +26,32 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UtF-Hi-EJD">
+                                <rect key="frame" x="232" y="278" width="137" height="43"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="137" id="dTE-zI-feG"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="26"/>
+                                <state key="normal" title="Login">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="login:" destination="x63-I1-eqJ" eventType="touchUpInside" id="nfP-AZ-xem"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="Hav-ND-SHd" secondAttribute="centerX" id="Uhz-ct-aRT"/>
-                            <constraint firstAttribute="centerY" secondItem="Hav-ND-SHd" secondAttribute="centerY" id="b5d-dT-dBO"/>
-                            <constraint firstItem="Hav-ND-SHd" firstAttribute="top" secondItem="vwX-Db-qpc" secondAttribute="bottom" constant="23" id="bV5-3C-0Sl"/>
+                            <constraint firstItem="UtF-Hi-EJD" firstAttribute="top" secondItem="vwX-Db-qpc" secondAttribute="bottom" constant="16" id="3eE-Jb-qvP"/>
+                            <constraint firstAttribute="centerX" secondItem="UtF-Hi-EJD" secondAttribute="centerX" id="QnI-0J-ndz"/>
                             <constraint firstAttribute="centerX" secondItem="vwX-Db-qpc" secondAttribute="centerX" id="gud-Rk-Xck"/>
+                            <constraint firstAttribute="centerY" secondItem="UtF-Hi-EJD" secondAttribute="centerY" id="vLt-2Q-8b8"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="LJb-dY-40x"/>
                     <connections>
-                        <outlet property="loginButton" destination="Hav-ND-SHd" id="9XD-ye-fJb"/>
+                        <outlet property="loginButton" destination="UtF-Hi-EJD" id="Qry-4n-tJ4"/>
                         <outlet property="nameText" destination="vwX-Db-qpc" id="YBg-lY-PgW"/>
                         <segue destination="Naq-Il-RwD" kind="show" identifier="roomLobbySegue" id="EaW-N7-dGV"/>
                     </connections>
@@ -171,6 +129,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Room Lobby" id="9yH-lJ-OLN">
+                        <barButtonItem key="leftBarButtonItem" title="Item" id="0UB-uq-AcX">
+                            <connections>
+                                <action selector="back:" destination="Naq-Il-RwD" id="yTk-nU-t7b"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Create room" id="CyS-53-lRS">
                             <connections>
                                 <segue destination="FYK-E0-gIz" kind="show" identifier="prepareRoomSegue" id="Nxy-sj-0Bi"/>
@@ -179,6 +142,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="addRoomBarButton" destination="CyS-53-lRS" id="UXd-VD-bXx"/>
+                        <outlet property="backButton" destination="0UB-uq-AcX" id="Fpb-gX-7tt"/>
                         <outlet property="roomTable" destination="ChU-QD-1DC" id="E5u-90-gUD"/>
                         <segue destination="ZxB-go-MCq" kind="show" identifier="joinRoomSegue" id="ORr-Zj-MFF"/>
                     </connections>
@@ -516,16 +480,16 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Lme-0G-Jmi"/>
+                        <segue destination="x63-I1-eqJ" kind="relationship" relationship="rootViewController" id="kPC-ik-gfr"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G6r-PO-H8R" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="155" y="352"/>
+            <point key="canvasLocation" x="905" y="352"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="XoO-xd-j4G"/>
+        <segue reference="ORr-Zj-MFF"/>
         <segue reference="O2J-5g-cXW"/>
     </inferredMetricsTieBreakers>
 </document>
