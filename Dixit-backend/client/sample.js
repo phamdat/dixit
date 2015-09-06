@@ -1,9 +1,9 @@
 // Create configuration object
 var config = {};
-config.host = "127.0.0.1";
+config.host = "52.88.89.46";
 config.port = 8888;
 config.useSSL = false;
-config.zone = "Dixit";
+config.zone = "dixit";
 config.debug = false;
 
 var cards;
@@ -16,6 +16,7 @@ sfs.addEventListener(SFS2X.SFSEvent.CONNECTION, onConnection, this);
 sfs.connect();
 
 function onConnection(evtParams) {
+    console.log(evtParams);
     if (evtParams.success) {
         console.log("Connection established");
     } else {
@@ -35,7 +36,6 @@ function login() {
 
 function onLogin(evtParams) {
     console.log("Login successful!");
-    joinRoom();
 }
 
 function onLoginError(evtParams) {
@@ -48,7 +48,7 @@ function createRoom() {
     sfs.addEventListener(SFS2X.SFSEvent.ROOM_CREATION_ERROR, onRoomCreationError, this);
 
     // Create a new chat Room
-    var settings = new SFS2X.Requests.RoomSettings("kaka1");
+    var settings = new SFS2X.Requests.RoomSettings(document.getElementById("room").value);
     settings.maxUsers = 10;
     settings.groupId = "default";
 
@@ -57,7 +57,6 @@ function createRoom() {
 
 function onRoomCreated(evtParams) {
     console.log("Room created: " + evtParams.room);
-    joinRoom();
 }
 
 function onRoomCreationError(evtParams) {
@@ -70,7 +69,7 @@ function joinRoom() {
     sfs.addEventListener(SFS2X.SFSEvent.ROOM_JOIN_ERROR, onRoomJoinError, this);
 
     // Join a Room called "Lobby"
-    sfs.send(new SFS2X.Requests.System.JoinRoomRequest("kaka"));
+    sfs.send(new SFS2X.Requests.System.JoinRoomRequest(document.getElementById("room").value));
 }
 
 function onRoomJoined(evtParams) {

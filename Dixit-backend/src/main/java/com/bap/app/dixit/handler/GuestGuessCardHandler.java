@@ -1,5 +1,6 @@
 package com.bap.app.dixit.handler;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
@@ -37,12 +38,13 @@ public class GuestGuessCardHandler extends BaseHandler<GuestGuessCard> {
 	// check if all of guests guessed already
 	if (checkAlready(rd)) {
 	    boolean allGuessRight = true;
+	    List<Integer> addedScorePlayers = new ArrayList<Integer>();
 	    for (Entry<Integer, String> ugc : rd.getPlayerGuessedCard().entrySet()) {
 		String cardId = ugc.getValue();
 		Integer guesserId = ugc.getKey();
 		Integer selectorId = rd.getSelectedCards().get(cardId);
 		if (selectorId == rd.getHostId()) {
-		    rd.getPlayers().get(guesserId).addScore(3);
+		    addedScorePlayers.add(selectorId);
 		} else {
 		    rd.getPlayers().get(selectorId).addScore(1);
 		    allGuessRight = false;
@@ -50,7 +52,16 @@ public class GuestGuessCardHandler extends BaseHandler<GuestGuessCard> {
 	    }
 
 	    if (!allGuessRight) {
-		rd.getPlayers().get(rd.getHostId()).addScore(3);
+		for (Integer id : addedScorePlayers) {
+		    rd.getPlayers().get(id).addScore(3);
+		}
+		if (addedScorePlayers.size() > 0) {
+		    rd.getPlayers().get(rd.getHostId()).addScore(3);
+		}
+	    } else {
+		for (Integer id : addedScorePlayers) {
+		    rd.getPlayers().get(id).addScore(2);
+		}
 	    }
 	}
     }
