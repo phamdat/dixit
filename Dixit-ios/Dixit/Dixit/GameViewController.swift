@@ -93,6 +93,7 @@ class GameViewController : MWPhotoBrowser
         super.init(coder: aDecoder)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("otherUserSelectCard:"), name: TaskType.UserSelectCard.description, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("onHostSendQuestion:"), name: TaskType.Question.description, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("onDrawCard:"), name: "draw_card", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("onHostSelectedCard:"), name: "host_select_card", object: nil)
     }
@@ -137,17 +138,41 @@ class GameViewController : MWPhotoBrowser
     
     func selectedCard(card: Card)
     {
-        var cardIdDictionary = ["cardId": card.cardId]
+        var cardDescription: UITextField = UITextField()
+        
+        let alert = UIAlertController(title: "Question", message: "", preferredStyle: .Alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        let selectAction = UIAlertAction(title: "Select", style: .Default, handler: { action in
+            let des = cardDescription.text!
+            print("buc nhaaaaaaa \(des)")
+            self.sendCard(card, description: des)
+        })
+        alert.addTextFieldWithConfigurationHandler { (textField) -> Void in
+            textField.placeholder = "Description for your card"
+            cardDescription = textField
+        }
+        alert.addAction(cancelAction)
+        alert.addAction(selectAction)
+        
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func sendCard(card: Card, description: String)
+    {
+        let cardIdDictionary = ["cardId": card.cardId]
         let jsonData = try? NSJSONSerialization.dataWithJSONObject(cardIdDictionary, options: NSJSONWritingOptions(rawValue: 0))
         let jsonString = NSString(data: jsonData!, encoding: NSUTF8StringEncoding) as! String
         
-        var data = SFSObject()
+        let data = SFSObject()
         data.putUtfString("request", value: jsonString)
         
         if network.me.id() == UserInfo.sharedInstance.currentHostId
         {
             network.sendExtension("host_select_card", data: data, room: nil) { (data, result) -> () in
                 self.userCanSelectCard = false
+                let question = SFSObject()
+                question.putUtfString("question", value: description)
+                self.network.sendPublicMessage(TaskType.Question.description, data: question)
                 self.network.sendPublicMessage(TaskType.UserSelectCard.description, data: nil)
             }
         }
@@ -158,6 +183,7 @@ class GameViewController : MWPhotoBrowser
                 self.network.sendPublicMessage(TaskType.UserSelectCard.description, data: nil)
             }
         }
+    
     }
     
     func onHostSelectedCard(notification: NSNotification)
@@ -203,8 +229,34 @@ class GameViewController : MWPhotoBrowser
         }
     }
     
+    func onHostSendQuestion(notification: NSNotification)
+    {
+        if network.me.id() != UserInfo.sharedInstance.currentHostId
+        {
+            return;
+        }
+        
+        if let userInfo = notification.userInfo
+        {
+            if let data = userInfo["data"] as? SFSObject
+            {
+                let description = data.getUtfString("question")
+                showDescription(description)
+            }
+        }
+    }
+    
+    func showDescription(description: String)
+    {
+        let alert = UIAlertController(title: "Question", message: description, preferredStyle: .Alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        alert.addAction(cancelAction)
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
     //MARK: - UI Action
-    @IBAction func selectCard(sender: AnyObject) {
+    @IBAction func selectCard(sender: AnyObject)
+    {
         let idx = Int(self.currentIndex)
         self.selectedCard(myCards[idx])
     }

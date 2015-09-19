@@ -146,7 +146,16 @@ class RoomTableDataSource : NSObject, UITableViewDataSource, UITableViewDelegate
         
         let room = rooms[indexPath.row] as Room
         let roomName = cell?.viewWithTag(1) as! UILabel
+        let hostName = cell?.viewWithTag(2) as! UILabel
+        let quota = cell?.viewWithTag(3) as! UILabel
+
+        let users = room.userList() as? [User]
+        let host = users?.filter { u in u.playerId() == 1 }
+                        .first as User?
+
         roomName.text = room.name()
+        quota.text = "\(room.userCount()) / \(room.maxUsers())"
+        hostName.text = "\(host?.name())"
         
         return cell!
     }

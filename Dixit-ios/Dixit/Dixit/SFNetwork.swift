@@ -28,6 +28,7 @@ enum TaskType : CustomStringConvertible
     case AllUserGuessedCards
     case RestartGame
     case ReviewDone
+    case Question
     
     var description: String
     {
@@ -49,6 +50,7 @@ enum TaskType : CustomStringConvertible
         case .AllUserGuessedCards: return "AllUserGuessedCards"
         case .RestartGame: return "RestartGame"
         case .ReviewDone: return "ReviewDone"
+        case .Question: return "Question"
         default: return ""
         }
     }
