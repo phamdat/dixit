@@ -1,7 +1,6 @@
 package com.bap.app.dixit.handler;
 
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -24,7 +23,7 @@ public class ScoringHandler extends BaseHandler<Scoring> {
 
     @Override
     public void execute(User sender, Scoring t, RoomData rd) throws Exception {
-	List<User> players = sender.getLastJoinedRoom().getUserList();
+//	List<User> players = sender.getLastJoinedRoom().getUserList();
 
 	Map<Integer, Integer> playerScore = new LinkedHashMap<Integer, Integer>();
 	for (Entry<Integer, PlayerData> p : rd.getPlayers().entrySet()) {
