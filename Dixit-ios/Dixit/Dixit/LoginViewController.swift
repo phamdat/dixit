@@ -18,27 +18,38 @@ class LoginViewController : BaseViewController
     }
     
     @IBAction func login(sender: UIButton) {
-        let name = nameText.text
-        network.start({
-            result -> () in
-            self.network.connect({ result1 -> () in
-                self.network.login(name, password: "", callback: { result2 -> () in
-                    println("login roi ne hehe")
-                    switch result2
-                    {
-                    case Result.Success(let user):
-                        UserInfo.sharedInstance.currentUser = user as? User
-                        self.performSegueWithIdentifier("roomLobbySegue", sender: sender)
-                        break
-                    case Result.Failure(let message):
-                        println("login fail roi ne")
-                        break
-                    default:
-                        break
-                    }
+        let name = nameText.text!
+        if network.isConnected
+        {
+            loginNetwork(name)
+        }
+        else
+        {
+            network.start({
+                result -> () in
+                self.network.connect({ result1 -> () in
+                    self.loginNetwork(name)
                 })
             })
-        })
+        }
     }
     
+    private func loginNetwork(name: String)
+    {
+        self.network.login(name, password: "", callback: { result2 -> () in
+            print("login roi ne hehe")
+            switch result2
+            {
+            case Result.Success(let user):
+                UserInfo.sharedInstance.currentUser = user as? User
+                self.performSegueWithIdentifier("roomLobbySegue", sender: self)
+                break
+            case Result.Failure(let message):
+                print("login fail roi ne: \(message)")
+                break
+            default:
+                break
+            }
+        })
+    }
 }

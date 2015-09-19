@@ -15,6 +15,7 @@ class RoomDetailViewController : BaseViewController
     @IBOutlet weak var descriptionText: UITextView!
     @IBOutlet weak var quitBarButton: UIBarButtonItem!
     @IBOutlet weak var startBarButton: UIBarButtonItem!
+    @IBOutlet weak var roomTitle: UILabel!
     
     lazy var playerSource : ParticipantTableSource = {
         return ParticipantTableSource()
@@ -22,6 +23,8 @@ class RoomDetailViewController : BaseViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        roomTitle.text = UserInfo.sharedInstance.currentRoom?.name()
         
         setupEvent()
         setupBarButtons()
@@ -95,23 +98,23 @@ class RoomDetailViewController : BaseViewController
     
     func startGame(sender : UIBarButtonItem) -> ()
     {
-        println("start game")
+        print("start game")
         network.sendExtension("start_game", data: SFSObject(), room: UserInfo.sharedInstance.currentRoom, callback: nil)
 
     }
     
     func quitRoom(sender : UIBarButtonItem) -> ()
     {
-        println("request leave room")
+        print("request leave room")
         network.leaveRoom({ (result : Result) -> () in
-            println("leave room success")
+            print("leave room success")
         })
         
         for controller in self.navigationController!.viewControllers
         {
             if controller is RoomLobbyViewController
             {
-                self.navigationController?.popToViewController(controller as! UIViewController, animated: true)
+                self.navigationController?.popToViewController(controller , animated: true)
             }
         }
     }
@@ -135,7 +138,7 @@ class ParticipantTableSource : NSObject, UITableViewDataSource, UITableViewDeleg
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        var cell = tableView.dequeueReusableCellWithIdentifier(participantCell) as? UITableViewCell
+        var cell = tableView.dequeueReusableCellWithIdentifier(participantCell) as UITableViewCell?
         if cell == nil
         {
             cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: participantCell)

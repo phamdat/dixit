@@ -1,7 +1,7 @@
 <SmartFoxConfig>
-	<ip>192.168.1.13</ip>
+	<ip>ec2-52-88-89-46.us-west-2.compute.amazonaws.com</ip>
 	<port>9933</port>
-	<zone>Dixit</zone>
+	<zone>dixit</zone>
 	<httpPort>8080</httpPort>
 	<httpPollSpeed>750</httpPollSpeed>
 </SmartFoxConfig>

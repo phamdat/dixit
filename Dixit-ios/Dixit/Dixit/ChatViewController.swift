@@ -14,7 +14,7 @@ class ChatViewController : JSQMessagesViewController
     var incomingBubbleImageData: JSQMessagesBubbleImage
     var outgoingBubbleImageData: JSQMessagesBubbleImage
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         
         let bubbleFactory = JSQMessagesBubbleImageFactory()
         outgoingBubbleImageData = bubbleFactory.outgoingMessagesBubbleImageWithColor(UIColor.jsq_messageBubbleLightGrayColor())
@@ -23,9 +23,9 @@ class ChatViewController : JSQMessagesViewController
 
         messages = [JSQMessage]()
         
-        let msg = JSQMessage(senderId: "1", senderDisplayName: "Kem", date: NSDate.distantPast() as! NSDate, text: "test cai coi")
+        let msg = JSQMessage(senderId: "1", senderDisplayName: "Kem", date: NSDate.distantPast() , text: "test cai coi")
 
-        let msg1 = JSQMessage(senderId: "2111", senderDisplayName: "Bill Gates", date: NSDate.distantPast() as! NSDate, text: "a duuuuu")
+        let msg1 = JSQMessage(senderId: "2111", senderDisplayName: "Bill Gates", date: NSDate.distantPast() , text: "a duuuuu")
         
         messages.append(msg)
         messages.append(msg1)
@@ -105,11 +105,11 @@ class ChatViewController : JSQMessagesViewController
         {
             if msg.senderId == self.senderId
             {
-                cell.textView.textColor = UIColor.blackColor()
+                cell.textView?.textColor = UIColor.blackColor()
             }
             else
             {
-                cell.textView.textColor = UIColor.whiteColor()
+                cell.textView?.textColor = UIColor.whiteColor()
             }
         }
         

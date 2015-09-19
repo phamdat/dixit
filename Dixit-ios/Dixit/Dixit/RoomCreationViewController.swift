@@ -22,7 +22,7 @@ class RoomCreationViewController : BaseViewController
     
     @IBAction func createRoom(sender: UIBarButtonItem)
     {
-        println("request create room")
+        print("request create room")
         network.createRoom(nameText.text, callback: { result -> () in
             switch result
             {

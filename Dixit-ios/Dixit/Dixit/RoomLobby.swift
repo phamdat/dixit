@@ -15,7 +15,9 @@ class RoomLobbyViewController : BaseViewController
     @IBOutlet weak var addRoomBarButton: UIBarButtonItem!
     @IBOutlet weak var backButton: UIBarButtonItem!
     @IBAction func back(sender: AnyObject) {
-
+        network.logout({result -> () in
+            self.navigationController?.popViewControllerAnimated(true)
+        })
     }
     
     lazy var tableDataSource : RoomTableDataSource = {
@@ -32,7 +34,7 @@ class RoomLobbyViewController : BaseViewController
     
     override func viewWillAppear(animated: Bool)
     {
-        if let rooms = network.rooms as? [Room]
+        if let rooms = network.rooms
         {
             self.tableDataSource.rooms = rooms
             roomTable.reloadData()
@@ -81,7 +83,7 @@ class RoomLobbyViewController : BaseViewController
         roomTable.dataSource = tableDataSource
         roomTable.delegate = tableDataSource
         roomTable.separatorColor = UIColor.clearColor()
-        roomTable.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
+        roomTable.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
         roomTable.backgroundColor = UIColor(red: 40, green: 40, blue: 40, alpha: 1)
         roomTable.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         roomTable.scrollIndicatorInsets = roomTable!.contentInset
@@ -136,7 +138,7 @@ class RoomTableDataSource : NSObject, UITableViewDataSource, UITableViewDelegate
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        var cell = tableView.dequeueReusableCellWithIdentifier(simpleTableIdentifier) as? UITableViewCell
+        var cell = tableView.dequeueReusableCellWithIdentifier(simpleTableIdentifier) as UITableViewCell?
         if cell == nil
         {
             cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: simpleTableIdentifier)

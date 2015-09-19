@@ -11,6 +11,8 @@ import UIKit
 
 class ResultViewController : MWPhotoBrowser
 {
+    @IBOutlet weak var guessButton: UIBarButtonItem!
+    
     var network : SFNetwork
     var selectedCard: Card?
     var selectedCards: [Card] = [Card]()
@@ -29,11 +31,10 @@ class ResultViewController : MWPhotoBrowser
             }
         }
     }
-
     
     lazy var photoSource : MyPhotoDelegate = { return MyPhotoDelegate() }()
     
-    required init(coder aDecoder: NSCoder)
+    required init?(coder aDecoder: NSCoder)
     {
         network = SFNetwork.sharedInstance
         users = UserInfo.sharedInstance.currentRoom?.userList() as! [User]
@@ -57,6 +58,11 @@ class ResultViewController : MWPhotoBrowser
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("onOtherPlayersGuessedCards:"), name: "guest_guess_card", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("onGetSelectedCards:"), name: "selected_card", object: nil)
         
+        if network.me.id() == UserInfo.sharedInstance.currentHostId
+        {
+            guessButton.enabled = false
+        }
+        
         getAllSelectedCards()
     }
     
@@ -68,14 +74,14 @@ class ResultViewController : MWPhotoBrowser
         }
     }
     
-    func guessCard(card: Card?)
+    func sendGuessedCard(card: Card?)
     {
         if network.me.id() != UserInfo.sharedInstance.currentHostId
         {
             if let c = card
             {
                 var cardIdDictionary = ["cardId": c.cardId]
-                let jsonData = NSJSONSerialization.dataWithJSONObject(cardIdDictionary, options: NSJSONWritingOptions(0), error: nil)
+                let jsonData = try? NSJSONSerialization.dataWithJSONObject(cardIdDictionary, options: NSJSONWritingOptions(rawValue: 0))
                 let jsonString = NSString(data: jsonData!, encoding: NSUTF8StringEncoding) as! String
                 
                 var data = SFSObject()
@@ -134,7 +140,7 @@ class ResultViewController : MWPhotoBrowser
         }
     }
     @IBAction func guessCard(sender: AnyObject) {
-        selectedCard = selectedCards[0]
-        guessCard(selectedCard)
+        let idx = Int(self.currentIndex)
+        sendGuessedCard(selectedCards[idx])
     }
 }

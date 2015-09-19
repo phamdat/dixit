@@ -16,6 +16,21 @@ class ScoreViewController : BaseViewController
     @IBOutlet weak var doneButton: UIBarButtonItem!
     
     var users: [User] = [User]()
+    var readyUsers: [User] = [User]()
+    
+    var _shouldGo: Bool = false;
+    var shouldGo: Bool {
+        get { return _shouldGo }
+        set
+        {
+            _shouldGo = newValue
+            if _shouldGo
+            {
+                restartGame()
+            }
+        }
+    }
+
     
     lazy var scoreSource : ScoreDataSource = {
         return ScoreDataSource()
@@ -24,7 +39,7 @@ class ScoreViewController : BaseViewController
     required init(coder aDecoder: NSCoder)
     {
         users = UserInfo.sharedInstance.currentRoom?.userList() as! [User]
-        super.init(coder: aDecoder)
+        super.init(coder: aDecoder)!
     }
     
     override func viewDidLoad() {
@@ -36,11 +51,16 @@ class ScoreViewController : BaseViewController
 //        refreshTable()
     }
     
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
     func getUserById(userId: NSString) -> User?
     {
         for u in users
         {
-            if u.id() == (userId as? String)?.toInt()
+            if u.id() == (Int)(userId as String)
             {
                 return u
             }
@@ -50,9 +70,39 @@ class ScoreViewController : BaseViewController
     
     private func setupEvent()
     {
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("onStartGame:"), name: "start_game", object: nil)
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("onUserExitRoom:"), name: TaskType.UserExitRoom.description, object: nil)
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("onUserEnterRoom:"), name: TaskType.UserEnterRoom.description, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("onStartGame:"), name: "start_game", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("onOtherReviewDone:"), name: TaskType.ReviewDone.description, object: nil)
+    }
+    
+    func onOtherReviewDone(notification: NSNotification)
+    {
+        if let userInfo = notification.userInfo
+        {
+            let sender = userInfo["sender"] as! User
+            readyUsers.append(sender)
+            let room = userInfo["room"] as! Room
+            if room.userCount() == readyUsers.count
+            {
+                shouldGo = true
+            }
+        }
+    }
+    
+    func restartGame()
+    {
+        if network.me.id() == UserInfo.sharedInstance.currentHostId
+        {
+            network.sendExtension("start_game", data: SFSObject(), room: UserInfo.sharedInstance.currentRoom, callback: nil)
+        }
+    }
+    
+    func onStartGame(notification: NSNotification)
+    {
+        if let userInfo = notification.userInfo
+        {
+            UserInfo.sharedInstance.currentHostId = userInfo["hostId"] as! Int
+            self.performSegueWithIdentifier("restartSegue", sender: self)
+        }
     }
     
     private func setupTable()
@@ -65,7 +115,7 @@ class ScoreViewController : BaseViewController
     func getScore()
     {
         network.sendExtension("scoring", data: SFSObject(), room: nil) { (rawData, result) -> () in
-            println("hjello")
+            print("hjello")
             if let data = rawData as? Dictionary<NSObject, AnyObject>
             {
                 if let scores = data["playerScore"] as? Dictionary<NSObject, AnyObject>
@@ -86,7 +136,8 @@ class ScoreViewController : BaseViewController
     }
     
     @IBAction func doneClick(sender: AnyObject) {
-        println("restart")
+        print("restart")
+        network.sendPublicMessage(TaskType.ReviewDone.description, data: nil)
     }
 }
 
@@ -108,7 +159,7 @@ class ScoreDataSource : NSObject, UITableViewDataSource, UITableViewDelegate
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        var cell = tableView.dequeueReusableCellWithIdentifier(scoreCell) as? UITableViewCell
+        var cell = tableView.dequeueReusableCellWithIdentifier(scoreCell) as UITableViewCell?
         if cell == nil
         {
             cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: scoreCell)

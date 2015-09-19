@@ -13,7 +13,7 @@ class BaseViewController : UIViewController
 {
     var network : SFNetwork
     
-    required init(coder aDecoder: NSCoder)
+    required init?(coder aDecoder: NSCoder)
     {
         network = SFNetwork.sharedInstance
         super.init(coder: aDecoder)

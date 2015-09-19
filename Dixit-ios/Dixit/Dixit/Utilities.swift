@@ -19,8 +19,8 @@ class Utilities
     static func parseJSON(text: String) -> NSDictionary
     {
         var error: NSError?
-        var jsonData: NSData = text.dataUsingEncoding(NSUTF8StringEncoding)!
-        let jsonDict = NSJSONSerialization.JSONObjectWithData(jsonData, options: nil, error: &error) as! NSDictionary
+        let jsonData: NSData = text.dataUsingEncoding(NSUTF8StringEncoding)!
+        let jsonDict = (try! NSJSONSerialization.JSONObjectWithData(jsonData, options: [])) as! NSDictionary
         return jsonDict
     }    
     

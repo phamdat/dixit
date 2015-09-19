@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum TaskType : Printable
+enum TaskType : CustomStringConvertible
 {
     case ServerConnect
     case ServerDisconnect
@@ -26,6 +26,8 @@ enum TaskType : Printable
     case GetSelectedCards
     case GuessCard
     case AllUserGuessedCards
+    case RestartGame
+    case ReviewDone
     
     var description: String
     {
@@ -45,6 +47,8 @@ enum TaskType : Printable
         case .GetSelectedCards: return "GetSelectedCards"
         case .GuessCard: return "GuessCard"
         case .AllUserGuessedCards: return "AllUserGuessedCards"
+        case .RestartGame: return "RestartGame"
+        case .ReviewDone: return "ReviewDone"
         default: return ""
         }
     }
@@ -73,9 +77,7 @@ final class SFNetwork : NSObject, ISFSEvents
         }
     }
     
-    var isConnected: Bool {
-        get { return smartFox.isConnected }
-    }
+    var isConnected: Bool { get { return smartFox.isConnected } }
     
     var _smartFox : SmartFox2XClient?
     var smartFox : SmartFox2XClient
@@ -93,9 +95,9 @@ final class SFNetwork : NSObject, ISFSEvents
     var pendingCallbacks = Dictionary<TaskType, NormalEventHandler>()
     var extensionCallbacks = Dictionary<String, ExtensionEventHandler?>()
     
-    var rooms : [AnyObject]
+    var rooms : [Room]?
     {
-        get { return smartFox.roomList }
+        get { return (smartFox.roomList as? [Room]) }
     }
     
     required override init()
@@ -154,7 +156,7 @@ final class SFNetwork : NSObject, ISFSEvents
     //MARK: - action
     func start(callback : (Result -> ())?)
     {
-        smartFox.logger.loggingLevel = LogLevel_DEBUG
+        smartFox.logger?.loggingLevel = LogLevel_DEBUG
         
         pendingCallbacks[TaskType.LoadConfig] = callback
         smartFox.loadConfig("config.xml", connectOnSuccess: false)
@@ -178,7 +180,7 @@ final class SFNetwork : NSObject, ISFSEvents
     func login(username : String, password : String, callback : NormalEventHandler?)
     {
         pendingCallbacks[TaskType.Login] = callback
-        smartFox.send(LoginRequest(userName: username, password: password, zoneName: "Dixit", params: nil))
+        smartFox.send(LoginRequest(userName: username, password: password, zoneName: nil, params: nil))
     }
     
     func logout(callback: NormalEventHandler?)
@@ -235,20 +237,28 @@ final class SFNetwork : NSObject, ISFSEvents
     
     func onConfigLoadFailure(evt: SFSEvent!) {
         let msg = (evt.params["message"] as? String)!
-        println(msg)
+        print(msg)
         executeAndRemoveCallback(TaskType.LoadConfig, result: Result.Failure(msg))
     }
     
     func onConnection(evt: SFSEvent!) {
         let success : Bool = (evt.params["success"] as? Bool)!
-        println("nhin ne \(success)")
+        print("nhin ne \(success)")
         executeAndRemoveCallback(TaskType.ServerConnect, result: Result.Success(nil))
     }
     
     func onConnectionLost(evt: SFSEvent!) {
         let msg = (evt.params["reason"] as? String)
-        println(msg)
-        executeAndRemoveCallback(TaskType.Login, result: Result.Failure(msg))
+        print(msg)
+        if isConnected
+        {
+            print("vi sao vay")
+        }
+        else
+        {
+            print("dmm")
+        }
+        executeAndRemoveCallback(TaskType.ServerConnect, result: Result.Failure(msg))
     }
     
     func onLogin(evt: SFSEvent!) {
@@ -267,12 +277,12 @@ final class SFNetwork : NSObject, ISFSEvents
     
     func onRoomJoin(evt: SFSEvent!) {
         let msg = (evt.params["errorMessage"] as? String)
-        println(msg)
+        print(msg)
         executeAndRemoveCallback(TaskType.JoinRoom, result: Result.Failure(msg))
     }
     
     func onUserExitRoom(evt: SFSEvent!) {
-        println("onUserExitRoom")
+        print("onUserExitRoom")
         let room = (evt.params["room"] as? Room)
         let user = (evt.params["user"] as? User)
         executeAndRemoveCallback(TaskType.UserExitRoom, result: Result.Success(nil))
@@ -280,7 +290,7 @@ final class SFNetwork : NSObject, ISFSEvents
     }
     
     func onUserEnterRoom(evt: SFSEvent!) {
-        println("onUserEnterRoom")
+        print("onUserEnterRoom")
         let room = (evt.params["room"] as! Room)
         let user = (evt.params["user"] as! User)
         executeAndRemoveCallback(TaskType.UserEnterRoom, result: Result.Success(nil))
@@ -288,7 +298,7 @@ final class SFNetwork : NSObject, ISFSEvents
     }
     
     func onRoomJoinError(evt: SFSEvent!) {
-        println("join error")
+        print("join error")
         handleRequestError(evt, taskType: TaskType.JoinRoom)
     }
     
@@ -297,7 +307,7 @@ final class SFNetwork : NSObject, ISFSEvents
         
         if !executeAndRemoveCallback(TaskType.RoomAdd, result: Result.Success(room))
         {
-            println("room added")
+            print("room added")
             broadcastData(TaskType.RoomAdd.description, data: ["room": room])
         }
     }
@@ -307,7 +317,7 @@ final class SFNetwork : NSObject, ISFSEvents
         
         if !executeAndRemoveCallback(TaskType.RoomRemove, result: Result.Success(room))
         {
-            println("room removed")
+            print("room removed")
             broadcastData(TaskType.RoomRemove.description, data: ["room": room])
         }
     }
@@ -320,8 +330,8 @@ final class SFNetwork : NSObject, ISFSEvents
         let response = params.getUtfString("response")
         
         var error: NSError?
-        var jsonData: NSData = response.dataUsingEncoding(NSUTF8StringEncoding)!
-        let jsonDict = NSJSONSerialization.JSONObjectWithData(jsonData, options: nil, error: &error) as! Dictionary<NSObject, AnyObject>
+        let jsonData: NSData = response.dataUsingEncoding(NSUTF8StringEncoding)!
+        let jsonDict = (try! NSJSONSerialization.JSONObjectWithData(jsonData, options: [])) as! Dictionary<NSObject, AnyObject>
         self.broadcastData(cmd, data: jsonDict)
         
         executeAndRemoveExtensionCallback(cmd, data: jsonDict, result: Result.Success(nil))
@@ -344,7 +354,7 @@ final class SFNetwork : NSObject, ISFSEvents
     func handleRequestError(evt : SFSEvent!, taskType : TaskType)
     {
         let msg = (evt.params["errorMessage"] as? String)
-        println(msg)
+        print(msg)
         executeAndRemoveCallback(taskType, result: Result.Failure(msg))
     }    
 }

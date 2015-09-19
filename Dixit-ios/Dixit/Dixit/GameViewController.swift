@@ -86,7 +86,7 @@ class GameViewController : MWPhotoBrowser
     
     lazy var photoSource : MyPhotoDelegate = { return MyPhotoDelegate() }()
     
-    required init(coder aDecoder: NSCoder)
+    required init?(coder aDecoder: NSCoder)
     {
         network = SFNetwork.sharedInstance
 
@@ -118,7 +118,8 @@ class GameViewController : MWPhotoBrowser
         drawCard()
     }
     
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(animated: Bool)
+    {
         super.viewDidDisappear(animated)
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
@@ -137,7 +138,7 @@ class GameViewController : MWPhotoBrowser
     func selectedCard(card: Card)
     {
         var cardIdDictionary = ["cardId": card.cardId]
-        let jsonData = NSJSONSerialization.dataWithJSONObject(cardIdDictionary, options: NSJSONWritingOptions(0), error: nil)
+        let jsonData = try? NSJSONSerialization.dataWithJSONObject(cardIdDictionary, options: NSJSONWritingOptions(rawValue: 0))
         let jsonString = NSString(data: jsonData!, encoding: NSUTF8StringEncoding) as! String
         
         var data = SFSObject()
@@ -204,7 +205,8 @@ class GameViewController : MWPhotoBrowser
     
     //MARK: - UI Action
     @IBAction func selectCard(sender: AnyObject) {
-        self.selectedCard(myCards[0])
+        let idx = Int(self.currentIndex)
+        self.selectedCard(myCards[idx])
     }
 }
 
@@ -249,6 +251,4 @@ class MyPhotoDelegate : NSObject, MWPhotoBrowserDelegate
     func photoBrowser(photoBrowser: MWPhotoBrowser!, thumbPhotoAtIndex index: UInt) -> MWPhotoProtocol! {
         return self.images[Int(index)].image
     }
-    
-    
 }

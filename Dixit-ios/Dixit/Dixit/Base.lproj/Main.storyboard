@@ -308,6 +308,7 @@
                         <outlet property="descriptionText" destination="5dg-Gp-Sc6" id="bJr-Dd-N7y"/>
                         <outlet property="participantTable" destination="8rf-FB-c31" id="E4k-HC-NJp"/>
                         <outlet property="quitBarButton" destination="fAP-2s-xPp" id="vUe-1W-YTg"/>
+                        <outlet property="roomTitle" destination="tTB-0f-dq9" id="Stu-0F-2Iw"/>
                         <outlet property="startBarButton" destination="cLf-0K-rHy" id="7He-jl-oHg"/>
                         <segue destination="Wpb-u5-otb" kind="show" identifier="startSegue" id="hDR-B0-zVP"/>
                     </connections>
@@ -348,7 +349,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="ZI7-2I-t3y">
-                        <barButtonItem key="leftBarButtonItem" title="Item" id="aZg-st-ILy">
+                        <barButtonItem key="leftBarButtonItem" title="Chat" id="aZg-st-ILy">
                             <connections>
                                 <segue destination="1P5-To-HTl" kind="presentation" identifier="chatSegue" id="72L-AB-O1l"/>
                             </connections>
@@ -443,7 +444,7 @@
             </objects>
             <point key="canvasLocation" x="4519" y="1450"/>
         </scene>
-        <!--Title-->
+        <!--Result View Controller-->
         <scene sceneID="uv3-Fi-3vZ">
             <objects>
                 <viewController id="bPC-VN-cBn" customClass="ResultViewController" customModule="Dixit" customModuleProvider="target" sceneMemberID="viewController">
@@ -456,7 +457,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="pa2-Gx-nIj">
+                    <navigationItem key="navigationItem" id="pa2-Gx-nIj">
+                        <barButtonItem key="leftBarButtonItem" title="Chat" id="0du-tJ-cMu">
+                            <connections>
+                                <segue destination="1P5-To-HTl" kind="presentation" identifier="chatSegue" id="B5Q-AR-M2w"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Select" id="uKR-TZ-f0p">
                             <connections>
                                 <action selector="guessCard:" destination="bPC-VN-cBn" id="zBN-g7-Clr"/>
@@ -464,6 +470,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="guessButton" destination="uKR-TZ-f0p" id="8Gb-TC-iEh"/>
                         <segue destination="2uw-cv-DDf" kind="show" identifier="scoreSegue" id="bw5-g8-XTI"/>
                     </connections>
                 </viewController>
@@ -489,7 +496,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="ORr-Zj-MFF"/>
+        <segue reference="72L-AB-O1l"/>
         <segue reference="O2J-5g-cXW"/>
+        <segue reference="XoO-xd-j4G"/>
     </inferredMetricsTieBreakers>
 </document>
