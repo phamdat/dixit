@@ -366,7 +366,7 @@
                     <connections>
                         <outlet property="chatBarButton" destination="aZg-st-ILy" id="2hY-4V-kvm"/>
                         <outlet property="selectBarButton" destination="rGB-wT-azg" id="EeN-K5-vsF"/>
-                        <segue destination="bPC-VN-cBn" kind="show" identifier="showResultSegue" id="5PU-K4-m41"/>
+                        <segue destination="bPC-VN-cBn" kind="show" identifier="showGuessCardSegue" id="5PU-K4-m41"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ezw-pw-uvb" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -448,10 +448,10 @@
             </objects>
             <point key="canvasLocation" x="4519" y="1450"/>
         </scene>
-        <!--Result View Controller-->
+        <!--Guess Card View Controller-->
         <scene sceneID="uv3-Fi-3vZ">
             <objects>
-                <viewController id="bPC-VN-cBn" customClass="ResultViewController" customModule="Dixit" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="bPC-VN-cBn" customClass="GuessCardViewController" customModule="Dixit" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4c2-W3-7eM"/>
                         <viewControllerLayoutGuide type="bottom" id="ABW-cn-i4z"/>
@@ -500,8 +500,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="O2J-5g-cXW"/>
-        <segue reference="72L-AB-O1l"/>
         <segue reference="ORr-Zj-MFF"/>
+        <segue reference="O2J-5g-cXW"/>
+        <segue reference="B5Q-AR-M2w"/>
     </inferredMetricsTieBreakers>
 </document>

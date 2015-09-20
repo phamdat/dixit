@@ -22,6 +22,7 @@ enum TaskType : CustomStringConvertible
     case LoadConfig
     case UserExitRoom
     case UserEnterRoom
+    case UserCountChange
     case UserSelectCard
     case GetSelectedCards
     case GuessCard
@@ -51,6 +52,7 @@ enum TaskType : CustomStringConvertible
         case .RestartGame: return "RestartGame"
         case .ReviewDone: return "ReviewDone"
         case .Question: return "Question"
+        case .UserCountChange: return "UserCountChange"
         default: return ""
         }
     }
@@ -76,6 +78,20 @@ final class SFNetwork : NSObject, ISFSEvents
         get
         {
             return smartFox.mySelf
+        }
+    }
+    
+    var isHost: Bool {
+        get
+        {
+            if me.id() == UserInfo.sharedInstance.currentHostId
+            {
+                return true
+            }
+            else
+            {
+                return false
+            }
         }
     }
     
@@ -105,7 +121,6 @@ final class SFNetwork : NSObject, ISFSEvents
     required override init()
     {
         super.init()
-        let a = self.smartFox.mySelf
     }
     
     //MARK: - common methods
@@ -197,15 +212,16 @@ final class SFNetwork : NSObject, ISFSEvents
         var roomSettings: RoomSettings
         if let name = roomName
         {
-            roomSettings = RoomSettings(name: roomName)
+            roomSettings = RoomSettings(name: name)
         }
         else
         {
             roomSettings = RoomSettings(name: "\(UserInfo.sharedInstance.currentUser?.name())'s Room")
         }
-        
+        roomSettings.events.allowUserCountChange = true
         roomSettings.isGame = true
         roomSettings.maxUsers = 10
+
         smartFox.send(CreateRoomRequest(roomSettings: roomSettings, autoJoin: true, roomToLeave: nil))
     }
     
@@ -286,16 +302,23 @@ final class SFNetwork : NSObject, ISFSEvents
     func onUserExitRoom(evt: SFSEvent!) {
         print("onUserExitRoom")
         let room = (evt.params["room"] as? Room)
-        let user = (evt.params["user"] as? User)
+        _ = (evt.params["user"] as? User)
         executeAndRemoveCallback(TaskType.UserExitRoom, result: Result.Success(nil))
         broadcastData(TaskType.UserExitRoom.description, data:["room": room!])
+    }
+    
+    func onUserCountChange(evt: SFSEvent!) {
+        print("onUserCountChange")
+        let room = (evt.params["room"] as! Room)
+        let userCount = Int(evt.params["uCount"] as! NSNumber)
+        executeAndRemoveCallback(TaskType.UserCountChange, result: Result.Success(nil))
+        broadcastData(TaskType.UserCountChange.description, data:["room": room, "userCount": userCount])
     }
     
     func onUserEnterRoom(evt: SFSEvent!) {
         print("onUserEnterRoom")
         let room = (evt.params["room"] as! Room)
-        let user = (evt.params["user"] as! User)
-        executeAndRemoveCallback(TaskType.UserEnterRoom, result: Result.Success(nil))
+        _ = (evt.params["user"] as! User)
         broadcastData(TaskType.UserEnterRoom.description, data: ["room": room])
     }
     

@@ -56,12 +56,10 @@ class GameViewController : MWPhotoBrowser
             _shouldGo = newValue
             if _shouldGo
             {
-                self.performSegueWithIdentifier("showResultSegue", sender: self)
+                self.performSegueWithIdentifier("showGuessCardSegue", sender: self)
             }
         }
     }
-    
-    
     
     var network : SFNetwork
     var myCards = [Card]()
@@ -127,8 +125,7 @@ class GameViewController : MWPhotoBrowser
     
     func drawCard()
     {
-        let me = network.smartFox.mySelf
-        if me.id() == UserInfo.sharedInstance.currentHostId
+        if network.isHost
         {
             network.drawCard({ (data, result) -> () in
                 self.userCanSelectCard = true
@@ -138,23 +135,29 @@ class GameViewController : MWPhotoBrowser
     
     func selectedCard(card: Card)
     {
-        var cardDescription: UITextField = UITextField()
-        
-        let alert = UIAlertController(title: "Question", message: "", preferredStyle: .Alert)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-        let selectAction = UIAlertAction(title: "Select", style: .Default, handler: { action in
-            let des = cardDescription.text!
-            print("buc nhaaaaaaa \(des)")
-            self.sendCard(card, description: des)
-        })
-        alert.addTextFieldWithConfigurationHandler { (textField) -> Void in
-            textField.placeholder = "Description for your card"
-            cardDescription = textField
+        if network.isHost
+        {
+            var cardDescription: UITextField = UITextField()
+            
+            let alert = UIAlertController(title: "Question", message: "", preferredStyle: .Alert)
+            let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+            let selectAction = UIAlertAction(title: "Select", style: .Default, handler: { action in
+                let des = cardDescription.text!
+                self.sendCard(card, description: des)
+            })
+            alert.addTextFieldWithConfigurationHandler { (textField) -> Void in
+                textField.placeholder = "Description for your card"
+                cardDescription = textField
+            }
+            alert.addAction(cancelAction)
+            alert.addAction(selectAction)
+            
+            self.presentViewController(alert, animated: true, completion: nil)
         }
-        alert.addAction(cancelAction)
-        alert.addAction(selectAction)
-        
-        self.presentViewController(alert, animated: true, completion: nil)
+        else
+        {
+            self.sendCard(card, description: "")
+        }
     }
     
     func sendCard(card: Card, description: String)
@@ -166,7 +169,7 @@ class GameViewController : MWPhotoBrowser
         let data = SFSObject()
         data.putUtfString("request", value: jsonString)
         
-        if network.me.id() == UserInfo.sharedInstance.currentHostId
+        if network.isHost
         {
             network.sendExtension("host_select_card", data: data, room: nil) { (data, result) -> () in
                 self.userCanSelectCard = false
@@ -188,7 +191,7 @@ class GameViewController : MWPhotoBrowser
     
     func onHostSelectedCard(notification: NSNotification)
     {
-        if let userInfo = notification.userInfo
+        if let _ = notification.userInfo
         {
             if network.me.id() != UserInfo.sharedInstance.currentHostId
             {
@@ -211,7 +214,6 @@ class GameViewController : MWPhotoBrowser
             }
             photoSource.setItemsSource(myCards)
             self.reloadData()
-            
         }
     }
     
@@ -231,7 +233,7 @@ class GameViewController : MWPhotoBrowser
     
     func onHostSendQuestion(notification: NSNotification)
     {
-        if network.me.id() != UserInfo.sharedInstance.currentHostId
+        if network.isHost
         {
             return;
         }
@@ -249,7 +251,7 @@ class GameViewController : MWPhotoBrowser
     func showDescription(description: String)
     {
         let alert = UIAlertController(title: "Question", message: description, preferredStyle: .Alert)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
         alert.addAction(cancelAction)
         self.presentViewController(alert, animated: true, completion: nil)
     }

@@ -45,6 +45,7 @@ class RoomLobbyViewController : BaseViewController
     {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("onRoomAdd:"), name: TaskType.RoomAdd.description, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("onRoomRemove:"), name: TaskType.RoomRemove.description, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("onUserCountChange:"), name: TaskType.UserCountChange.description, object: nil)
 //        network.addHandler(TaskType.RoomAdd, callback: EventHandlerWrapper(e: onRoomAdd))
 //        network.addHandler(TaskType.RoomRemove, callback: EventHandlerWrapper(e: onRoomRemove))
     }
@@ -75,6 +76,16 @@ class RoomLobbyViewController : BaseViewController
                 }
             }
             self.roomTable.reloadData()
+        }
+    }
+    
+    func onUserCountChange(notification: NSNotification)
+    {
+        if let userInfo = notification.userInfo
+        {
+            let room = userInfo["room"] as! Room
+            tableDataSource.onRoomDataChange(room)
+            roomTable.reloadData()
         }
     }
     
@@ -131,6 +142,11 @@ class RoomTableDataSource : NSObject, UITableViewDataSource, UITableViewDelegate
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 95.0
+    }
+    
+    func onRoomDataChange(room: Room)
+    {
+        
     }
     
     // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
