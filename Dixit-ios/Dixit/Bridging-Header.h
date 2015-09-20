@@ -11,3 +11,6 @@
 #import "MWPhotoBrowser.h"
 #import <JSQMessagesViewController/JSQMessages.h>
 #import "UIColor+JSQMessages.h"
+#import <SDWebImage/SDWebImageDecoder.h>
+#import <SDWebImage/SDWebImageManager.h>
+#import <SDWebImage/SDWebImageOperation.h>

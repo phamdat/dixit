@@ -10,8 +10,8 @@ import Foundation
 import UIKit
 
 class ScoreViewController : BaseViewController
-{
-    
+{    
+    @IBOutlet weak var selectionResultTable: UITableView!
     @IBOutlet weak var scoreTable: UITableView!
     @IBOutlet weak var doneButton: UIBarButtonItem!
     
@@ -34,6 +34,10 @@ class ScoreViewController : BaseViewController
     
     lazy var scoreSource : ScoreDataSource = {
         return ScoreDataSource()
+        }()
+    
+    lazy var selectionSource : SelectionDataSource = {
+        return SelectionDataSource()
         }()
     
     required init(coder aDecoder: NSCoder)
@@ -110,14 +114,48 @@ class ScoreViewController : BaseViewController
         scoreTable.delegate = scoreSource
         scoreTable.dataSource = scoreSource
         scoreTable.separatorColor = UIColor.clearColor()
+        
+        selectionResultTable.delegate = selectionSource
+        selectionResultTable.dataSource = selectionSource
+        selectionResultTable.separatorColor = UIColor.clearColor()
     }
     
     func getScore()
     {
         network.sendExtension("scoring", data: SFSObject(), room: nil) { (rawData, result) -> () in
-            print("hjello")
             if let data = rawData as? Dictionary<NSObject, AnyObject>
             {
+                var selections = Array<SelectionData>()
+                
+                if let cards = data["selectedCards"] as? Dictionary<NSObject, AnyObject>
+                {
+                    for (key, value) in cards
+                    {
+                        if let card = CardCache.Instance.getCard(key as! String)
+                        {
+                            let u = self.network.getUser(Int(value as! NSNumber))
+                            let selection = SelectionData(card_: card, owner_: u, selectors_: Array<User>())
+                            selections.append(selection)
+                        }
+                    }
+                }
+                
+                if let guessedCards = data["playerGuessedCard"] as? Dictionary<NSObject, AnyObject>
+                {
+                    for (key, value) in guessedCards
+                    {
+                        if let s = selections.filter({ i in i.card.cardId == (value as! String) }).first
+                        {
+                            let sss = (key as! String)
+
+                            let u = self.network.getUser(Int(sss)!)
+                            s.selectors.append(u)
+                        }
+                    }
+                    self.selectionSource.items = selections
+                    self.selectionResultTable.reloadData()
+                }
+                
                 if let scores = data["playerScore"] as? Dictionary<NSObject, AnyObject>
                 {
                     var source : Array<(User, CLong)> = Array<(User, CLong)>()
@@ -135,16 +173,66 @@ class ScoreViewController : BaseViewController
         }
     }
     
-    @IBAction func doneClick(sender: AnyObject) {
+    @IBAction func doneClick(sender: AnyObject)
+    {
         print("restart")
         network.sendPublicMessage(TaskType.ReviewDone.description, data: nil)
     }
 }
 
+class SelectionData
+{
+    var card: Card
+    var owner: User
+    var selectors: Array<User>
+    
+    init(card_: Card, owner_: User, selectors_: Array<User>)
+    {
+        card = card_
+        owner = owner_
+        selectors = selectors_
+    }
+}
+
+class SelectionDataSource: NSObject, UITableViewDataSource, UITableViewDelegate
+{
+    let selectionCellId = "selectionCell"
+    var items: [SelectionData] = []
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return items.count
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 124.0
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        var cell = tableView.dequeueReusableCellWithIdentifier(selectionCellId) as? SelectionResultCell
+        if cell == nil
+        {
+            cell = SelectionResultCell(style: .Default, reuseIdentifier: selectionCellId)
+        }
+        
+        let row = indexPath.row
+        let data = items[row]
+        cell?.imageUrl = data.card.cardUrl
+        cell?.ownerName.text = data.owner.name()
+        cell?.selectorNames.text = data.selectors.map({ u in u.name()}).joinWithSeparator("\n")
+
+        if data.owner.id() == UserInfo.sharedInstance.currentHostId
+        {
+            cell?.ownerName.textColor = UIColor(red: 231.0 / 255.0, green: 76.0 / 255.0, blue: 60.0 / 255.0, alpha: 1.0)
+        }
+
+        return cell!
+    }
+}
+
 class ScoreDataSource : NSObject, UITableViewDataSource, UITableViewDelegate
 {
-    let scoreCell = "scoreCell"
-    var scores : Array<(User, CLong)> = Array<(User, CLong)>()
+    let scoreCellId = "scoreCell"
+    var scores : Array<(User, CLong)> = []
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return scores.count
@@ -159,10 +247,10 @@ class ScoreDataSource : NSObject, UITableViewDataSource, UITableViewDelegate
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        var cell = tableView.dequeueReusableCellWithIdentifier(scoreCell) as UITableViewCell?
+        var cell = tableView.dequeueReusableCellWithIdentifier(scoreCellId) as UITableViewCell?
         if cell == nil
         {
-            cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: scoreCell)
+            cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: scoreCellId)
         }
         
         let rowIdx = indexPath.row

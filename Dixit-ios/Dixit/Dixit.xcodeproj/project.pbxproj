@@ -29,11 +29,11 @@
 		4CD042891B7F407F00057D10 /* RoomDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD042881B7F407F00057D10 /* RoomDetailViewController.swift */; };
 		4CD0428B1B7F4F1900057D10 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD0428A1B7F4F1900057D10 /* BaseViewController.swift */; };
 		4CD85BC21B7F327800CB3185 /* FontHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD85BC11B7F327800CB3185 /* FontHelper.swift */; };
-		4CDDB0201B7EDF2200881516 /* RoomItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CDDB01F1B7EDF2200881516 /* RoomItem.xib */; };
-		4CDDB0221B7EDF4B00881516 /* RoomItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDDB0211B7EDF4B00881516 /* RoomItem.swift */; };
 		4CDDB0251B7EF1CE00881516 /* RoomLobby.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDDB0241B7EF1CE00881516 /* RoomLobby.swift */; };
 		4CE392371B7F57C30032F3EC /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE392361B7F57C30032F3EC /* UserInfo.swift */; };
 		4CF360041BAE6310008189C3 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF360031BAE6310008189C3 /* ResultViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		4CF360061BAE678A008189C3 /* CardCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF360051BAE678A008189C3 /* CardCache.swift */; settings = {ASSET_TAGS = (); }; };
+		4CF360081BAE6E49008189C3 /* SelectionResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF360071BAE6E49008189C3 /* SelectionResultCell.swift */; settings = {ASSET_TAGS = (); }; };
 		4CFE66551B7BB865008F3EBD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFE66541B7BB865008F3EBD /* AppDelegate.swift */; };
 		4CFE665A1B7BB865008F3EBD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CFE66581B7BB865008F3EBD /* Main.storyboard */; };
 		4CFE665C1B7BB865008F3EBD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CFE665B1B7BB865008F3EBD /* Images.xcassets */; };
@@ -81,11 +81,11 @@
 		4CD042881B7F407F00057D10 /* RoomDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomDetailViewController.swift; sourceTree = "<group>"; };
 		4CD0428A1B7F4F1900057D10 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		4CD85BC11B7F327800CB3185 /* FontHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontHelper.swift; sourceTree = "<group>"; };
-		4CDDB01F1B7EDF2200881516 /* RoomItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RoomItem.xib; sourceTree = "<group>"; };
-		4CDDB0211B7EDF4B00881516 /* RoomItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomItem.swift; sourceTree = "<group>"; };
 		4CDDB0241B7EF1CE00881516 /* RoomLobby.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomLobby.swift; sourceTree = "<group>"; };
 		4CE392361B7F57C30032F3EC /* UserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		4CF360031BAE6310008189C3 /* ResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
+		4CF360051BAE678A008189C3 /* CardCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardCache.swift; sourceTree = "<group>"; };
+		4CF360071BAE6E49008189C3 /* SelectionResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionResultCell.swift; sourceTree = "<group>"; };
 		4CFE664F1B7BB865008F3EBD /* Dixit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dixit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CFE66531B7BB865008F3EBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4CFE66541B7BB865008F3EBD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -134,6 +134,7 @@
 				4CD85BC11B7F327800CB3185 /* FontHelper.swift */,
 				4CE392361B7F57C30032F3EC /* UserInfo.swift */,
 				4C404BED1B8E1E9D00E9A58A /* Utilities.swift */,
+				4CF360051BAE678A008189C3 /* CardCache.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -141,8 +142,7 @@
 		4CDDB01C1B7EDECD00881516 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				4CDDB01F1B7EDF2200881516 /* RoomItem.xib */,
-				4CDDB0211B7EDF4B00881516 /* RoomItem.swift */,
+				4CF360071BAE6E49008189C3 /* SelectionResultCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -346,7 +346,6 @@
 				4CFE665A1B7BB865008F3EBD /* Main.storyboard in Resources */,
 				4CFE665F1B7BB865008F3EBD /* LaunchScreen.xib in Resources */,
 				4CFE665C1B7BB865008F3EBD /* Images.xcassets in Resources */,
-				4CDDB0201B7EDF2200881516 /* RoomItem.xib in Resources */,
 				4C4637121B7E6AF600EFD716 /* streamlineicons.ttf in Resources */,
 				4C68BADE1B7CD0220081BECE /* config.xml in Resources */,
 			);
@@ -404,6 +403,7 @@
 				4CA6D2D61B8B5F1800B2C4E6 /* ChatViewController.swift in Sources */,
 				4C1E34B71B88D479008A97FC /* ScoreViewController.swift in Sources */,
 				4CD85BC21B7F327800CB3185 /* FontHelper.swift in Sources */,
+				4CF360081BAE6E49008189C3 /* SelectionResultCell.swift in Sources */,
 				4C68BAE21B7D01840081BECE /* SFNetwork.swift in Sources */,
 				4C1E34741B882A71008A97FC /* GameViewController.swift in Sources */,
 				4C501E311B7F8F8500BF1DE6 /* RoomCreationViewController.swift in Sources */,
@@ -411,11 +411,11 @@
 				4C4637141B7E75B200EFD716 /* BaseFont.swift in Sources */,
 				4CD0428B1B7F4F1900057D10 /* BaseViewController.swift in Sources */,
 				4C404BEE1B8E1E9D00E9A58A /* Utilities.swift in Sources */,
+				4CF360061BAE678A008189C3 /* CardCache.swift in Sources */,
 				4C1E34B51B88D348008A97FC /* GuessCardViewController.swift in Sources */,
 				4CD042891B7F407F00057D10 /* RoomDetailViewController.swift in Sources */,
 				4CFE66551B7BB865008F3EBD /* AppDelegate.swift in Sources */,
 				4CE392371B7F57C30032F3EC /* UserInfo.swift in Sources */,
-				4CDDB0221B7EDF4B00881516 /* RoomItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

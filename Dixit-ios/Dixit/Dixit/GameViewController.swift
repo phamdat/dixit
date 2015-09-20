@@ -158,6 +158,7 @@ class GameViewController : MWPhotoBrowser
         {
             self.sendCard(card, description: "")
         }
+        CardCache.Instance.addCard(card)
     }
     
     func sendCard(card: Card, description: String)

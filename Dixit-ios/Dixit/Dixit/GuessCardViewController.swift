@@ -68,7 +68,7 @@ class GuessCardViewController : MWPhotoBrowser
     
     func getAllSelectedCards()
     {
-        if network.me.id() == UserInfo.sharedInstance.currentHostId
+        if network.isHost
         {
             network.sendExtension("selected_card", data: SFSObject(), room: nil, callback: nil);
         }
@@ -80,11 +80,11 @@ class GuessCardViewController : MWPhotoBrowser
         {
             if let c = card
             {
-                var cardIdDictionary = ["cardId": c.cardId]
+                let cardIdDictionary = ["cardId": c.cardId]
                 let jsonData = try? NSJSONSerialization.dataWithJSONObject(cardIdDictionary, options: NSJSONWritingOptions(rawValue: 0))
                 let jsonString = NSString(data: jsonData!, encoding: NSUTF8StringEncoding) as! String
                 
-                var data = SFSObject()
+                let data = SFSObject()
                 data.putUtfString("request", value: jsonString)
 
                 network.sendExtension("guest_guess_card", data: data, room: nil) { (data, result) -> () in

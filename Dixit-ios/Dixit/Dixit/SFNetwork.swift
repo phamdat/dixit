@@ -96,6 +96,7 @@ final class SFNetwork : NSObject, ISFSEvents
     }
     
     var isConnected: Bool { get { return smartFox.isConnected } }
+    var currentRoom: Room { get { return UserInfo.sharedInstance.currentRoom! } }
     
     var _smartFox : SmartFox2XClient?
     var smartFox : SmartFox2XClient
@@ -218,7 +219,7 @@ final class SFNetwork : NSObject, ISFSEvents
         {
             roomSettings = RoomSettings(name: "\(UserInfo.sharedInstance.currentUser?.name())'s Room")
         }
-        roomSettings.events.allowUserCountChange = true
+
         roomSettings.isGame = true
         roomSettings.maxUsers = 10
 
@@ -240,6 +241,11 @@ final class SFNetwork : NSObject, ISFSEvents
     func getUsers() -> [User]?
     {
         return UserInfo.sharedInstance.currentRoom?.playerList() as? [User]
+    }
+    
+    func getUser(userId: Int) -> User
+    {
+        return currentRoom.getUserById(userId)
     }
     
     func drawCard(callback: ExtensionEventHandler?)
