@@ -22,6 +22,8 @@
 		4C68BADE1B7CD0220081BECE /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4C68BADD1B7CD0220081BECE /* config.xml */; };
 		4C68BAE01B7D012B0081BECE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C68BADF1B7D012B0081BECE /* LoginViewController.swift */; };
 		4C68BAE21B7D01840081BECE /* SFNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C68BAE11B7D01840081BECE /* SFNetwork.swift */; };
+		4C69AC4E1BAEF3AF00F4F0D9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C69AC4D1BAEF3AF00F4F0D9 /* GoogleService-Info.plist */; settings = {ASSET_TAGS = (); }; };
+		4C69AC501BAEF47300F4F0D9 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C69AC4F1BAEF47300F4F0D9 /* SystemConfiguration.framework */; };
 		4C7D69191B7BBEA200FA1FE8 /* SFS2XAPIIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7D69181B7BBEA200FA1FE8 /* SFS2XAPIIOS.framework */; };
 		4CA6D2D61B8B5F1800B2C4E6 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA6D2D51B8B5F1800B2C4E6 /* ChatViewController.swift */; };
 		4CA6D2D81B8B5FB600B2C4E6 /* libJSQMessagesViewController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CA6D2D71B8B5FB600B2C4E6 /* libJSQMessagesViewController.a */; };
@@ -71,6 +73,8 @@
 		4C68BADD1B7CD0220081BECE /* config.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = config.xml; sourceTree = "<group>"; };
 		4C68BADF1B7D012B0081BECE /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4C68BAE11B7D01840081BECE /* SFNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFNetwork.swift; sourceTree = "<group>"; };
+		4C69AC4D1BAEF3AF00F4F0D9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		4C69AC4F1BAEF47300F4F0D9 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		4C7D69181B7BBEA200FA1FE8 /* SFS2XAPIIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SFS2XAPIIOS.framework; sourceTree = "<group>"; };
 		4C7D69531B7BC1F900FA1FE8 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		4C81D1871B989A160040E463 /* libBButton.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBButton.a; path = "Pods/../build/Debug-iphoneos/libBButton.a"; sourceTree = "<group>"; };
@@ -105,6 +109,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C69AC501BAEF47300F4F0D9 /* SystemConfiguration.framework in Frameworks */,
 				4CA6D2DA1B8B5FC400B2C4E6 /* libJSQSystemSoundPlayer.a in Frameworks */,
 				4CA6D2D81B8B5FB600B2C4E6 /* libJSQMessagesViewController.a in Frameworks */,
 				4C1E34B01B88660F008A97FC /* libDACircularProgress.a in Frameworks */,
@@ -204,6 +209,7 @@
 		4CFE66521B7BB865008F3EBD /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4C69AC4D1BAEF3AF00F4F0D9 /* GoogleService-Info.plist */,
 				4C4637111B7E6AF600EFD716 /* streamlineicons.ttf */,
 				4C68BADD1B7CD0220081BECE /* config.xml */,
 				4CFE66531B7BB865008F3EBD /* Info.plist */,
@@ -231,6 +237,7 @@
 		4CFE66781B7BBBDD008F3EBD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4C69AC4F1BAEF47300F4F0D9 /* SystemConfiguration.framework */,
 				4C81D1891B989D4E0040E463 /* libFlatUIKit.a */,
 				4C81D1871B989A160040E463 /* libBButton.a */,
 				4CA6D2D91B8B5FC400B2C4E6 /* libJSQSystemSoundPlayer.a */,
@@ -348,6 +355,7 @@
 				4CFE665C1B7BB865008F3EBD /* Images.xcassets in Resources */,
 				4C4637121B7E6AF600EFD716 /* streamlineicons.ttf in Resources */,
 				4C68BADE1B7CD0220081BECE /* config.xml in Resources */,
+				4C69AC4E1BAEF3AF00F4F0D9 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -563,6 +571,13 @@
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lz",
+					"-l\"GoogleAnalytics\"",
+					"-l\"GGLCore\"",
+					"-l\"sqlite3\"",
+					"-l\"GGLAnalytics\"",
+					"-l\"z\"",
+					"-framework",
+					"\"CoreData\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.keyboardandmouse.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -593,6 +608,13 @@
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lz",
+					"-l\"GoogleAnalytics\"",
+					"-l\"GGLCore\"",
+					"-l\"sqlite3\"",
+					"-l\"GGLAnalytics\"",
+					"-l\"z\"",
+					"-framework",
+					"\"CoreData\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.keyboardandmouse.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";

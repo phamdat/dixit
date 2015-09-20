@@ -1,3 +1,4 @@
 platform :ios, '8.4'
 pod 'MWPhotoBrowser'
 pod 'JSQMessagesViewController'
+pod 'Google/Analytics', '~> 1.0.0'
