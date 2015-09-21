@@ -53,6 +53,9 @@ class GuessCardViewController : MWPhotoBrowser
         self.enableGrid = true
         self.startOnGrid = true
         self.alwaysShowControls = true
+
+        self.screenName = "Guess Card Screen"
+        
         super.viewDidLoad()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("onOtherPlayersGuessedCards:"), name: "guest_guess_card", object: nil)

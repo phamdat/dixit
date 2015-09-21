@@ -22,7 +22,9 @@ class RoomDetailViewController : BaseViewController
         }()
     
     override func viewDidLoad() {
-        super.viewDidLoad()
+        
+        self.screenName = "Room Detail Screen"
+        super.viewDidLoad()        
         
         roomTitle.text = UserInfo.sharedInstance.currentRoom?.name()
         

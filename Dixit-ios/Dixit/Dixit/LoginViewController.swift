@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GoogleMobileAds
 
 class LoginViewController : BaseViewController
 {
@@ -14,7 +15,12 @@ class LoginViewController : BaseViewController
     @IBOutlet weak var loginButton: UIButton!    
     
     override func viewDidLoad() {
-        super.viewDidLoad()        
+        self.screenName = "Login Screen"
+        super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
     }
     
     @IBAction func login(sender: UIButton) {

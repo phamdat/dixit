@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C00E6F51BB0496600A79DE1 /* GAService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C00E6F41BB0496600A79DE1 /* GAService.swift */; settings = {ASSET_TAGS = (); }; };
+		4C00E6F71BB05DB700A79DE1 /* DixitConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C00E6F61BB05DB700A79DE1 /* DixitConfig.swift */; settings = {ASSET_TAGS = (); }; };
+		4C00E6F91BB05FE800A79DE1 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C00E6F81BB05FE800A79DE1 /* AdSupport.framework */; };
+		4C00E6FB1BB05FF000A79DE1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C00E6FA1BB05FF000A79DE1 /* AudioToolbox.framework */; };
+		4C00E6FD1BB05FF500A79DE1 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C00E6FC1BB05FF500A79DE1 /* AVFoundation.framework */; };
+		4C00E6FF1BB05FFF00A79DE1 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C00E6FE1BB05FFF00A79DE1 /* CoreMedia.framework */; };
+		4C00E7011BB0600D00A79DE1 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C00E7001BB0600D00A79DE1 /* CoreTelephony.framework */; };
+		4C00E7031BB0601500A79DE1 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C00E7021BB0601500A79DE1 /* EventKit.framework */; };
+		4C00E7051BB0601C00A79DE1 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C00E7041BB0601C00A79DE1 /* EventKitUI.framework */; };
+		4C00E7071BB0602400A79DE1 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C00E7061BB0602400A79DE1 /* MessageUI.framework */; };
+		4C00E7091BB0602B00A79DE1 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C00E7081BB0602B00A79DE1 /* StoreKit.framework */; };
 		4C1E34741B882A71008A97FC /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1E34731B882A71008A97FC /* GameViewController.swift */; };
 		4C1E34AB1B8865E5008A97FC /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1E34AA1B8865E5008A97FC /* libPods.a */; };
 		4C1E34B01B88660F008A97FC /* libDACircularProgress.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1E34AC1B88660F008A97FC /* libDACircularProgress.a */; };
@@ -33,7 +44,6 @@
 		4CD85BC21B7F327800CB3185 /* FontHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD85BC11B7F327800CB3185 /* FontHelper.swift */; };
 		4CDDB0251B7EF1CE00881516 /* RoomLobby.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDDB0241B7EF1CE00881516 /* RoomLobby.swift */; };
 		4CE392371B7F57C30032F3EC /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE392361B7F57C30032F3EC /* UserInfo.swift */; };
-		4CF360041BAE6310008189C3 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF360031BAE6310008189C3 /* ResultViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		4CF360061BAE678A008189C3 /* CardCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF360051BAE678A008189C3 /* CardCache.swift */; settings = {ASSET_TAGS = (); }; };
 		4CF360081BAE6E49008189C3 /* SelectionResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF360071BAE6E49008189C3 /* SelectionResultCell.swift */; settings = {ASSET_TAGS = (); }; };
 		4CFE66551B7BB865008F3EBD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFE66541B7BB865008F3EBD /* AppDelegate.swift */; };
@@ -56,6 +66,17 @@
 
 /* Begin PBXFileReference section */
 		3D8E7B85245219EBFF2FA9B2 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		4C00E6F41BB0496600A79DE1 /* GAService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GAService.swift; sourceTree = "<group>"; };
+		4C00E6F61BB05DB700A79DE1 /* DixitConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DixitConfig.swift; sourceTree = "<group>"; };
+		4C00E6F81BB05FE800A79DE1 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		4C00E6FA1BB05FF000A79DE1 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		4C00E6FC1BB05FF500A79DE1 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		4C00E6FE1BB05FFF00A79DE1 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		4C00E7001BB0600D00A79DE1 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		4C00E7021BB0601500A79DE1 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		4C00E7041BB0601C00A79DE1 /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
+		4C00E7061BB0602400A79DE1 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		4C00E7081BB0602B00A79DE1 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		4C1E34731B882A71008A97FC /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		4C1E34A61B88659D008A97FC /* libMWPhotoBrowser.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMWPhotoBrowser.a; path = "Pods/../build/Debug-iphoneos/libMWPhotoBrowser.a"; sourceTree = "<group>"; };
 		4C1E34A81B8865C4008A97FC /* libMWPhotoBrowser.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMWPhotoBrowser.a; path = "Pods/../build/Debug-iphoneos/libMWPhotoBrowser.a"; sourceTree = "<group>"; };
@@ -73,7 +94,7 @@
 		4C68BADD1B7CD0220081BECE /* config.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = config.xml; sourceTree = "<group>"; };
 		4C68BADF1B7D012B0081BECE /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4C68BAE11B7D01840081BECE /* SFNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SFNetwork.swift; sourceTree = "<group>"; };
-		4C69AC4D1BAEF3AF00F4F0D9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		4C69AC4D1BAEF3AF00F4F0D9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "Dixit/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4C69AC4F1BAEF47300F4F0D9 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		4C7D69181B7BBEA200FA1FE8 /* SFS2XAPIIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SFS2XAPIIOS.framework; sourceTree = "<group>"; };
 		4C7D69531B7BC1F900FA1FE8 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
@@ -87,7 +108,6 @@
 		4CD85BC11B7F327800CB3185 /* FontHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontHelper.swift; sourceTree = "<group>"; };
 		4CDDB0241B7EF1CE00881516 /* RoomLobby.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomLobby.swift; sourceTree = "<group>"; };
 		4CE392361B7F57C30032F3EC /* UserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
-		4CF360031BAE6310008189C3 /* ResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		4CF360051BAE678A008189C3 /* CardCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardCache.swift; sourceTree = "<group>"; };
 		4CF360071BAE6E49008189C3 /* SelectionResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionResultCell.swift; sourceTree = "<group>"; };
 		4CFE664F1B7BB865008F3EBD /* Dixit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dixit.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -109,6 +129,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C00E7091BB0602B00A79DE1 /* StoreKit.framework in Frameworks */,
+				4C00E7071BB0602400A79DE1 /* MessageUI.framework in Frameworks */,
+				4C00E7051BB0601C00A79DE1 /* EventKitUI.framework in Frameworks */,
+				4C00E7031BB0601500A79DE1 /* EventKit.framework in Frameworks */,
+				4C00E7011BB0600D00A79DE1 /* CoreTelephony.framework in Frameworks */,
+				4C00E6FF1BB05FFF00A79DE1 /* CoreMedia.framework in Frameworks */,
+				4C00E6FD1BB05FF500A79DE1 /* AVFoundation.framework in Frameworks */,
+				4C00E6FB1BB05FF000A79DE1 /* AudioToolbox.framework in Frameworks */,
+				4C00E6F91BB05FE800A79DE1 /* AdSupport.framework in Frameworks */,
 				4C69AC501BAEF47300F4F0D9 /* SystemConfiguration.framework in Frameworks */,
 				4CA6D2DA1B8B5FC400B2C4E6 /* libJSQSystemSoundPlayer.a in Frameworks */,
 				4CA6D2D81B8B5FB600B2C4E6 /* libJSQMessagesViewController.a in Frameworks */,
@@ -140,6 +169,8 @@
 				4CE392361B7F57C30032F3EC /* UserInfo.swift */,
 				4C404BED1B8E1E9D00E9A58A /* Utilities.swift */,
 				4CF360051BAE678A008189C3 /* CardCache.swift */,
+				4C00E6F41BB0496600A79DE1 /* GAService.swift */,
+				4C00E6F61BB05DB700A79DE1 /* DixitConfig.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -164,7 +195,6 @@
 				4C1E34B41B88D348008A97FC /* GuessCardViewController.swift */,
 				4C1E34B61B88D479008A97FC /* ScoreViewController.swift */,
 				4CA6D2D51B8B5F1800B2C4E6 /* ChatViewController.swift */,
-				4CF360031BAE6310008189C3 /* ResultViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -172,6 +202,7 @@
 		4CFE66461B7BB865008F3EBD = {
 			isa = PBXGroup;
 			children = (
+				4C69AC4D1BAEF3AF00F4F0D9 /* GoogleService-Info.plist */,
 				4C4637131B7E75B200EFD716 /* BaseFont.swift */,
 				4C7D69531B7BC1F900FA1FE8 /* Bridging-Header.h */,
 				4CFE66511B7BB865008F3EBD /* Dixit */,
@@ -209,7 +240,6 @@
 		4CFE66521B7BB865008F3EBD /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				4C69AC4D1BAEF3AF00F4F0D9 /* GoogleService-Info.plist */,
 				4C4637111B7E6AF600EFD716 /* streamlineicons.ttf */,
 				4C68BADD1B7CD0220081BECE /* config.xml */,
 				4CFE66531B7BB865008F3EBD /* Info.plist */,
@@ -237,6 +267,15 @@
 		4CFE66781B7BBBDD008F3EBD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4C00E7081BB0602B00A79DE1 /* StoreKit.framework */,
+				4C00E7061BB0602400A79DE1 /* MessageUI.framework */,
+				4C00E7041BB0601C00A79DE1 /* EventKitUI.framework */,
+				4C00E7021BB0601500A79DE1 /* EventKit.framework */,
+				4C00E7001BB0600D00A79DE1 /* CoreTelephony.framework */,
+				4C00E6FE1BB05FFF00A79DE1 /* CoreMedia.framework */,
+				4C00E6FC1BB05FF500A79DE1 /* AVFoundation.framework */,
+				4C00E6FA1BB05FF000A79DE1 /* AudioToolbox.framework */,
+				4C00E6F81BB05FE800A79DE1 /* AdSupport.framework */,
 				4C69AC4F1BAEF47300F4F0D9 /* SystemConfiguration.framework */,
 				4C81D1891B989D4E0040E463 /* libFlatUIKit.a */,
 				4C81D1871B989A160040E463 /* libBButton.a */,
@@ -406,6 +445,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C00E6F71BB05DB700A79DE1 /* DixitConfig.swift in Sources */,
 				4C68BAE01B7D012B0081BECE /* LoginViewController.swift in Sources */,
 				4CDDB0251B7EF1CE00881516 /* RoomLobby.swift in Sources */,
 				4CA6D2D61B8B5F1800B2C4E6 /* ChatViewController.swift in Sources */,
@@ -415,7 +455,6 @@
 				4C68BAE21B7D01840081BECE /* SFNetwork.swift in Sources */,
 				4C1E34741B882A71008A97FC /* GameViewController.swift in Sources */,
 				4C501E311B7F8F8500BF1DE6 /* RoomCreationViewController.swift in Sources */,
-				4CF360041BAE6310008189C3 /* ResultViewController.swift in Sources */,
 				4C4637141B7E75B200EFD716 /* BaseFont.swift in Sources */,
 				4CD0428B1B7F4F1900057D10 /* BaseViewController.swift in Sources */,
 				4C404BEE1B8E1E9D00E9A58A /* Utilities.swift in Sources */,
@@ -423,6 +462,7 @@
 				4C1E34B51B88D348008A97FC /* GuessCardViewController.swift in Sources */,
 				4CD042891B7F407F00057D10 /* RoomDetailViewController.swift in Sources */,
 				4CFE66551B7BB865008F3EBD /* AppDelegate.swift in Sources */,
+				4C00E6F51BB0496600A79DE1 /* GAService.swift in Sources */,
 				4CE392371B7F57C30032F3EC /* UserInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -578,6 +618,9 @@
 					"-l\"z\"",
 					"-framework",
 					"\"CoreData\"",
+					"-l\"GTMStackTrace\"",
+					"-l\"GTM_DebugUtils\"",
+					"-l\"GTM_core\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.keyboardandmouse.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -615,6 +658,9 @@
 					"-l\"z\"",
 					"-framework",
 					"\"CoreData\"",
+					"-l\"GTMStackTrace\"",
+					"-l\"GTM_DebugUtils\"",
+					"-l\"GTM_core\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.keyboardandmouse.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -25,7 +25,8 @@ class RoomLobbyViewController : BaseViewController
     }()
     
     override func viewDidLoad() {
-        super.viewDidLoad()
+        self.screenName = "Room Lobby Screen"
+        super.viewDidLoad()        
         
         setupEvent()
         setupBarButtons()

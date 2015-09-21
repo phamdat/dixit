@@ -47,6 +47,8 @@ class ScoreViewController : BaseViewController
     }
     
     override func viewDidLoad() {
+        self.screenName = "Score Screen"
+        
         super.viewDidLoad()
         
         setupEvent()
@@ -131,12 +133,10 @@ class ScoreViewController : BaseViewController
                 {
                     for (key, value) in cards
                     {
-                        if let card = CardCache.Instance.getCard(key as! String)
-                        {
-                            let u = self.network.getUser(Int(value as! NSNumber))
-                            let selection = SelectionData(card_: card, owner_: u, selectors_: Array<User>())
-                            selections.append(selection)
-                        }
+                        let card = Card(id: "", url: key as! String)
+                        let u = self.network.getUser(Int(value as! NSNumber))
+                        let selection = SelectionData(card_: card, owner_: u, selectors_: Array<User>())
+                        selections.append(selection)
                     }
                 }
                 
@@ -144,7 +144,7 @@ class ScoreViewController : BaseViewController
                 {
                     for (key, value) in guessedCards
                     {
-                        if let s = selections.filter({ i in i.card.cardId == (value as! String) }).first
+                        if let s = selections.filter({ i in i.card.cardUrl == (value as! String) }).first
                         {
                             let sss = (key as! String)
 

@@ -108,6 +108,8 @@ class GameViewController : MWPhotoBrowser
         self.showNextPhotoAnimated(true)
         self.showPreviousPhotoAnimated(true)
         
+        self.screenName = "Game Screen"
+        
         super.viewDidLoad()
         
         userCanSelectCard = false
@@ -125,11 +127,32 @@ class GameViewController : MWPhotoBrowser
     
     func drawCard()
     {
-        if network.isHost
+        if network.isHost && !UserInfo.sharedInstance.isInitialized
         {
+            UserInfo.sharedInstance.isInitialized = true
+            
             network.drawCard({ (data, result) -> () in
                 self.userCanSelectCard = true
             })
+        }
+        else if UserInfo.sharedInstance.isInitialized
+        {
+            network.sendExtension("draw_new_card", data: SFSObject(), room: nil) { (rawData, result) -> () in
+                if let data = rawData as? Dictionary<NSObject, AnyObject>
+                {
+                    if let cards = data["cards"] as? Dictionary<NSObject, AnyObject>
+                    {
+                        for c in cards
+                        {
+//                            let id = c["id"] as! String
+//                            let url = c["url"] as! String
+//                            myCards.append(Card(id: id, url: url))
+                        }
+                        self.photoSource.setItemsSource(self.myCards)
+                        self.reloadData()
+                    }
+                }
+            }
         }
     }
     
@@ -158,7 +181,7 @@ class GameViewController : MWPhotoBrowser
         {
             self.sendCard(card, description: "")
         }
-        CardCache.Instance.addCard(card)
+//        CardCache.Instance.addCard(card)
     }
     
     func sendCard(card: Card, description: String)

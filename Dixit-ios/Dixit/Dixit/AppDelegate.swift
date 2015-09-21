@@ -16,6 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        NSSetUncaughtExceptionHandler { (exception) -> Void in
+            GAService.sharedInstance.SendException("DESCRIPTION: \(exception.description)\n----\nREASON: \(exception.reason)")
+        }
         
         // [START tracker_swift]
         // Configure tracker from GoogleService-Info.plist.
@@ -27,10 +30,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Optional: configure GAI options.
         var gai = GAI.sharedInstance()
+        gai.dispatchInterval = 60
         gai.trackUncaughtExceptions = true  // report uncaught exceptions
         gai.logger.logLevel = GAILogLevel.Verbose  // remove before app release
         // [END tracker_swift]
 
+        UINavigationBar.appearance().translucent = true
         
         return true
     }

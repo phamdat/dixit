@@ -17,7 +17,8 @@ class RoomCreationViewController : BaseViewController
     
     override func viewDidLoad()
     {
-        
+        self.screenName = "Room Create Screen"
+        super.viewDidLoad()
     }
     
     @IBAction func createRoom(sender: UIBarButtonItem)

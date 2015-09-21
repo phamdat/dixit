@@ -36,6 +36,11 @@ class ChatViewController : JSQMessagesViewController
         self.senderDisplayName = "Kem"
     }
     
+    override func viewDidLoad() {
+        self.screenName = "Chat Screen"
+        super.viewDidLoad()
+    }
+    
     //MARK: - JSQMessagesViewController method overrides
     
     override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: NSDate!) {
