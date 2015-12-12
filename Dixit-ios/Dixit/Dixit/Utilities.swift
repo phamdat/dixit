@@ -22,6 +22,31 @@ class Utilities
         let jsonData: NSData = text.dataUsingEncoding(NSUTF8StringEncoding)!
         let jsonDict = (try! NSJSONSerialization.JSONObjectWithData(jsonData, options: [])) as! NSDictionary
         return jsonDict
-    }    
+    }
+    
+    static func GetDeviceSize() -> CGSize
+    {
+        return UIScreen.mainScreen().bounds.size
+    }
+    
+    static func GetBannerHeight() -> CGFloat
+    {
+        let height = GetDeviceSize().height
+        
+        if height < 400
+        {
+            return 32
+        }
+        else if height >= 400 && height <= 700
+        {
+            return 50
+        }
+        else if height > 700
+        {
+            return 90
+        }
+        
+        return 90
+    }
     
 }

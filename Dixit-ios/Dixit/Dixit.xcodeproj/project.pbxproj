@@ -594,7 +594,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3D8E7B85245219EBFF2FA9B2 /* Pods.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -611,7 +611,6 @@
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lz",
-					"-l\"GoogleAnalytics\"",
 					"-l\"GGLCore\"",
 					"-l\"sqlite3\"",
 					"-l\"GGLAnalytics\"",
@@ -621,6 +620,9 @@
 					"-l\"GTMStackTrace\"",
 					"-l\"GTM_DebugUtils\"",
 					"-l\"GTM_core\"",
+					"-framework",
+					"\"GoogleMobileAds\"",
+					"-l\"GoogleAnalytics\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.keyboardandmouse.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -632,7 +634,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E28D2E2BF870B103504AE461 /* Pods.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_BITCODE = NO;
@@ -651,7 +653,6 @@
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lz",
-					"-l\"GoogleAnalytics\"",
 					"-l\"GGLCore\"",
 					"-l\"sqlite3\"",
 					"-l\"GGLAnalytics\"",
@@ -661,6 +662,9 @@
 					"-l\"GTMStackTrace\"",
 					"-l\"GTM_DebugUtils\"",
 					"-l\"GTM_core\"",
+					"-framework",
+					"\"GoogleMobileAds\"",
+					"-l\"GoogleAnalytics\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.keyboardandmouse.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";

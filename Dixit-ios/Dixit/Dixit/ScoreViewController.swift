@@ -76,7 +76,7 @@ class ScoreViewController : BaseViewController
     
     private func setupEvent()
     {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("onStartGame:"), name: "start_game", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("onStartGame:"), name: "start_new_turn", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("onOtherReviewDone:"), name: TaskType.ReviewDone.description, object: nil)
     }
     
@@ -98,7 +98,7 @@ class ScoreViewController : BaseViewController
     {
         if network.me.id() == UserInfo.sharedInstance.currentHostId
         {
-            network.sendExtension("start_game", data: SFSObject(), room: UserInfo.sharedInstance.currentRoom, callback: nil)
+            network.sendExtension("start_new_turn", data: SFSObject(), room: UserInfo.sharedInstance.currentRoom, callback: nil)
         }
     }
     

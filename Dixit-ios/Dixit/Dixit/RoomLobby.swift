@@ -92,6 +92,9 @@ class RoomLobbyViewController : BaseViewController
     
     func setupTableView()
     {
+        let frame = roomTable.frame
+        roomTable.frame = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.width, height: roomTable.frame.height - Utilities.GetBannerHeight())
+        
         roomTable.dataSource = tableDataSource
         roomTable.delegate = tableDataSource
         roomTable.separatorColor = UIColor.clearColor()

@@ -153,6 +153,24 @@
             </objects>
             <point key="canvasLocation" x="2354" y="352"/>
         </scene>
+        <!--Base View Controller-->
+        <scene sceneID="rdS-4S-cpv">
+            <objects>
+                <viewController id="FlS-PQ-8sl" customClass="BaseViewController" customModule="Dixit" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7kB-Sr-Il6"/>
+                        <viewControllerLayoutGuide type="bottom" id="1OC-x2-mT5"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="6fi-ez-nf8">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yOz-CZ-zsm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2289" y="1085"/>
+        </scene>
         <!--Create Room-->
         <scene sceneID="sZ3-kP-gbH">
             <objects>
@@ -562,8 +580,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="XoO-xd-j4G"/>
-        <segue reference="O2J-5g-cXW"/>
         <segue reference="72L-AB-O1l"/>
+        <segue reference="O2J-5g-cXW"/>
+        <segue reference="ORr-Zj-MFF"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -93,6 +93,7 @@ class GameViewController : MWPhotoBrowser
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("otherUserSelectCard:"), name: TaskType.UserSelectCard.description, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("onHostSendQuestion:"), name: TaskType.Question.description, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("onDrawCard:"), name: "draw_card", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("onDrawCard:"), name: "draw_new_card", object: nil)        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("onHostSelectedCard:"), name: "host_select_card", object: nil)
     }
     
@@ -137,22 +138,9 @@ class GameViewController : MWPhotoBrowser
         }
         else if UserInfo.sharedInstance.isInitialized
         {
-            network.sendExtension("draw_new_card", data: SFSObject(), room: nil) { (rawData, result) -> () in
-                if let data = rawData as? Dictionary<NSObject, AnyObject>
-                {
-                    if let cards = data["cards"] as? Dictionary<NSObject, AnyObject>
-                    {
-                        for c in cards
-                        {
-//                            let id = c["id"] as! String
-//                            let url = c["url"] as! String
-//                            myCards.append(Card(id: id, url: url))
-                        }
-                        self.photoSource.setItemsSource(self.myCards)
-                        self.reloadData()
-                    }
-                }
-            }
+            network.drawNewCard({ (data, result) -> () in
+                self.userCanSelectCard = true
+            })
         }
     }
     

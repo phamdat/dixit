@@ -253,6 +253,11 @@ final class SFNetwork : NSObject, ISFSEvents
         sendExtension("draw_card", data: SFSObject(), room: nil, callback: callback)
     }
     
+    func drawNewCard(callback: ExtensionEventHandler)
+    {
+        sendExtension("draw_new_card", data: SFSObject(), room: nil, callback: callback)
+    }
+    
     //MARK: - SFSEvent
     
     func onConfigLoadSuccess(evt: SFSEvent!) {
